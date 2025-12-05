@@ -39,6 +39,12 @@ agents:
       2. Search docs/Agent Implementation Packets/*/ for similar patterns
       3. Review docs/ai/ for coding standards and architecture
       
+      NATURAL COMMANDS:
+      - When the user says "new AIP", "create AIP for <feature>", or "start AIP for this change":
+        - Treat it as a request to create a new Agent Implementation Packet.
+        - Collaborate with the AIP creation flow using `AgenticFlywheel/prompts/AIP_NEW.md` and/or `AgenticFlywheel/prompts/AIP_COLLAB.md`.
+        - Ask only for what is strictly needed (e.g., feature slug/title) and then scaffold the packet using `docs/templates/AIP/**` or `templates/aip-lite/**` as appropriate.
+      
       SCALE GUIDANCE:
       - No AIP: bug fixes, typos, minor refactoring
       - Lightweight AIP (templates/aip-lite/): small features (<2 days, <5 files)

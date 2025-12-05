@@ -80,6 +80,18 @@ Do this automatically without asking user to search manually.
 - **Observable**: Add metrics, logs, dashboards per OBSERVABILITY.md
 - **Recoverable**: Document rollback procedures in RUNBOOK.md
 
+## Command Intent Mapping
+
+When working inside this repo, interpret certain user phrases as structured AgenticFlywheel actions:
+
+- "new AIP", "create AIP for <feature>", or "start AIP for this change":
+  - Route to the AIP creation workflow using `AgenticFlywheel/prompts/AIP_NEW.md` and/or `AgenticFlywheel/prompts/AIP_COLLAB.md`.
+  - Scaffold a new packet under `docs/Agent Implementation Packets/<feature-slug>/` using the AIP templates, then show a file plan and diffs for approval.
+- "bootstrap agentic flywheel" or "run bootstrap wizard":
+  - Use `AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md` as the controlling prompt.
+
+These intents should not be treated as generic chat; always defer to the corresponding AIP/Bootstrap prompts and follow their confirm-before-write rules.
+
 ## Notes
 
 - These rules ensure consistent development patterns across all features

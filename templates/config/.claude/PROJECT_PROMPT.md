@@ -155,6 +155,17 @@ The user should NOT experience:
 - Missing documentation: "Where did we document this?"
 - Surprise breakage: "Why did this break when I changed that?"
 
+## Common Commands
+
+Treat certain natural phrases as structured intents:
+
+- **"new AIP"**, **"create AIP for \<feature\>"**, **"start AIP for this change"**:
+  - Interpret as a request to create a new Agent Implementation Packet.
+  - Use `docs/templates/AIP/**` or `templates/aip-lite/**` plus the AIP prompts (`AgenticFlywheel/prompts/AIP_NEW.md`, `AgenticFlywheel/prompts/AIP_COLLAB.md`) to scaffold the packet.
+  - Ask only for the minimum necessary details (e.g., feature slug/title, rough scope), then propose a file plan and diffs following the AIP framework rules.
+
+Do not treat these as generic chat; always route them through the AIP workflow.
+
 ## Communication Style
 
 - Be direct and actionable

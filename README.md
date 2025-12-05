@@ -231,18 +231,20 @@ How Consistency Is Enforced
 
 **Result**: AI agents can't "forget" to write tests, skip docs, or deviate from patterns — the framework structure and transparent automation guide them to consistency.
 
-Quick Start
-- Copy `AgenticFlywheel/` to repo root.
-- Run `AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md` in your AI tool:
-  - Answer questions about your architecture and stack
-  - Review discovered existing features; choose backfill strategy
-  - Approve diffs to create `docs/ai/**`, `docs/AIP_FRAMEWORK.md`, `docs/templates/AIP/*`, `docs/templates/aip-lite/*`, and `docs/features/REGISTRY.yaml`
-  - Approve enhanced agent configs (automatic search & dependency checking)
-  - Create your first real AIP via guided tutorial
+## Getting Started
+- Copy `AgenticFlywheel/` to the root of the repo you want to bootstrap.
+- In your AI tool, open a new chat attached to that repo.
+- Run the bootstrap wizard:
+  - If your tool supports file prompts / `@path`, invoke `AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md` via its “Run file”/`@path` feature (preferred).
+  - If it does not, open `AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md` in your editor, select all, and paste the full prompt into the chat.
+  - The wizard will auto-discover languages, tests, and architecture from the codebase, then ask only a few confirmation questions as needed.
+  - Review discovered existing features; choose your backfill strategy.
+  - Approve diffs to create `docs/ai/**`, `docs/AIP_FRAMEWORK.md`, `docs/templates/AIP/*`, `docs/templates/aip-lite/*`, and `docs/features/REGISTRY.yaml`.
+- After bootstrap completes, run `AgenticFlywheel/prompts/AGENTS_CONFIG_TAILOR.md` the same way to non-destructively update your Claude/Codex/Cursor/Gemini configs so that phrases like **"new AIP"** and **"run bootstrap wizard"** automatically route to the right prompts.
 - You're done! You have:
   - Complete documentation foundation
   - Your first feature AIP ready to implement
-  - AI agent configured to work systematically
+  - AI agent configured to work systematically with easy re-launch of core prompts and natural "new AIP" style commands
 
 Bootstrap Wizard (Interview Topics)
 - Architecture: layered/clean/hex/monolith/microservices; your real boundaries and where business logic lives.
@@ -382,4 +384,3 @@ Troubleshooting
 - Too many proposed changes: Use the diff view to reject or narrow scope; rerun with a smaller target (e.g., start with `INDEX.md`, AIP templates, and Feature Registry bootstrap).
 - Mixed architecture: Encode boundaries you actually use; avoid aspirational docs — agents need current truth.
 - Conflicting PR feedback: Link the AIP `CHECKLIST.yaml`, `CONTRACTS.md`, and the Feature Registry entry to anchor decisions.
-
