@@ -1,0 +1,100 @@
+# AgenticFlywheel Framework Integration
+
+## Context Gathering (Automatic, Transparent)
+
+Before making any changes to the codebase:
+1. **Check Feature Registry**: Read `docs/features/REGISTRY.yaml` to find related features and their AIPs
+2. **Search existing AIPs**: Look in `docs/Agent Implementation Packets/*/` for similar patterns or implementations
+3. **Review coding standards**: Consult `docs/ai/INDEX.md` for architecture, testing, security, and coding conventions
+
+When modifying an existing feature:
+1. **Locate the AIP**: Find feature in `docs/features/REGISTRY.yaml`, follow link to its AIP packet
+2. **Check dependencies**: If feature has `dependencies[]` field, run DEPENDENCY_ANALYSIS.md to assess impact
+3. **Review contracts**: Read `CONTRACTS.md` in the AIP to understand API/event/data compatibility requirements
+4. **Follow checklist**: Use `CHECKLIST.yaml` as the canonical task list; update status as you work
+
+## Scale Guidance (When to Use Full vs Lightweight AIPs)
+
+**No AIP needed**:
+- Bug fixes or hotfixes
+- Typo corrections
+- Minor refactoring (<3 files)
+- Documentation-only changes
+
+**Lightweight AIP** (use `templates/aip-lite/`):
+- Small features (<2 days, <5 files)
+- Backend-only or frontend-only changes
+- Simple CRUD endpoints
+- No complex contracts or integrations
+
+**Full AIP** (use `templates/aip/`):
+- Major features (>5 days, backend + frontend)
+- New API contracts, events, or external integrations
+- Database migrations or schema changes
+- Features with gradual rollout or feature flags
+- Infrastructure or architecture changes
+
+## Systematic Workflow
+
+Always follow this sequence:
+1. **Context gathering**: Check registry, search AIPs, review docs (automatic)
+2. **Planning**: Create appropriate AIP (lightweight or full)
+3. **Implementation**: Follow CHECKLIST.yaml phases in order
+4. **Testing**: Complete all test tasks (unit, integration, e2e as needed)
+5. **Documentation**: Complete "Docs & Handoff" phase:
+   - Update AIP docs to reflect reality
+   - Update Feature Registry entry
+   - Generate AGENT_PROMPT.txt last
+
+## Enforcement Rules
+
+- **Never skip testing**: Every phase must include test tasks marked complete
+- **Never skip docs**: "Docs & Handoff" phase is mandatory
+- **Update registry**: Every feature must have a Feature Registry entry
+- **Respect dependencies**: Run dependency analysis before modifying features with dependents
+- **Follow CHECKLIST.yaml**: Treat it as the canonical source of truth for what's done and what's pending
+
+## Dependency Management
+
+When modifying a feature that other features depend on:
+1. Automatically check `dependencies` field in Feature Registry
+2. Run `DEPENDENCY_ANALYSIS.md` prompt to assess impact
+3. Identify breaking vs non-breaking changes
+4. Coordinate updates to dependent features if needed
+5. Update all affected AIPs
+
+## Advanced Search (Automatic)
+
+When user asks about patterns, similar features, or "how did we handle X?":
+1. Search `docs/features/REGISTRY.yaml` for keywords in title/description
+2. Grep `docs/Agent Implementation Packets/*/CONTRACTS.md` for API/event patterns
+3. Search `docs/Agent Implementation Packets/*/BACKEND_IMPLEMENTATION.md` for implementation patterns
+4. Check `docs/ai/` for architectural patterns and conventions
+
+Do this automatically without asking user to search manually.
+
+## Quality Standards
+
+- **Contracts-first**: Define APIs, events, schemas before implementing
+- **Acceptance-driven**: Every phase has explicit acceptance criteria
+- **Observable**: Add metrics, logs, dashboards per OBSERVABILITY.md
+- **Recoverable**: Document rollback procedures in RUNBOOK.md
+
+## Command Intent Mapping
+
+When working inside this repo, interpret certain user phrases as structured AgenticFlywheel actions:
+
+- "new AIP", "create AIP for <feature>", or "start AIP for this change":
+  - Route to the AIP creation workflow using `AgenticFlywheel/prompts/AIP_NEW.md` and/or `AgenticFlywheel/prompts/AIP_COLLAB.md`.
+  - Scaffold a new packet under `docs/Agent Implementation Packets/<feature-slug>/` using the AIP templates, then show a file plan and diffs for approval.
+- "bootstrap agentic flywheel" or "run bootstrap wizard":
+  - Use `AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md` as the controlling prompt.
+
+These intents should not be treated as generic chat; always defer to the corresponding AIP/Bootstrap prompts and follow their confirm-before-write rules.
+
+## Notes
+
+- These rules ensure consistent development patterns across all features
+- The framework structure guides you; follow it even under time pressure
+- Better to create a lightweight AIP than skip documentation entirely
+- User won't see you searching/analyzing dependencies; it happens transparently

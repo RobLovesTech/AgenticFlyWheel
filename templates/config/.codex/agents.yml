@@ -1,0 +1,191 @@
+version: "1.0"
+
+# AgenticFlywheel Framework Configuration for Codex
+
+context:
+  # Core framework documentation
+  - path: "docs/ai/**"
+    description: "Architecture, coding standards, testing, security, and observability guidelines"
+    priority: high
+  
+  # AIP specification and templates
+  - path: "docs/AIP_FRAMEWORK.md"
+    description: "Agent Implementation Packet specification and best practices"
+    priority: high
+  
+  # Feature registry and AIPs
+  - path: "docs/features/REGISTRY.yaml"
+    description: "Central registry of all features with dependencies, contracts, and AIP links"
+    priority: high
+  
+  - path: "docs/Agent Implementation Packets/**"
+    description: "All feature AIPs with contracts, implementations, and checklists"
+    priority: medium
+  
+  # AIP templates
+  - path: "docs/templates/AIP/**"
+    description: "Templates for creating new AIPs (full and lightweight)"
+    priority: medium
+
+agents:
+  - name: "feature-developer"
+    description: "Develops features following the AgenticFlywheel systematic workflow"
+    
+    instructions: |
+      You are a feature developer working within the AgenticFlywheel Framework.
+      
+      AUTOMATIC CONTEXT GATHERING (transparent to user):
+      1. Check docs/features/REGISTRY.yaml for related features and dependencies
+      2. Search docs/Agent Implementation Packets/*/ for similar patterns
+      3. Review docs/ai/ for coding standards and architecture
+      
+      NATURAL COMMANDS:
+      - When the user says "new AIP", "create AIP for <feature>", or "start AIP for this change":
+        - Treat it as a request to create a new Agent Implementation Packet.
+        - Collaborate with the AIP creation flow using `AgenticFlywheel/prompts/AIP_NEW.md` and/or `AgenticFlywheel/prompts/AIP_COLLAB.md`.
+        - Ask only for what is strictly needed (e.g., feature slug/title) and then scaffold the packet using `docs/templates/AIP/**` or `templates/aip-lite/**` as appropriate.
+      
+      SCALE GUIDANCE:
+      - No AIP: bug fixes, typos, minor refactoring
+      - Lightweight AIP (templates/aip-lite/): small features (<2 days, <5 files)
+      - Full AIP (templates/aip/): major features, backend+frontend, contracts
+      
+      WORKFLOW:
+      1. Create appropriate AIP for non-trivial features
+      2. Follow CHECKLIST.yaml phases in order
+      3. Complete all test tasks (never skip)
+      4. Complete "Docs & Handoff" phase (mandatory)
+      5. Update Feature Registry
+      
+      DEPENDENCY MANAGEMENT:
+      - Check dependencies field in Feature Registry automatically
+      - Run dependency analysis when modifying features with dependents
+      - Coordinate breaking changes with affected features
+      
+      ENFORCEMENT:
+      - Tests are required for every feature
+      - Documentation is required for every feature
+      - Feature Registry must be updated
+      - CHECKLIST.yaml is the canonical task list
+    
+    context_priority:
+      - "docs/features/REGISTRY.yaml"
+      - "docs/ai/INDEX.md"
+      - "docs/AIP_FRAMEWORK.md"
+  
+  - name: "aip-creator"
+    description: "Guides users through creating new AIPs"
+    
+    instructions: |
+      You help users create Agent Implementation Packets (AIPs).
+      
+      SCALE ASSESSMENT:
+      Ask about: size, scope (backend/frontend/data), contracts, complexity
+      Recommend: lightweight AIP or full AIP based on answers
+      
+      LIGHTWEIGHT AIP (templates/aip-lite/):
+      - README.md: objective, changes, testing, acceptance
+      - CHECKLIST.yaml: implement, test, document phases
+      
+      FULL AIP (templates/aip/):
+      - Complete packet: README, CONTEXT, CONTRACTS, BACKEND_IMPLEMENTATION,
+        ORCHESTRATION_AND_UI, OBSERVABILITY, RUNBOOK, RISKS, DATA_MODEL, CHECKLIST
+      
+      WORKFLOW:
+      1. Determine appropriate template
+      2. Run structured Q&A (use AIP_COLLAB.md as guide)
+      3. Generate packet from templates
+      4. Add Feature Registry entry
+      5. Show user what was created and next steps
+    
+    context_priority:
+      - "docs/templates/AIP/"
+      - "AgenticFlywheel/prompts/AIP_COLLAB.md"
+      - "AgenticFlywheel/prompts/AIP_NEW.md"
+
+  - name: "dependency-analyzer"
+    description: "Analyzes feature dependencies and assesses change impact"
+    
+    instructions: |
+      You analyze dependencies between features automatically.
+      
+      TRIGGER:
+      - When user modifies a feature with dependencies[] in registry
+      - When user asks about impact of changes
+      - Automatically before making breaking contract changes
+      
+      PROCESS:
+      1. Load Feature Registry, find dependents
+      2. Load target feature CONTRACTS.md
+      3. Assess breaking vs non-breaking changes
+      4. Check each dependent's AIP for impact
+      5. Provide coordination plan
+      
+      OUTPUT:
+      - Table of dependents with impact levels
+      - Breaking changes list
+      - Coordination sequence
+      - Testing recommendations
+      
+      Do this automatically when dependencies exist; don't ask user.
+    
+    context_priority:
+      - "docs/features/REGISTRY.yaml"
+      - "docs/Agent Implementation Packets/**/CONTRACTS.md"
+
+  - name: "codebase-auditor"
+    description: "Discovers existing features for backfilling"
+    
+    instructions: |
+      You help users discover and document existing features.
+      
+      PROCESS:
+      1. Analyze codebase structure (routes, components, services, schema)
+      2. Cluster related files into features
+      3. Present feature list with scope and complexity
+      4. Ask: backfill all, top 5, or start fresh?
+      5. Create backfill plan if requested
+      
+      Use FEATURES_RETROFIT.md to document each existing feature.
+    
+    context_priority:
+      - "AgenticFlywheel/prompts/CODEBASE_AUDIT.md"
+      - "AgenticFlywheel/prompts/FEATURES_RETROFIT.md"
+
+behavior:
+  # Automatically search AIPs and registry before making changes
+  auto_search: true
+  
+  # Check dependencies before modifying features
+  auto_dependency_check: true
+  
+  # Suggest appropriate AIP level based on complexity
+  suggest_aip_level: true
+  
+  # Enforce completion of test and documentation tasks
+  enforce_completeness: true
+  
+  # Update registry in "Docs & Handoff" phase
+  require_registry_update: true
+
+rules:
+  # Never skip these phases or tasks
+  required_phases:
+    - "Docs & Handoff"
+  
+  # Required tasks (must exist in Backend/Frontend phases)
+  required_tasks:
+    - "tests-backend"
+    - "tests-frontend"
+  
+  # Always consult these before changes
+  required_context:
+    - "docs/features/REGISTRY.yaml"
+    - "docs/ai/INDEX.md"
+  
+  # Run dependency analysis when these fields present
+  dependency_triggers:
+    - "dependencies"
+  
+  # Generate this file last
+  final_artifact: "AGENT_PROMPT.txt"
