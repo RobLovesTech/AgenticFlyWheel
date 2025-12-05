@@ -1,5 +1,7 @@
 AgenticFlywheel Framework (Self‑Sustaining AI‑Human Development)
 
+<img width="2752" height="1536" alt="image" src="https://github.com/user-attachments/assets/4f14fb02-1f25-4d2c-ad7f-024173f2279e" />
+
 Version: 2.0.0
 
 The Core Problem
