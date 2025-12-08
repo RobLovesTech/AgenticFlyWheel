@@ -83,10 +83,11 @@ The AI follows `CHECKLIST.yaml` like a recipe—Design → Backend → Frontend 
 ## What You Get: Your Complete System
 
 ### 📦 **The Core Framework**
+- **Context Your AI Needs**: AFW establishes core context about your project that drives amazing results
 - **AIP Templates**: Full and lightweight versions for any feature size
 - **Feature Registry**: Single source of truth for all features, flags, and contracts
 - **Validation Prompts**: Checklist validators, registry validators, dependency analyzers
-- **Agent Configs**: Enhanced configs for Claude, Codex, Cursor (optional)
+- **Agent Configs**: Enhanced configs for Claude, Codex, Cursor
 
 ### 📚 **Your Tailored Documentation Constitution**
 The wizard generates these from your architecture interview:
@@ -114,7 +115,7 @@ The wizard generates these from your architecture interview:
 cp -r AgenticFlywheel/ ./
 
 # 2. Run the bootstrap wizard in your AI tool
-# Claude/Cursor: @AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md
+# Claude/Cursor/Codex: @AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md
 
 # 3. Answer 5-10 questions about your stack
 # The wizard discovers your codebase and generates tailored docs
@@ -156,7 +157,7 @@ Is it a bug or tiny change? → No AIP
 The magic isn't in the templates—it's in the **structural constraints** that make it impossible to skip steps:
 
 1. **Required Phases**: `CHECKLIST.yaml` templates mandate Backend, Frontend, and Docs & Handoff
-2. **Validation Gates**: Run `CHECKLIST_VALIDATOR.md`—it fails if tests or docs are missing
+2. **Validation Gates**: Your agent automatically leverages `CHECKLIST_VALIDATOR.md`—it fails if tests or docs are missing
 3. **Registry Updates**: Feature Registry must be updated during handoff—no feature is complete without traceability
 4. **Dependency Tracking**: AI automatically analyzes impact before modifications
 5. **Prompt-Based**: No scripts to bypass—AI agents follow the structure because it's the only path
