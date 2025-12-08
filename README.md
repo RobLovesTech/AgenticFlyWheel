@@ -60,6 +60,30 @@ Key Outcomes
 - **No skipped steps**: Validation gates ensure AI agents complete planning, testing, and documentation before moving forward.
 - **Repeatable patterns**: AIPs provide templates and checklists that enforce consistent development practices across all features.
 
+**The Pillar: Deterministic Context (`docs/ai/**`)**
+- **Purpose**: Acts as the **"Constitution"** and **"Long-Term Memory"** for your AI agents.
+- **Value**: Transforms "guessing" into **deterministic reference**. Instead of relying on generic training data, agents consult your tailored standards for every decision.
+- **The Context Map**:
+  - **Engineering Standards**:
+    - `CODING-STANDARD.md`: Language idioms, naming conventions, and anti-patterns.
+    - `TESTING-STANDARDS.md`: Test pyramid, libraries, coverage targets, and placement rules.
+    - `ERROR-HANDLING.md`: Retry policies, exception hierarchies, and failure modes.
+  - **System Boundaries**:
+    - `PLATFORM-ARCHITECTURE.md`: Layering rules and "Illegal Moves" (e.g., "UI cannot query DB").
+    - `DOMAIN-MODELS.md`: Core entities, relationships, and business logic boundaries.
+    - `INTERACTION-PATTERNS.md`: Async flows, event schemas, and service-to-service comms.
+  - **Data & Contracts**:
+    - `DATA-ACCESS.md`: Migration policies, ORM usage, and retention rules.
+    - `API-DOCUMENTATION.md`: Versioning strategies, schema validation (Zod/Pydantic), and response envelopes.
+  - **Operational Safety**:
+    - `SECURITY.md`: AuthZ models, PII handling, and secret management.
+    - `CONFIGURATION-MANAGEMENT.md`: Env vars, feature flags, and secrets injection.
+    - `OBSERVABILITY.md`: Metric taxonomy, log formats, and tracing standards.
+    - `PERFORMANCE.md`: Latency budgets and load testing requirements.
+  - **Lifecycle**:
+    - `DEPLOYMENT.md`: Release processes, rollback procedures, and environment definitions.
+- **Result**: Zero-context onboarding for new agents (and humans) and consistent engineering culture at scale.
+
 **Complete Context & Traceability:**
 - **Tailored foundation**: `docs/ai/**` provides AI-specific docs (coding standards, testing, security, architecture, observability) generated from a short interview.
 - **Feature Registry**: `docs/features/REGISTRY.yaml` maps every feature to its contracts, flags, metrics, owners, and AIP packets.
