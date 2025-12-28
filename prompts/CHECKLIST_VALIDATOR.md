@@ -8,11 +8,16 @@ Inputs
 Checks (must perform)
 1) Structure
    - Top-level fields: `version`, `feature`, `status`, `phases` exist and are sensible.
-   - `status` ∈ {pending, in_progress, completed}.
+   - `status` ∈ {pending, in_progress, completed, abandoned, incomplete}.
    - Each phase has `id`, `name`, and `tasks[]` with `id`, `title`, and `status`.
 
 2) Required phase
    - A final phase named “Docs & Handoff” (case-insensitive, allow minor punctuation) exists with tasks to update docs/context, run prompt QA, and generate AGENT_PROMPT.txt.
+   - The final phase includes:
+     - A task to run verification commands (tests/build/lint) for impacted components.
+       - Accept either a task id like `build-verify` or a task title that clearly indicates running verification commands.
+     - A task to add or update the Feature Registry entry (`docs/features/REGISTRY.yaml`).
+       - Prefer the task’s `files` list to include `docs/features/REGISTRY.yaml` (or the repo’s equivalent registry path).
 
 3) Status coherence
    - If all tasks are completed, top-level `status` must be `completed`.
@@ -20,6 +25,7 @@ Checks (must perform)
 
 4) Verification completeness
    - `verification.commands` and `verification.acceptance` present with at least one item each, or an explicit “none” rationale provided.
+   - Reject placeholder values such as `TODO`, `TBD`, `REPLACE`, or “fill this in” (case-insensitive). Require real, runnable commands and concrete acceptance criteria.
 
 5) Optional (recommend)
    - `constraints`, `parity`, and `env_defaults` exist when applicable.
@@ -33,4 +39,3 @@ Output
 Constraints
 - Do not invent content beyond what is necessary to satisfy structure/coherence.
 - Preserve existing ordering and wording as much as possible.
-

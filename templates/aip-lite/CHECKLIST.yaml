@@ -20,6 +20,14 @@ phases:
     name: Documentation & Registry
     description: Update docs and Feature Registry
     tasks:
+      - id: build-verify
+        title: Run verification commands (tests/build/lint) for impacted components
+        files: []
+        status: pending
+      - id: global-docs
+        title: Update global docs and AI-facing guides as required
+        files: [docs/ai/INDEX.md]
+        status: pending
       - id: update-readme
         title: Update lightweight AIP README.md with final details
         files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/README.md]
@@ -29,6 +37,7 @@ phases:
         files: [docs/features/REGISTRY.yaml]
         status: pending
 verification:
-  commands: []
-  acceptance: []
-
+  commands:
+    - "TODO: add repo-specific verification commands (tests/build/lint) for impacted components"
+  acceptance:
+    - "TODO: add feature-specific acceptance criteria"

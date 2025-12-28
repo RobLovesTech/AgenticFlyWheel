@@ -17,6 +17,7 @@ Steps
    - Do not create `AGENT_PROMPT.txt` yet and do not copy `AGENT_PROMPT_AUTHORING_GUIDE.md` or `AGENT_PROMPT_QA_CHECKLIST.md` into the packet folder; those stay in `docs/templates/AIP/` as authoring references.
    - Replace placeholders: `{{FEATURE_SLUG}}` → $1; `{{TITLE}}` → $TITLE or $1.
    - Ensure “Docs & Handoff” phase exists in `CHECKLIST.yaml`.
+   - Ensure `verification.commands` is populated with this repo’s real verification commands (tests/build/lint) for impacted components (do not leave placeholder TODOs).
    - If `docs/templates/AIP/*` is missing, copy from `AgenticFlywheel/templates/aip/*` first.
 
 2) Prefill (optional)

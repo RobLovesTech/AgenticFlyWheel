@@ -38,12 +38,12 @@ Choose the appropriate level of documentation:
 - Minor refactoring (<3 files)
 - Documentation-only updates
 
-**Lightweight AIP** (templates/aip-lite/):
+**Lightweight AIP** (docs/templates/aip-lite/):
 - Small features (<2 days, <5 files)
 - Single-sided (backend OR frontend)
 - Simple additions with no complex contracts
 
-**Full AIP** (templates/aip/):
+**Full AIP** (docs/templates/AIP/):
 - Major features (>5 days, multiple subsystems)
 - Backend + frontend + data changes
 - New API contracts, events, or integrations

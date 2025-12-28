@@ -21,13 +21,13 @@ When modifying an existing feature:
 - Minor refactoring (<3 files)
 - Documentation-only changes
 
-**Lightweight AIP** (use `templates/aip-lite/`):
+**Lightweight AIP** (use `docs/templates/aip-lite/`):
 - Small features (<2 days, <5 files)
 - Backend-only or frontend-only changes
 - Simple CRUD endpoints
 - No complex contracts or integrations
 
-**Full AIP** (use `templates/aip/`):
+**Full AIP** (use `docs/templates/AIP/`):
 - Major features (>5 days, backend + frontend)
 - New API contracts, events, or external integrations
 - Database migrations or schema changes

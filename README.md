@@ -133,6 +133,62 @@ cp -r AgenticFlywheel/ ./
 
 ---
 
+## Step-by-Step Example: Create a New AIP
+
+Below is a concrete, repeatable flow you can follow for any new feature.
+
+### Example (Full AIP)
+Feature: **period-insights-cards** (backend + frontend)
+
+1) Choose the feature slug and scope
+- Slug: `period-insights-cards`
+- Scope: backend + frontend
+- Size: full AIP
+
+2) Run the guided AIP creation prompt
+```
+@AgenticFlywheel/prompts/AIP_COLLAB.md
+```
+When asked, provide the slug/title/scope and answer the short planning questions.
+
+3) Approve the generated packet
+- The packet will live at:
+  - `docs/Agent Implementation Packets/period-insights-cards/`
+- Confirm that `CHECKLIST.yaml` includes real verification commands (tests/build/lint) for your repo.
+
+4) Implement by following the checklist
+- Work through `CHECKLIST.yaml` phases in order.
+- Mark tasks as `in_progress` / `completed` as you go.
+
+5) Finish with Docs & Handoff
+- Run verification commands.
+- Update Feature Registry (`docs/features/REGISTRY.yaml`).
+- Generate the restartable prompt **last**:
+  ```
+  @AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md
+  ```
+
+### Example (Lightweight AIP)
+Feature: **settings-copy-update** (frontend-only)
+
+1) Create the packet folder
+- `docs/Agent Implementation Packets/settings-copy-update/`
+
+2) Copy lightweight templates into the packet
+- `docs/templates/aip-lite/README.md`
+- `docs/templates/aip-lite/CHECKLIST.yaml`
+
+3) Fill in the README + checklist
+- Add real verification commands to `CHECKLIST.yaml`.
+- Keep tasks scoped to the few files you’re touching.
+
+4) Implement and finish the handoff
+- Run verification commands.
+- Update `docs/features/REGISTRY.yaml`.
+- Generate `AGENT_PROMPT.txt` last (same generator as above).
+
+---
+
 ## The AIP Spectrum: Right-Size Your Process
 
 Not every change needs a 50-page document. Choose the right tool:

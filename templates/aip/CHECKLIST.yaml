@@ -3,9 +3,7 @@ feature: {{FEATURE_SLUG}}
 status: pending
 constraints:
   - Respect privacy and security constraints
-parity:
-  databricks: true
-  postgres: true
+parity: {}
 env_defaults: {}
 phases:
   - id: design
@@ -49,8 +47,8 @@ phases:
     description: Update global docs as required
     tasks:
       - id: global-docs
-        title: Update repository docs as required
-        files: []
+        title: Update global docs and AI-facing guides as required
+        files: [docs/ai/INDEX.md]
         status: pending
   - id: observe
     name: Observability & Rollout
@@ -68,9 +66,17 @@ phases:
     name: Docs & Handoff
     description: Final doc sync and registry update
     tasks:
+      - id: build-verify
+        title: Run verification commands (tests/build/lint) for impacted components
+        files: []
+        status: pending
       - id: context
         title: Update CONTEXT.md with final behavior
         files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CONTEXT.md]
+        status: pending
+      - id: registry
+        title: Add or update Feature Registry entry
+        files: [docs/features/REGISTRY.yaml]
         status: pending
       - id: prompt-qa
         title: Run Agent Prompt QA Checklist before generating prompt
@@ -81,6 +87,7 @@ phases:
         files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/AGENT_PROMPT.txt, docs/templates/AIP/AGENT_PROMPT_AUTHORING_GUIDE.md]
         status: pending
 verification:
-  commands: []
-  acceptance: []
-
+  commands:
+    - "TODO: add repo-specific verification commands (tests/build/lint) for impacted components"
+  acceptance:
+    - "TODO: add feature-specific acceptance criteria"

@@ -24,7 +24,11 @@ context:
   
   # AIP templates
   - path: "docs/templates/AIP/**"
-    description: "Templates for creating new AIPs (full and lightweight)"
+    description: "Templates for creating new full AIPs"
+    priority: medium
+  
+  - path: "docs/templates/aip-lite/**"
+    description: "Templates for creating new lightweight AIPs"
     priority: medium
 
 agents:
@@ -43,12 +47,12 @@ agents:
       - When the user says "new AIP", "create AIP for <feature>", or "start AIP for this change":
         - Treat it as a request to create a new Agent Implementation Packet.
         - Collaborate with the AIP creation flow using `AgenticFlywheel/prompts/AIP_NEW.md` and/or `AgenticFlywheel/prompts/AIP_COLLAB.md`.
-        - Ask only for what is strictly needed (e.g., feature slug/title) and then scaffold the packet using `docs/templates/AIP/**` or `templates/aip-lite/**` as appropriate.
+        - Ask only for what is strictly needed (e.g., feature slug/title) and then scaffold the packet using `docs/templates/AIP/**` or `docs/templates/aip-lite/**` as appropriate.
       
       SCALE GUIDANCE:
       - No AIP: bug fixes, typos, minor refactoring
-      - Lightweight AIP (templates/aip-lite/): small features (<2 days, <5 files)
-      - Full AIP (templates/aip/): major features, backend+frontend, contracts
+      - Lightweight AIP (docs/templates/aip-lite/): small features (<2 days, <5 files)
+      - Full AIP (docs/templates/AIP/): major features, backend+frontend, contracts
       
       WORKFLOW:
       1. Create appropriate AIP for non-trivial features
@@ -83,11 +87,11 @@ agents:
       Ask about: size, scope (backend/frontend/data), contracts, complexity
       Recommend: lightweight AIP or full AIP based on answers
       
-      LIGHTWEIGHT AIP (templates/aip-lite/):
+      LIGHTWEIGHT AIP (docs/templates/aip-lite/):
       - README.md: objective, changes, testing, acceptance
       - CHECKLIST.yaml: implement, test, document phases
       
-      FULL AIP (templates/aip/):
+      FULL AIP (docs/templates/AIP/):
       - Complete packet: README, CONTEXT, CONTRACTS, BACKEND_IMPLEMENTATION,
         ORCHESTRATION_AND_UI, OBSERVABILITY, RUNBOOK, RISKS, DATA_MODEL, CHECKLIST
       

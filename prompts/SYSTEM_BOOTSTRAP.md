@@ -15,6 +15,7 @@ Inputs (auto-gather from repo first; ask only when unclear)
 - Architecture shape: layered, clean, hexagonal, monolith, microservices, event-driven
 - Validation approach: Zod, pydantic, Go struct tags, Bean Validation, custom, other
 - Testing stack: frameworks, coverage targets, negative tests policy, CI gates
+- Verification commands: how to run tests/build/lint for each major component (discover from CI/package scripts where possible; ask if unclear)
 - Contracts: APIs, events, schemas; compatibility & versioning rules
 - Data & storage: DBs, migrations, retention, queues/streams
 - Security & privacy: authn/z model, PII policy, secrets handling, compliance
@@ -30,8 +31,10 @@ Goals
 - Create or update the following, tailored to the user's repo:
   - `docs/ai/**` (INDEX, CODING-STANDARD, TESTING-STANDARDS, SECURITY, PLATFORM-ARCHITECTURE, DATA-ACCESS, API-DOCUMENTATION, PERFORMANCE, OBSERVABILITY, ERROR-HANDLING, CONFIGURATION-MANAGEMENT; optional: DEPLOYMENT, DOMAIN-MODELS, INTERACTION-PATTERNS, UI-COMPONENTS, CACHE-POLICY)
   - `docs/AIP_FRAMEWORK.md` (copy from `AgenticFlywheel/spec/AIP_FRAMEWORK.md`)
-  - `docs/templates/AIP/*` (copy from `AgenticFlywheel/templates/aip/*` - both full and aip-lite)
+  - `docs/templates/AIP/*` (copy from `AgenticFlywheel/templates/aip/*` - full AIP templates)
+  - `docs/templates/aip-lite/*` (copy from `AgenticFlywheel/templates/aip-lite/*` - lightweight AIP templates)
   - `docs/features/REGISTRY.yaml` and `docs/features/REGISTRY.schema.json` (schema from `AgenticFlywheel/features/REGISTRY.schema.json`)
+  - `AGENTS.md` (create or update) to reflect the installed docs layout, environment setup, verification commands, and how to run core prompts in this repo
   - Optional agent configs with enhanced instructions (proposed with diffs): `.claude/PROJECT_PROMPT.md`, `.codex/agents.yml`, `.cursor/rules/.cursorrules` from `AgenticFlywheel/templates/config/*`
 - Discover existing features in the codebase and offer backfilling options
 - Guide user through creating their first real AIP during setup, and make sure they know how to generate a tailored `AGENT_PROMPT.txt` for it using `AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md` once the packet docs are complete.
@@ -69,6 +72,10 @@ Steps
 1) Discovery
    - Inspect repository signals (package manifests, lockfiles, test directories, CI configs, common framework files, directory layout) to **self-answer** the Inputs above wherever possible.
    - For each input category (repo type, architecture, validation, testing, contracts, data, security, observability, error handling, configuration, deployment, domain, change management, agent tools), write down your inferred answer and the evidence from the codebase.
+   - Explicitly discover verification commands (tests/build/lint) for each major component:
+     - Prefer CI config (e.g., GitHub Actions), Makefile, package manager scripts, and README/dev docs.
+     - If multiple components exist (e.g., backend + frontend + mobile), collect commands per component.
+     - If unclear, ask one concise confirmation question: “What commands must pass to consider changes shippable?”
    - In Standard Boot, limit yourself to at most 3 short clarification questions, only for items where signals are missing or conflicting; phrase them as confirmation (e.g., "I see Jest and Playwright configured; is Jest your primary unit test runner?").
    - If your environment cannot read the repository, state this explicitly and fall back to a concise interview, still proposing sensible defaults instead of open-ended questioning.
 
@@ -99,8 +106,12 @@ Steps
      - `docs/templates/AIP/*` from `AgenticFlywheel/templates/aip/*` (full AIP templates)
      - `docs/templates/aip-lite/*` from `AgenticFlywheel/templates/aip-lite/*` (lightweight templates)
      - `docs/features/REGISTRY.yaml` + schema; initial empty list (or a seed feature if the user requests)
+     - `AGENTS.md` updates reflecting environment setup, verification commands, and how to run prompts in this repo
      - Optional enhanced agent configs with automatic search and dependency checking (diff-only; user may skip)
      - If backfilling: `docs/features/BACKFILL_PLAN.md` with discovered features
+   - Ensure the installed templates are configured for this repo:
+     - Populate `verification.commands` in `docs/templates/AIP/CHECKLIST.yaml` and `docs/templates/aip-lite/CHECKLIST.yaml` with the discovered repo-specific commands (replace any placeholders).
+     - Keep commands component-scoped and explicit (e.g., “backend: …”, “frontend: …”) when multiple components exist.
 
 3) Review & Approval
    - Group files by category for easier review:
@@ -118,6 +129,9 @@ Steps
    - Apply approved changes. Ensure directory creation as needed.
    - Ensure cross-links: `docs/ai/INDEX.md` → AIP spec, templates (full + lite), Feature Registry; AIP docs reference INDEX.
    - Avoid duplicating existing content; merge respectfully with clear section headers.
+   - Verification enforcement:
+     - Ensure the installed full and lite checklist templates include a task to run verification commands before completion.
+     - Ensure `verification.commands` is non-empty and matches this repo’s actual tooling.
    - If agent configs approved, emphasize: "Your AI agent will now automatically search AIPs, check dependencies, and suggest appropriate AIP levels — you won't need to manually trigger these actions."
 
 5) Validate
@@ -193,7 +207,7 @@ Steps
         - Use AgenticFlywheel/prompts/FEATURES_RETROFIT.md per feature in your backfill plan
         
         Pro Tips:
-        - Small features (<2 days)? Use templates/aip-lite/
+        - Small features (<2 days)? Use `docs/templates/aip-lite/`
         - Your AI agent automatically searches AIPs and checks dependencies
         - After you run AGENTS_CONFIG_TAILOR, you can simply say "new AIP" or "run bootstrap wizard" in your primary agent and it will route to the correct prompt
         - Never skip the "Docs & Handoff" phase — that's what makes the flywheel work

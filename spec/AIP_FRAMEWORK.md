@@ -64,8 +64,10 @@ Standard Packet Contents
 
 Documentation Tasks (required)
 - Every AIP MUST include a final phase in CHECKLIST.yaml named "Docs & Handoff" that:
+  - Verifies the change is shippable by running the repo’s defined verification commands (tests/build/lint as applicable) for every impacted component before the AIP can be marked `completed`.
   - Updates all packet docs (README/CONTEXT/RUNBOOK/OBSERVABILITY) to reflect reality.
   - Integrates links into relevant global docs (e.g., docs/ai/INDEX.md) if applicable.
+  - Updates core specifications and AI-facing guides (e.g., docs/ai/**, other specs) to reflect the new or changed behavior.
   - Records new/changed env vars in the appropriate repo docs.
   - Captures operator notes (how to verify/rollback) and any UI screenshots if relevant.
   - Confirms parity notes (local == prod) are accurate.
@@ -84,7 +86,7 @@ Authoring Checklist (copy into CHECKLIST.md)
 Checklist YAML Schema (informal)
 - version: integer
 - feature: string (slug)
-- status: pending | in_progress | completed
+- status: pending | in_progress | completed | abandoned | incomplete
 - constraints: [string]
 - parity: { <key>: boolean }
 - env_defaults: { KEY: value }
@@ -99,14 +101,16 @@ Checklist YAML Schema (informal)
 Completion Status
 - `CHECKLIST.yaml` includes a top-level `status` that tracks packet lifecycle.
 - Start new packets in `pending` (or `in_progress` once execution begins).
+- Build verification is required: the AIP must successfully run the repo’s verification commands (tests/build/lint as applicable) before it can be marked `completed`.
 - When every task in `phases[*].tasks` is marked `completed`, update the top-level `status` to `completed`.
 - Mirror the same state at the top of `CHECKLIST.md` so humans can confirm completion quickly.
 
 Usage
 1) Scaffold a new AIP from templates (see docs/templates/AIP/ and associated prompts).
 2) Fill in README.md, CONTEXT.md, DATA_MODEL.sql as needed for the initiative.
-3) Populate CHECKLIST.yaml with phases/tasks, keep statuses current, and flip the top-level `status` to `completed` once every task is finished.
-4) Generate AGENT_PROMPT.txt LAST using the Agent Prompt Generator prompt (`AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md`) together with the Authoring Guide (`docs/templates/AIP/AGENT_PROMPT_AUTHORING_GUIDE.md`). Run the Agent Prompt QA Checklist (`docs/templates/AIP/AGENT_PROMPT_QA_CHECKLIST.md`) before finalizing.
+3) During planning, explicitly check for reuse opportunities (shared modules/components/design system) to avoid duplicating patterns. If you identify a new reusable pattern, implement it in the repo’s shared layer/package.
+4) Populate CHECKLIST.yaml with phases/tasks, keep statuses current, and flip the top-level `status` to `completed` once every task is finished.
+5) Generate AGENT_PROMPT.txt LAST using the Agent Prompt Generator prompt (`AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md`) together with the Authoring Guide (`docs/templates/AIP/AGENT_PROMPT_AUTHORING_GUIDE.md`). Run the Agent Prompt QA Checklist (`docs/templates/AIP/AGENT_PROMPT_QA_CHECKLIST.md`) before finalizing.
 
 Zero‑Context Agent Prompt Guidance
 - The AGENT_PROMPT.txt MUST:

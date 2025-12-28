@@ -33,7 +33,7 @@ Phases (Q&A → Files)
   - Deliverables: Risks + mitigations; non-goals list.
 
 6) Verification & Observability → RUNBOOK.md, OBSERVABILITY.md
-  - Local/CI acceptance; metrics/logs; budgets.
+  - Verification commands (tests/build/lint) per impacted component; acceptance; metrics/logs; budgets.
   - Deliverables: Commands, acceptance bullets, metrics/logs.
 
 7) Phases & Tasks → CHECKLIST.yaml, CHECKLIST.md
@@ -51,6 +51,7 @@ Flow
    - Seed from templates and fill: README.md, CONTEXT.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, CONTRACTS.md, DATA_MODEL.sql, RUNBOOK.md, OBSERVABILITY.md, RISKS.md with agreed content.
    - Do not create `AGENT_PROMPT.txt` as part of this flow and do not copy `AGENT_PROMPT_AUTHORING_GUIDE.md` or `AGENT_PROMPT_QA_CHECKLIST.md` into the packet folder; they remain in `docs/templates/AIP/` as authoring references for generating the prompt later.
    - Fill `CHECKLIST.yaml` with phases/tasks, constraints, parity, env_defaults, verification.commands, acceptance; mirror status in `CHECKLIST.md` and add a short “Conversation Summary”.
+   - Ensure `verification.commands` is non-empty and matches this repo’s actual tooling (avoid placeholder TODOs; use component-scoped labels if multiple components exist).
    - Ensure “Docs & Handoff” phase present.
    - Preview diffs and require approval before writing.
    - Link from `docs/ai/INDEX.md` under “Implementation Packets” (if appropriate).
