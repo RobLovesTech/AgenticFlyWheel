@@ -11,32 +11,47 @@ Inputs
   - SCOPE: comma-separated components
   - CONSTRAINTS: comma-separated constraints
 
+Prior Inputs (consume if present)
+- `docs/Agent Implementation Packets/$1/REVIEWS.md`
+- `.agentic-flywheel/state/reviews.jsonl`
+- `.agentic-flywheel/state/checkpoints/`
+
+Authority Rule
+- Packet docs are canonical.
+- Runtime artifacts under `.agentic-flywheel/state/` are advisory only.
+- If prior review or discovery output exists, summarize it up front and reduce redundant questioning.
+- Only accepted conclusions should be written into `REVIEWS.md`.
+
 Phases (Q&A → Files)
-1) Objectives & Outcomes → README.md
+1) Discovery & Review Inputs → REVIEWS.md
+  - Reconcile existing discovery/review output before asking repeated questions.
+  - Deliverables: Discovery Reframe, accepted prior decisions, open risks draft.
+
+2) Objectives & Outcomes → README.md
   - Ask 2–4: problem, outcomes/KPIs, timeline; explicit non-goals.
   - Deliverables: Title, Objective, Outcomes, Non-goals draft.
 
-2) Scope & Constraints → README.md, CONTEXT.md, CHECKLIST.yaml
+3) Scope & Constraints → README.md, CONTEXT.md, CHECKLIST.yaml
   - Components in/out; migrations; parity; privacy/compliance; budgets; env defaults/flags.
   - Deliverables: Scope, Constraints, Parity notes, env_defaults draft.
 
-3) Architecture & Orchestration → BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md
+4) Architecture & Orchestration → BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, REVIEWS.md
   - Approach and alternatives; flows/state transitions; flags and dependencies.
   - Deliverables: File-level targets, flows, rollout approach.
 
-4) Contracts & Data Model → CONTRACTS.md, DATA_MODEL.sql
+5) Contracts & Data Model → CONTRACTS.md, DATA_MODEL.sql
   - API/events/db changes; compatibility; error model; idempotency; retention.
   - Deliverables: Route/event schemas, DDL outline with retention notes.
 
-5) Risks & Non-Goals → RISKS.md
+6) Risks & Non-Goals → RISKS.md, REVIEWS.md
   - Top risks and mitigations; explicit non-goals.
   - Deliverables: Risks + mitigations; non-goals list.
 
-6) Verification & Observability → RUNBOOK.md, OBSERVABILITY.md
+7) Verification & Observability → RUNBOOK.md, OBSERVABILITY.md
   - Verification commands (tests/build/lint) per impacted component; acceptance; metrics/logs; budgets.
   - Deliverables: Commands, acceptance bullets, metrics/logs.
 
-7) Phases & Tasks → CHECKLIST.yaml, CHECKLIST.md
+8) Phases & Tasks → CHECKLIST.yaml, CHECKLIST.md
   - Natural phases; smallest file-scoped tasks; acceptance per phase.
   - Deliverables: Phases/tasks with statuses=pending; verification.commands and acceptance filled.
 
@@ -48,11 +63,13 @@ Flow
 5) Generation:
    - Create folder: `docs/Agent Implementation Packets/$1/`
    - Ensure `docs/templates/AIP/*` exists; if missing, copy from `AgenticFlywheel/templates/aip/*`.
-   - Seed from templates and fill: README.md, CONTEXT.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, CONTRACTS.md, DATA_MODEL.sql, RUNBOOK.md, OBSERVABILITY.md, RISKS.md with agreed content.
+   - Seed from templates and fill: README.md, REVIEWS.md, CONTEXT.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, CONTRACTS.md, DATA_MODEL.sql, RUNBOOK.md, OBSERVABILITY.md, RISKS.md with agreed content.
    - Do not create `AGENT_PROMPT.txt` as part of this flow and do not copy `AGENT_PROMPT_AUTHORING_GUIDE.md` or `AGENT_PROMPT_QA_CHECKLIST.md` into the packet folder; they remain in `docs/templates/AIP/` as authoring references for generating the prompt later.
+   - If `OFFICE_HOURS.md`, `AUTOPLAN.md`, or other review prompts ran earlier, synthesize only their accepted conclusions into `REVIEWS.md`.
    - Fill `CHECKLIST.yaml` with phases/tasks, constraints, parity, env_defaults, verification.commands, acceptance; mirror status in `CHECKLIST.md` and add a short “Conversation Summary”.
    - Ensure `verification.commands` is non-empty and matches this repo’s actual tooling (avoid placeholder TODOs; use component-scoped labels if multiple components exist).
    - Ensure “Docs & Handoff” phase present.
+   - Ensure the full AIP checklist contains at least one task referencing `REVIEWS.md`.
    - Preview diffs and require approval before writing.
    - Link from `docs/ai/INDEX.md` under “Implementation Packets” (if appropriate).
    - Propose Feature Registry update for this feature (diff-only; obtain approval to write).

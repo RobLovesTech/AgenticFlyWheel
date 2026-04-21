@@ -13,15 +13,18 @@ Inputs
 Steps
 1) Plan
    - Target: `docs/Agent Implementation Packets/$1/`
-   - Seed core packet docs from `docs/templates/AIP/` (README.md, CHECKLIST.yaml/md, CONTEXT.md, CONTRACTS.md, DATA_MODEL.sql, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, RISKS.md).
+   - Seed core packet docs from `docs/templates/AIP/` (README.md, REVIEWS.md, CHECKLIST.yaml/md, CONTEXT.md, CONTRACTS.md, DATA_MODEL.sql, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, RISKS.md).
    - Do not create `AGENT_PROMPT.txt` yet and do not copy `AGENT_PROMPT_AUTHORING_GUIDE.md` or `AGENT_PROMPT_QA_CHECKLIST.md` into the packet folder; those stay in `docs/templates/AIP/` as authoring references.
    - Replace placeholders: `{{FEATURE_SLUG}}` → $1; `{{TITLE}}` → $TITLE or $1.
    - Ensure “Docs & Handoff” phase exists in `CHECKLIST.yaml`.
+   - Ensure the checklist contains a task referencing `REVIEWS.md`.
    - Ensure `verification.commands` is populated with this repo’s real verification commands (tests/build/lint) for impacted components (do not leave placeholder TODOs).
    - If `docs/templates/AIP/*` is missing, copy from `AgenticFlywheel/templates/aip/*` first.
+   - If prior discovery/review artifacts exist in `.agentic-flywheel/state/`, summarize only the accepted conclusions into `REVIEWS.md`.
 
 2) Prefill (optional)
    - README.md: Title; Objective (from CONTEXT); Scope (from SCOPE); Constraints (from CONSTRAINTS).
+   - REVIEWS.md: Seed Discovery Reframe and Accepted Decisions when CONTEXT or prior review output exists.
    - CHECKLIST.yaml: Add constraints/env_defaults if provided.
    - CONTEXT.md: One paragraph using CONTEXT/SCOPE/CONSTRAINTS if provided.
 

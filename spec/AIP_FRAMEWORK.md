@@ -14,6 +14,7 @@ Core Principles
 - Single source of truth: CHECKLIST.yaml is canonical for task status; CHECKLIST.md mirrors it for human scanning.
 - Re-issuable prompt: AGENT_PROMPT.txt allows new agent sessions to bootstrap without relying on prior chat history.
 - Self-maintaining: Documentation is updated as part of the implementation process, creating flywheel momentum.
+- Two-layer operation: repo-tracked AIPs/docs/registry are the control plane; local runtime artifacts under `.agentic-flywheel/state/` are an advisory execution layer.
 - Parity: Packets should capture any environment parity needs (e.g., local Postgres == prod Databricks).
 - Privacy & security: Document constraints explicitly (e.g., FERPA/COPPA, PII redaction, retention).
 - Complete features: AIPs drive implementation of complete, production-ready features, not prototypes.
@@ -26,6 +27,16 @@ Every AIP MUST include the following content. Use the templates in `docs/templat
   - Signals & Flags Summary (runtime flags, defaults, core computations in one glance)
   - Scope (Backend, Frontend, Docs)
   - Outcomes, Success Criteria, Rollout Plan, Acceptance
+- REVIEWS.md
+  - Discovery Reframe
+  - Product Review
+  - Engineering Review
+  - Design Review
+  - DevEx Review
+  - Outside Voice (optional, non-gating in v1)
+  - Accepted Decisions
+  - Open Risks
+  - Final Verdict
 - CONTRACTS.md
   - Signals & Semantics (exact formulas/algorithms)
   - Buckets/Thresholds & Copy expectations (if any UI surfaces a score)
@@ -50,6 +61,7 @@ Every AIP MUST include the following content. Use the templates in `docs/templat
 
 Standard Packet Contents
 - README.md: Objective, scope, constraints, outcomes
+- REVIEWS.md: Review gauntlet output and accepted decisions that implementation agents may rely on
 - CHECKLIST.yaml: Canonical phases/tasks, env defaults, acceptance
 - CHECKLIST.md: Human-friendly checklist and notes
 - AGENT_PROMPT.txt: Restartable instructions for agents
@@ -65,7 +77,7 @@ Standard Packet Contents
 Documentation Tasks (required)
 - Every AIP MUST include a final phase in CHECKLIST.yaml named "Docs & Handoff" that:
   - Verifies the change is shippable by running the repo’s defined verification commands (tests/build/lint as applicable) for every impacted component before the AIP can be marked `completed`.
-  - Updates all packet docs (README/CONTEXT/RUNBOOK/OBSERVABILITY) to reflect reality.
+  - Updates all packet docs (README/REVIEWS/CONTEXT/RUNBOOK/OBSERVABILITY) to reflect reality.
   - Integrates links into relevant global docs (e.g., docs/ai/INDEX.md) if applicable.
   - Updates core specifications and AI-facing guides (e.g., docs/ai/**, other specs) to reflect the new or changed behavior.
   - Records new/changed env vars in the appropriate repo docs.
@@ -75,6 +87,7 @@ Documentation Tasks (required)
 
 Authoring Checklist (copy into CHECKLIST.md)
 - [ ] README has Exec Summary, Goals/Non‑Goals, Signals/Flags, Scope, Outcomes, Success, Rollout, Acceptance
+- [ ] REVIEWS documents the review gauntlet, accepted decisions, open risks, and final verdict
 - [ ] CONTRACTS includes formulas, buckets/thresholds, event fields, and fallbacks
 - [ ] BACKEND_IMPLEMENTATION lists every file/function to touch and pseudocode for tricky bits
 - [ ] ORCHESTRATION_AND_UI lists frontend files and copy changes
@@ -86,13 +99,13 @@ Authoring Checklist (copy into CHECKLIST.md)
 Checklist YAML Schema (informal)
 - version: integer
 - feature: string (slug)
-- status: pending | in_progress | completed | abandoned | incomplete
+- status: pending | in_progress | blocked | completed | abandoned | incomplete
 - constraints: [string]
 - parity: { <key>: boolean }
 - env_defaults: { KEY: value }
 - phases: [
   { id: string, name: string, description: string, tasks: [
-      { id: string, title: string, files: [string], status: pending|in_progress|completed }
+      { id: string, title: string, files: [string], status: pending|in_progress|blocked|completed|abandoned|incomplete }
     ]
   }
 ]
@@ -101,6 +114,7 @@ Checklist YAML Schema (informal)
 Completion Status
 - `CHECKLIST.yaml` includes a top-level `status` that tracks packet lifecycle.
 - Start new packets in `pending` (or `in_progress` once execution begins).
+- Use `blocked` when progress is paused on an external dependency, unresolved decision, or failing prerequisite that is documented in packet docs.
 - Build verification is required: the AIP must successfully run the repo’s verification commands (tests/build/lint as applicable) before it can be marked `completed`.
 - When every task in `phases[*].tasks` is marked `completed`, update the top-level `status` to `completed`.
 - Mirror the same state at the top of `CHECKLIST.md` so humans can confirm completion quickly.
@@ -117,12 +131,14 @@ Zero‑Context Agent Prompt Guidance
   - Enumerate concrete file paths to edit and their purpose
   - List flags and defaults
   - Include step‑by‑step tasks and acceptance criteria
+  - Use only accepted conclusions from REVIEWS.md; runtime logs under `.agentic-flywheel/state/` are advisory and never override packet docs
   - Reference packet docs by path; avoid relying on chat history
- - Be created after all packet docs are complete (README, CONTRACTS, BACKEND_IMPLEMENTATION, ORCHESTRATION_AND_UI, OBSERVABILITY, RUNBOOK, RISKS, CONTEXT, DATA_MODEL, CHECKLIST)
+ - Be created after all packet docs are complete (README, REVIEWS, CONTRACTS, BACKEND_IMPLEMENTATION, ORCHESTRATION_AND_UI, OBSERVABILITY, RUNBOOK, RISKS, CONTEXT, DATA_MODEL, CHECKLIST)
 
 Validation (optional, recommended)
 - CHECKLIST schema: docs/templates/AIP/CHECKLIST.schema.json
 - Validate structure quickly via prompt validators or local scripts if available.
+- Execution-layer conventions: spec/EXECUTION_LAYER.md
 
 Features Registry (platform index)
 - Location: docs/features/REGISTRY.yaml (+ schema at docs/features/REGISTRY.schema.json)

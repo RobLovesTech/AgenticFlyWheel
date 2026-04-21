@@ -13,6 +13,9 @@ Signals & Flags (Summary)
 - Define core signals (formulas) at a high level.
 - List feature flags and defaults.
 
+Review Inputs
+- Summarize the accepted conclusions from REVIEWS.md that shape implementation.
+
 Scope
 - Backend: bullet list of high‑level changes.
 - Frontend: bullet list of high‑level changes.
@@ -29,4 +32,3 @@ Rollout Plan
 
 Acceptance
 - Final acceptance conditions tying together tests, metrics, and UX.
-

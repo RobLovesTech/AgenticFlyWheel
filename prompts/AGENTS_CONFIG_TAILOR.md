@@ -8,10 +8,11 @@ Inputs
 
 Proposal Rules
 - Claude: Provide a `.claude/PROJECT_PROMPT.md` that encodes docs-first norms, acceptance, privacy, and the presence of AIPs and the Feature Registry. Keep it stack-agnostic, but reference the repo’s actual architecture and validation approach if provided.
-- Codex: For `.codex/agents.yml`, add or merge an agent that includes `docs/**`, `docs/Agent Implementation Packets/**`, and `docs/features/**` in context. Do not remove existing entries.
+- Codex: For `.codex/agents.yml`, add or merge an agent that includes `docs/**`, `docs/Agent Implementation Packets/**`, `docs/features/**`, and the execution-layer prompts in context. Treat Codex as the primary generated host config. Do not remove existing entries.
 - Cursor: For `.cursor/rules/.cursorrules`, merge a short rule set that prioritizes `docs/ai/INDEX.md` → referenced docs and AIP packet CHECKLIST.yaml as authoritative during changes.
-- All tools that support named agents/commands: add convenient entry points to launch core AgenticFlywheel prompts **without manual copy/paste**, including at minimum `AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md` (Bootstrap Wizard), `AgenticFlywheel/prompts/AIP_COLLAB.md`, and `AgenticFlywheel/prompts/AIP_NEW.md`.
+- All tools that support named agents/commands: add convenient entry points to launch core AgenticFlywheel prompts **without manual copy/paste**, including at minimum `AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md` (Bootstrap Wizard), `AgenticFlywheel/prompts/AIP_COLLAB.md`, `AgenticFlywheel/prompts/AIP_NEW.md`, `AgenticFlywheel/prompts/OFFICE_HOURS.md`, `AgenticFlywheel/prompts/AUTOPLAN.md`, `AgenticFlywheel/prompts/PRELANDING_REVIEW.md`, `AgenticFlywheel/prompts/CONTEXT_SAVE.md`, `AgenticFlywheel/prompts/CONTEXT_RESTORE.md`, `AgenticFlywheel/prompts/QA.md`, and `AgenticFlywheel/prompts/SHIP.md`.
 - For each tool’s primary “feature” agent, teach it to interpret natural commands like **"new AIP"**, **"create AIP for \<feature\>"**, or **"start AIP for this change"** by invoking the AIP creation flow (using `AIP_COLLAB.md` / `AIP_NEW.md` and the AIP templates) instead of treating them as generic chat.
+- Also teach the primary agent to route natural language commands for office hours, product review, eng review, design review, devex review, save context, resume context, QA, ship, and guard mode.
 - All: Propose changes as minimal diffs; preserve existing content and comments.
 
 Flow

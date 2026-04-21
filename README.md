@@ -73,10 +73,10 @@ graph TD
 Run the wizard. It interviews you about your architecture, then generates your entire documentation foundation—coding standards, testing rules, security policies, and a Feature Registry. You get **immediate value** with your first real AIP.
 
 ### **Phase 2: Plan (Per Feature, 10-20 min)**
-Run `AIP_COLLAB.md`. The AI guides you through a structured Q&A—objectives, contracts, risks, acceptance criteria. You review a diff, approve it, and get a **complete implementation packet** with checklists, contracts, and test plans.
+Run `OFFICE_HOURS.md` and `AUTOPLAN.md` to pressure-test the problem, then `AIP_COLLAB.md` to turn the accepted conclusions into a packet. You review a diff, approve it, and get a **complete implementation packet** with reviews, checklists, contracts, and test plans.
 
 ### **Phase 3: Build (Enforced Execution)**
-The AI follows `CHECKLIST.yaml` like a recipe—Design → Backend → Frontend → Testing → **Docs & Handoff** (mandatory). Each phase has validation gates. Skip a step? The checklist validator catches it.
+The AI follows `CHECKLIST.yaml` like a recipe—Design → Backend → Frontend → Testing → **Docs & Handoff** (mandatory). `PRELANDING_REVIEW.md`, `QA.md`, and `SHIP.md` form the execution-time gauntlet. Each phase has validation gates. Skip a step? The checklist validator catches it.
 
 ---
 
@@ -85,6 +85,7 @@ The AI follows `CHECKLIST.yaml` like a recipe—Design → Backend → Frontend 
 ### 📦 **The Core Framework**
 - **Context Your AI Needs**: AFW establishes core context about your project that drives amazing results
 - **AIP Templates**: Full and lightweight versions for any feature size
+- **Runtime Layer**: Local-first checkpoints, learnings, review logs, and host routing under `.agentic-flywheel/state/`
 - **Feature Registry**: Single source of truth for all features, flags, and contracts
 - **Validation Prompts**: Checklist validators, registry validators, dependency analyzers
 - **Agent Configs**: Enhanced configs for Claude, Codex, Cursor

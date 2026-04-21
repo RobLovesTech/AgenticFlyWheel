@@ -36,6 +36,7 @@ Goals
   - `docs/features/REGISTRY.yaml` and `docs/features/REGISTRY.schema.json` (schema from `AgenticFlywheel/features/REGISTRY.schema.json`)
   - `AGENTS.md` (create or update) to reflect the installed docs layout, environment setup, verification commands, and how to run core prompts in this repo
   - Optional agent configs with enhanced instructions (proposed with diffs): `.claude/PROJECT_PROMPT.md`, `.codex/agents.yml`, `.cursor/rules/.cursorrules` from `AgenticFlywheel/templates/config/*`
+  - Runtime-layer support: add `.agentic-flywheel/state/` to `.gitignore` when installing the execution-layer prompts
 - Discover existing features in the codebase and offer backfilling options
 - Guide user through creating their first real AIP during setup, and make sure they know how to generate a tailored `AGENT_PROMPT.txt` for it using `AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md` once the packet docs are complete.
 
@@ -101,6 +102,7 @@ Steps
 2) Proposal
    - Generate a file plan with reasons for each file. Include:
      - `docs/ai/INDEX.md` linking AIP spec, templates (both full and lite), and Feature Registry
+     - `AgenticFlywheel/spec/EXECUTION_LAYER.md` as the runtime-layer reference
      - The core AI docs tailored to user inputs (CODING-STANDARD, TESTING-STANDARDS, SECURITY, PLATFORM-ARCHITECTURE, DATA-ACCESS, API-DOCUMENTATION, PERFORMANCE, OBSERVABILITY, ERROR-HANDLING, CONFIGURATION-MANAGEMENT; optional: DEPLOYMENT, DOMAIN-MODELS)
      - `docs/AIP_FRAMEWORK.md` from `AgenticFlywheel/spec/AIP_FRAMEWORK.md`
      - `docs/templates/AIP/*` from `AgenticFlywheel/templates/aip/*` (full AIP templates)
@@ -108,6 +110,7 @@ Steps
      - `docs/features/REGISTRY.yaml` + schema; initial empty list (or a seed feature if the user requests)
      - `AGENTS.md` updates reflecting environment setup, verification commands, and how to run prompts in this repo
      - Optional enhanced agent configs with automatic search and dependency checking (diff-only; user may skip)
+     - `.gitignore` update for `.agentic-flywheel/state/` when runtime prompts are installed
      - If backfilling: `docs/features/BACKFILL_PLAN.md` with discovered features
    - Ensure the installed templates are configured for this repo:
      - Populate `verification.commands` in `docs/templates/AIP/CHECKLIST.yaml` and `docs/templates/aip-lite/CHECKLIST.yaml` with the discovered repo-specific commands (replace any placeholders).

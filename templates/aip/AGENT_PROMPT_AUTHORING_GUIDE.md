@@ -4,15 +4,16 @@ Purpose
 - Produce a zero‑context, execution‑ready AGENT_PROMPT.txt that synthesizes the entire AIP into a single, precise instruction set.
 
 Sequence (must follow)
-1) Ensure packet docs are complete: README.md, CONTRACTS.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, RISKS.md, CONTEXT.md, DATA_MODEL.sql, CHECKLIST.yaml.
+1) Ensure packet docs are complete: README.md, REVIEWS.md, CONTRACTS.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, RISKS.md, CONTEXT.md, DATA_MODEL.sql, CHECKLIST.yaml.
 2) Read README.md → extract: Executive Summary, Goals, Non‑Goals, Signals & Flags (Summary), Acceptance, Rollout.
-3) Read CONTRACTS.md → extract: signal formulas, thresholds/buckets, events, fallbacks, Acceptance Rules.
-4) Read BACKEND_IMPLEMENTATION.md → extract: file paths + functions to edit; flags; pseudocode.
-5) Read ORCHESTRATION_AND_UI.md → extract: FE files + copy/threshold changes.
-6) Read RUNBOOK.md → extract: flags/defaults; commands; flip/rollback; queries.
-7) Read OBSERVABILITY.md → extract: metrics names/labels; dashboards and validation panels.
-8) Read CHECKLIST.yaml → list phases/tasks in order (summarize as step‑by‑step tasks).
-9) Draft AGENT_PROMPT.txt using the structure below; include exact paths, flags, and acceptance. Keep concise and precise.
+3) Read REVIEWS.md → extract only the Accepted Decisions, Open Risks, and Final Verdict. Ignore advisory notes that were not accepted.
+4) Read CONTRACTS.md → extract: signal formulas, thresholds/buckets, events, fallbacks, Acceptance Rules.
+5) Read BACKEND_IMPLEMENTATION.md → extract: file paths + functions to edit; flags; pseudocode.
+6) Read ORCHESTRATION_AND_UI.md → extract: FE files + copy/threshold changes.
+7) Read RUNBOOK.md → extract: flags/defaults; commands; flip/rollback; queries.
+8) Read OBSERVABILITY.md → extract: metrics names/labels; dashboards and validation panels.
+9) Read CHECKLIST.yaml → list phases/tasks in order (summarize as step‑by‑step tasks).
+10) Draft AGENT_PROMPT.txt using the structure below; include exact paths, flags, and acceptance. Keep concise and precise.
 
 AGENT_PROMPT Structure (must include)
 - Title line: “You are the implementation agent for: <TITLE> (<FEATURE_SLUG>)”
@@ -20,6 +21,7 @@ AGENT_PROMPT Structure (must include)
 - Intake steps (read docs list)
 - Primary goals (bullets)
 - Non‑Goals (bullets)
+- Review Inputs (Accepted Decisions from REVIEWS.md only)
 - Signals & Flags (summary of formulas and flags)
 - Runtime Flags (from RUNBOOK)
 - Touch points (Backend files, Frontend files) — exact paths
@@ -41,9 +43,9 @@ Anti‑patterns
 - Do not hand‑wave: “update code accordingly.” Specify files/sections.
 - Do not assume prior chat context.
 - Do not duplicate entire packet content; synthesize what’s necessary to execute.
+- Do not treat raw runtime logs or unaccepted review notes as canonical.
 - Do not omit flags, acceptance, or file paths.
 
 Handoff
 - Save AGENT_PROMPT.txt at the root of the packet.
 - Update CHECKLIST to mark the task complete.
-

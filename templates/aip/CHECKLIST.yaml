@@ -14,6 +14,10 @@ phases:
         title: Complete CONTRACTS.md (signals, thresholds, events, fallbacks)
         files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CONTRACTS.md]
         status: pending
+      - id: review-gauntlet
+        title: Capture discovery and review outputs in REVIEWS.md
+        files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md]
+        status: pending
       - id: backend_plan
         title: Complete BACKEND_IMPLEMENTATION.md (files, flags, pseudocode)
         files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/BACKEND_IMPLEMENTATION.md]
@@ -69,6 +73,10 @@ phases:
       - id: build-verify
         title: Run verification commands (tests/build/lint) for impacted components
         files: []
+        status: pending
+      - id: reviews-sync
+        title: Sync REVIEWS.md accepted decisions, open risks, and final verdict
+        files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md]
         status: pending
       - id: context
         title: Update CONTEXT.md with final behavior

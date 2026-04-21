@@ -6,7 +6,7 @@
   "properties": {
     "version": {"type": "integer", "minimum": 1},
     "feature": {"type": "string", "minLength": 1},
-    "status": {"type": "string", "enum": ["pending", "in_progress", "completed", "abandoned", "incomplete"]},
+    "status": {"type": "string", "enum": ["pending", "in_progress", "blocked", "completed", "abandoned", "incomplete"]},
     "constraints": {"type": "array", "items": {"type": "string"}},
     "parity": {"type": "object"},
     "env_defaults": {"type": "object"},
@@ -30,7 +30,7 @@
                 "id": {"type": "string"},
                 "title": {"type": "string"},
                 "files": {"type": "array", "items": {"type": "string"}},
-                "status": {"type": "string", "enum": ["pending", "in_progress", "completed", "abandoned", "incomplete"]}
+                "status": {"type": "string", "enum": ["pending", "in_progress", "blocked", "completed", "abandoned", "incomplete"]}
               }
             }
           }
@@ -44,6 +44,6 @@
         "acceptance": {"type": "array", "items": {"type": "string"}}
       }
     }
-  }
+  },
+  "description": "Full AIP checklists should include a task referencing REVIEWS.md in addition to the standard Docs & Handoff phase."
 }
-

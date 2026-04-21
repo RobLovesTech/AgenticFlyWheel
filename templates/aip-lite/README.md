@@ -21,7 +21,9 @@ Testing
 Acceptance
 - Checklist of conditions that must be true when complete.
 
+Review Summary (Optional)
+- If planning/review prompts ran first, summarize the accepted conclusions here instead of creating REVIEWS.md.
+
 Rollout
 - How to deploy (flags, gradual rollout, or all-at-once).
 - Rollback plan if issues arise.
-

@@ -19,6 +19,7 @@ Before making any code changes, you must automatically (without asking the user)
 
 2. **Search Existing AIPs**:
    - Look in `docs/Agent Implementation Packets/*/` for similar patterns
+   - Read `REVIEWS.md` when the target packet exists
    - Review CONTRACTS.md files for API/event patterns
    - Check BACKEND_IMPLEMENTATION.md and ORCHESTRATION_AND_UI.md for implementation approaches
 
@@ -26,6 +27,7 @@ Before making any code changes, you must automatically (without asking the user)
    - Read `docs/ai/INDEX.md` for navigation
    - Follow links to coding standards, testing requirements, security policies
    - Understand the architecture documented in `docs/ai/PLATFORM-ARCHITECTURE.md`
+   - Read `AgenticFlywheel/spec/EXECUTION_LAYER.md` for runtime-layer precedence rules
 
 **Important**: Do this search and analysis transparently. Don't tell the user "I'll search the AIPs now" — just do it and report what you found.
 
@@ -49,6 +51,7 @@ Choose the appropriate level of documentation:
 - New API contracts, events, or integrations
 - Feature flags or gradual rollout
 - Infrastructure changes
+- Includes `REVIEWS.md`
 
 ## Systematic Workflow
 
@@ -60,6 +63,7 @@ Follow this process for every feature:
 - Identify dependencies
 
 ### 2. Planning
+- For substantial feature work, prefer `OFFICE_HOURS -> AUTOPLAN -> AIP_COLLAB`
 - Create appropriate AIP (lightweight or full)
 - If feature exists, locate its AIP via Feature Registry
 - Follow structured Q&A in AIP_COLLAB.md or AIP_NEW.md
@@ -81,9 +85,16 @@ Follow this process for every feature:
 ### 5. Documentation
 - Complete "Docs & Handoff" phase:
   - Update AIP docs to reflect final implementation
+  - Keep `REVIEWS.md` aligned with accepted conclusions
   - Update Feature Registry entry
   - Generate AGENT_PROMPT.txt last
   - Link AIPs in relevant global docs
+
+## Runtime Layer
+
+- `.agentic-flywheel/state/*` is local runtime state
+- Packet docs outrank runtime logs on conflict
+- Use only accepted conclusions from `REVIEWS.md` when generating implementation instructions
 
 ## Dependency Management
 
@@ -161,10 +172,19 @@ Treat certain natural phrases as structured intents:
 
 - **"new AIP"**, **"create AIP for \<feature\>"**, **"start AIP for this change"**:
   - Interpret as a request to create a new Agent Implementation Packet.
-  - Use `docs/templates/AIP/**` or `templates/aip-lite/**` plus the AIP prompts (`AgenticFlywheel/prompts/AIP_NEW.md`, `AgenticFlywheel/prompts/AIP_COLLAB.md`) to scaffold the packet.
+  - Use `docs/templates/AIP/**` or `docs/templates/aip-lite/**` plus the AIP prompts (`AgenticFlywheel/prompts/AIP_NEW.md`, `AgenticFlywheel/prompts/AIP_COLLAB.md`) to scaffold the packet.
   - Ask only for the minimum necessary details (e.g., feature slug/title, rough scope), then propose a file plan and diffs following the AIP framework rules.
 
 Do not treat these as generic chat; always route them through the AIP workflow.
+
+- **"office hours"**:
+  - Route to `AgenticFlywheel/prompts/OFFICE_HOURS.md`
+- **"product review"**, **"eng review"**, **"design review"**, **"devex review"**, **"autoplan"**:
+  - Route to the matching `AgenticFlywheel/prompts/*.md` planning or review prompt.
+- **"save context"**, **"resume context"**, **"restore context"**:
+  - Route to `CONTEXT_SAVE.md` or `CONTEXT_RESTORE.md`.
+- **"qa"**, **"ship"**, **"guard mode"**:
+  - Route to `QA.md`, `SHIP.md`, or `GUARD_MODE.md`.
 
 ## Communication Style
 

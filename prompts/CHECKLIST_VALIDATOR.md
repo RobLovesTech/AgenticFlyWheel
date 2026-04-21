@@ -8,7 +8,7 @@ Inputs
 Checks (must perform)
 1) Structure
    - Top-level fields: `version`, `feature`, `status`, `phases` exist and are sensible.
-   - `status` ∈ {pending, in_progress, completed, abandoned, incomplete}.
+   - `status` ∈ {pending, in_progress, blocked, completed, abandoned, incomplete}.
    - Each phase has `id`, `name`, and `tasks[]` with `id`, `title`, and `status`.
 
 2) Required phase
@@ -16,6 +16,9 @@ Checks (must perform)
    - The final phase includes:
      - A task to run verification commands (tests/build/lint) for impacted components.
        - Accept either a task id like `build-verify` or a task title that clearly indicates running verification commands.
+     - For full AIP checklists, a task that references `REVIEWS.md`.
+       - Treat a checklist as “full AIP” when it includes phases such as Design & Contracts, Backend Implementation, or Observability & Rollout.
+       - Prefer the task’s `files` list to include `docs/Agent Implementation Packets/<slug>/REVIEWS.md`.
      - A task to add or update the Feature Registry entry (`docs/features/REGISTRY.yaml`).
        - Prefer the task’s `files` list to include `docs/features/REGISTRY.yaml` (or the repo’s equivalent registry path).
 

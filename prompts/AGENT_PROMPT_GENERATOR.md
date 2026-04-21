@@ -11,6 +11,7 @@ Target Paths
 - Packet root: `docs/Agent Implementation Packets/$1/`
 - Packet docs (must exist before generation):
   - `README.md`
+  - `REVIEWS.md`
   - `CONTEXT.md`
   - `CONTRACTS.md`
   - `BACKEND_IMPLEMENTATION.md`
@@ -36,11 +37,13 @@ Sequence
    - Confirm that `docs/Agent Implementation Packets/$1/` exists.
    - Confirm that the core packet docs listed above are present.
    - If anything is missing or obviously incomplete, print a clear summary and ask the user whether to proceed, fix docs first, or abort.
+   - If `REVIEWS.md` is missing, treat the packet as incomplete by default. Only proceed in explicit legacy mode if the user confirms they want to generate without review inputs.
 
 2) Understand the AIP (Summarize First)
    - Read the Authoring Guide: `docs/templates/AIP/AGENT_PROMPT_AUTHORING_GUIDE.md` and internalize the required structure and rubric.
    - Read:
      - `README.md` → feature title, exec summary, goals/non-goals, signals & flags summary, acceptance, rollout.
+     - `REVIEWS.md` → Accepted Decisions, Open Risks, Final Verdict. Ignore advisory notes that were not accepted.
      - `CONTRACTS.md` → formulas, thresholds/buckets, events, fallbacks, acceptance rules.
      - `BACKEND_IMPLEMENTATION.md` → backend file paths, functions/methods, flags, pseudocode.
      - `ORCHESTRATION_AND_UI.md` → frontend file paths, flows, copy/threshold changes.
@@ -51,6 +54,7 @@ Sequence
      - `CHECKLIST.yaml` → phases/tasks, verification.commands, acceptance.
    - Produce a concise, numbered summary of:
      - Main goals and non-goals
+     - Accepted review inputs and open risks
      - Key flags and defaults
      - Backend and frontend touch points (paths)
      - Verification & acceptance criteria
@@ -65,6 +69,7 @@ Sequence
      - Intake: explicit instructions to read CHECKLIST.yaml and the key packet docs.
      - Primary Goals: bullets summarizing what success looks like.
      - Non-Goals: bullets for what is explicitly out-of-scope.
+     - Review Inputs: accepted conclusions from `REVIEWS.md` only.
      - Signals & Flags: summary of core formulas, thresholds, and key flags.
      - Runtime Flags: explicit list of flags and defaults from RUNBOOK (and related docs).
      - Touch Points: backend and frontend file paths grouped by area, with intent per group.
@@ -73,6 +78,7 @@ Sequence
      - Validation & Observability: metrics, dashboards, and checks required before calling the feature “done”.
      - Ground Rules: concise bullets for constraints (privacy, security, parity, scope discipline, doc updates).
    - Keep the prompt zero-context and self-contained: do not refer to prior chats; always reference docs and files by path.
+   - Never read raw `.agentic-flywheel/state/*` logs into the final prompt.
 
 4) Self-Check with QA Checklist
    - Before proposing the final prompt, mentally run through `docs/templates/AIP/AGENT_PROMPT_QA_CHECKLIST.md` and ensure:
@@ -105,4 +111,3 @@ Output
 - Drafted `AGENT_PROMPT.txt` content (before write) and, if applicable, a diff against the previous version.
 - Final confirmation of the write operation with the exact path.
 - Next steps for using the prompt and updating the checklist.
-

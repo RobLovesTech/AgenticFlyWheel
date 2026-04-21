@@ -12,6 +12,10 @@ context:
   - path: "docs/AIP_FRAMEWORK.md"
     description: "Agent Implementation Packet specification and best practices"
     priority: high
+
+  - path: "AgenticFlyWheel/spec/EXECUTION_LAYER.md"
+    description: "Control-plane vs runtime-layer rules, local state paths, and precedence"
+    priority: high
   
   # Feature registry and AIPs
   - path: "docs/features/REGISTRY.yaml"
@@ -19,7 +23,7 @@ context:
     priority: high
   
   - path: "docs/Agent Implementation Packets/**"
-    description: "All feature AIPs with contracts, implementations, and checklists"
+    description: "All feature AIPs with reviews, contracts, implementations, and checklists"
     priority: medium
   
   # AIP templates
@@ -29,6 +33,14 @@ context:
   
   - path: "docs/templates/aip-lite/**"
     description: "Templates for creating new lightweight AIPs"
+    priority: medium
+
+  - path: "AgenticFlyWheel/prompts/**"
+    description: "Planning, review, runtime-memory, QA, and ship workflows"
+    priority: medium
+
+  - path: "AgenticFlyWheel/model-overlays/codex.md"
+    description: "Codex-specific behavior overlay for AFW"
     priority: medium
 
 agents:
@@ -41,30 +53,44 @@ agents:
       AUTOMATIC CONTEXT GATHERING (transparent to user):
       1. Check docs/features/REGISTRY.yaml for related features and dependencies
       2. Search docs/Agent Implementation Packets/*/ for similar patterns
-      3. Review docs/ai/ for coding standards and architecture
+      3. Read REVIEWS.md when the target packet exists
+      4. Review docs/ai/ for coding standards and architecture
+      5. Use AgenticFlyWheel/spec/EXECUTION_LAYER.md for runtime-state precedence rules
       
       NATURAL COMMANDS:
       - When the user says "new AIP", "create AIP for <feature>", or "start AIP for this change":
         - Treat it as a request to create a new Agent Implementation Packet.
         - Collaborate with the AIP creation flow using `AgenticFlywheel/prompts/AIP_NEW.md` and/or `AgenticFlywheel/prompts/AIP_COLLAB.md`.
         - Ask only for what is strictly needed (e.g., feature slug/title) and then scaffold the packet using `docs/templates/AIP/**` or `docs/templates/aip-lite/**` as appropriate.
+      - When the user says "office hours", "product review", "eng review", "design review", "devex review", or "autoplan":
+        - Route to the matching planning/review prompt under `AgenticFlywheel/prompts/`.
+      - When the user says "save context", "resume context", "restore context", "qa", "ship", or "guard mode":
+        - Route to the matching runtime-layer prompt under `AgenticFlywheel/prompts/`.
       
       SCALE GUIDANCE:
       - No AIP: bug fixes, typos, minor refactoring
       - Lightweight AIP (docs/templates/aip-lite/): small features (<2 days, <5 files)
       - Full AIP (docs/templates/AIP/): major features, backend+frontend, contracts
+        - Full AIPs also require `REVIEWS.md`
       
       WORKFLOW:
-      1. Create appropriate AIP for non-trivial features
-      2. Follow CHECKLIST.yaml phases in order
-      3. Complete all test tasks (never skip)
-      4. Complete "Docs & Handoff" phase (mandatory)
-      5. Update Feature Registry
+      1. For feature work, prefer `OFFICE_HOURS -> AUTOPLAN -> AIP_COLLAB`
+      2. Create appropriate AIP for non-trivial features
+      3. Follow CHECKLIST.yaml phases in order
+      4. Complete all test tasks (never skip)
+      5. Complete "Docs & Handoff" phase (mandatory)
+      6. Update Feature Registry
+      7. Use `PRELANDING_REVIEW -> QA -> SHIP` before calling the work done
       
       DEPENDENCY MANAGEMENT:
       - Check dependencies field in Feature Registry automatically
       - Run dependency analysis when modifying features with dependents
       - Coordinate breaking changes with affected features
+
+      RUNTIME LAYER:
+      - `.agentic-flywheel/state/*` is local and advisory
+      - Packet docs outrank runtime logs on conflict
+      - Never generate implementation instructions from raw runtime logs; use accepted conclusions from `REVIEWS.md`
       
       ENFORCEMENT:
       - Tests are required for every feature
@@ -76,6 +102,7 @@ agents:
       - "docs/features/REGISTRY.yaml"
       - "docs/ai/INDEX.md"
       - "docs/AIP_FRAMEWORK.md"
+      - "AgenticFlyWheel/spec/EXECUTION_LAYER.md"
   
   - name: "aip-creator"
     description: "Guides users through creating new AIPs"
@@ -92,7 +119,7 @@ agents:
       - CHECKLIST.yaml: implement, test, document phases
       
       FULL AIP (docs/templates/AIP/):
-      - Complete packet: README, CONTEXT, CONTRACTS, BACKEND_IMPLEMENTATION,
+      - Complete packet: README, REVIEWS, CONTEXT, CONTRACTS, BACKEND_IMPLEMENTATION,
         ORCHESTRATION_AND_UI, OBSERVABILITY, RUNBOOK, RISKS, DATA_MODEL, CHECKLIST
       
       WORKFLOW:
@@ -172,6 +199,9 @@ behavior:
   # Update registry in "Docs & Handoff" phase
   require_registry_update: true
 
+  # Treat Codex config as the primary runtime entry point
+  codex_first_runtime: true
+
 rules:
   # Never skip these phases or tasks
   required_phases:
@@ -186,6 +216,7 @@ rules:
   required_context:
     - "docs/features/REGISTRY.yaml"
     - "docs/ai/INDEX.md"
+    - "AgenticFlyWheel/spec/EXECUTION_LAYER.md"
   
   # Run dependency analysis when these fields present
   dependency_triggers:

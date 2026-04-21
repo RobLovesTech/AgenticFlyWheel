@@ -5,11 +5,12 @@ Use this checklist before finalizing AGENT_PROMPT.txt. The prompt must be zero�
 Structure & Context
 - [ ] Title contains AIP title and feature slug
 - [ ] Context directory path is included
-- [ ] Intake steps instruct reading: README, CONTRACTS, BACKEND_IMPLEMENTATION, ORCHESTRATION_AND_UI, OBSERVABILITY, RUNBOOK, RISKS, CONTEXT, DATA_MODEL, CHECKLIST
+- [ ] Intake steps instruct reading: README, REVIEWS, CONTRACTS, BACKEND_IMPLEMENTATION, ORCHESTRATION_AND_UI, OBSERVABILITY, RUNBOOK, RISKS, CONTEXT, DATA_MODEL, CHECKLIST
 
 Goals & Non‑Goals
 - [ ] Primary goals listed as bullets
 - [ ] Non‑Goals listed to prevent scope creep
+- [ ] Review Inputs use only the Accepted Decisions section of REVIEWS.md
 
 Signals & Flags
 - [ ] Summarizes core signals (formulas/algorithms) in one place
@@ -37,5 +38,5 @@ Guardrails & Constraints
 Anti‑patterns to avoid
 - [ ] No vague instructions like “update code accordingly”
 - [ ] Do not assume chat history
+- [ ] Do not treat raw runtime logs or unaccepted review notes as canonical
 - [ ] Do not omit flags, acceptance, or file paths
-
