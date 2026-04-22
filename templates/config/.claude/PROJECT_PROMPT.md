@@ -1,10 +1,16 @@
-# AgenticFlywheel Framework - Project Instructions
+# Deprecated
 
-## Overview
+Claude Code now uses `.claude/CLAUDE.md` plus `.claude/skills/**` as the native integration surface.
 
-This project uses the AgenticFlywheel Framework to ensure systematic, consistent development patterns. All features are documented using Agent Implementation Packets (AIPs), tracked in a Feature Registry, and implemented following structured checklists.
+AgenticFlywheel installs:
+- `.claude/CLAUDE.md` for stable repository facts and non-negotiable rules
+- `.claude/skills/agentic-flywheel/` for repeatable AFW procedures such as bootstrap, AIP creation, checklist validation, and `AGENT_PROMPT.txt` generation
 
-## Your Role
+Use `AgenticFlywheel/templates/config/.claude/CLAUDE.md` as the canonical template for new installs.
+
+Keep this file only for older AFW setups that still reference `PROJECT_PROMPT.md`.
+
+For legacy setups that still consume this file, preserve the docs-first AFW behavior below.
 
 You are an AI development partner working within the AgenticFlywheel Framework. Your job is to help implement features systematically by following the established workflow, automatically gathering context, and ensuring nothing is skipped.
 
@@ -136,41 +142,26 @@ Every feature must include:
 ## Enforcement Mechanisms
 
 You must:
-- ✅ Create AIPs for non-trivial features (use scale guidance)
-- ✅ Follow CHECKLIST.yaml as canonical task list
-- ✅ Complete all test tasks before marking phases done
-- ✅ Complete "Docs & Handoff" phase (non-negotiable)
-- ✅ Update Feature Registry for every feature
-- ✅ Check dependencies before modifying features
-- ✅ Generate AGENT_PROMPT.txt last (after all docs complete)
+- Create AIPs for non-trivial features (use scale guidance)
+- Follow CHECKLIST.yaml as canonical task list
+- Complete all test tasks before marking phases done
+- Complete "Docs & Handoff" phase (non-negotiable)
+- Update Feature Registry for every feature
+- Check dependencies before modifying features
+- Generate AGENT_PROMPT.txt last (after all docs complete)
 
 You must not:
-- ❌ Skip testing to move faster
-- ❌ Skip documentation to ship sooner
-- ❌ Implement without an AIP for significant features
-- ❌ Modify features with dependents without impact analysis
-- ❌ Deviate from established patterns without justification
-
-## User Experience
-
-The user should experience:
-- Consistency: every feature follows the same pattern
-- Transparency: you search/analyze automatically, report findings
-- Guidance: you suggest appropriate AIP level based on complexity
-- Quality: tests and docs are always complete
-- Traceability: everything is findable in the registry
-
-The user should NOT experience:
-- Manual searching: "Can you check the registry for me?"
-- Process bypassing: "Let's skip the AIP to move faster"
-- Missing documentation: "Where did we document this?"
-- Surprise breakage: "Why did this break when I changed that?"
+- Skip testing to move faster
+- Skip documentation to ship sooner
+- Implement without an AIP for significant features
+- Modify features with dependents without impact analysis
+- Deviate from established patterns without justification
 
 ## Common Commands
 
 Treat certain natural phrases as structured intents:
 
-- **"new AIP"**, **"create AIP for \<feature\>"**, **"start AIP for this change"**:
+- **"new AIP"**, **"create AIP for <feature>"**, **"start AIP for this change"**:
   - Interpret as a request to create a new Agent Implementation Packet.
   - Use `docs/templates/AIP/**` or `docs/templates/aip-lite/**` plus the AIP prompts (`AgenticFlywheel/prompts/AIP_NEW.md`, `AgenticFlywheel/prompts/AIP_COLLAB.md`) to scaffold the packet.
   - Ask only for the minimum necessary details (e.g., feature slug/title, rough scope), then propose a file plan and diffs following the AIP framework rules.
@@ -185,15 +176,3 @@ Do not treat these as generic chat; always route them through the AIP workflow.
   - Route to `CONTEXT_SAVE.md` or `CONTEXT_RESTORE.md`.
 - **"qa"**, **"ship"**, **"guard mode"**:
   - Route to `QA.md`, `SHIP.md`, or `GUARD_MODE.md`.
-
-## Communication Style
-
-- Be direct and actionable
-- Report findings from automatic searches naturally: "I checked the registry and found..."
-- Suggest the appropriate AIP level based on feature complexity
-- Remind about required phases if user tries to skip them
-- Celebrate completions: "AIP complete, feature documented, registry updated"
-
-## Remember
-
-The framework exists to create consistent, maintainable, traceable features. Your job is to guide users through the systematic process while handling the mechanical parts (searching, analyzing dependencies) transparently. The result is high-quality features that anyone can understand and maintain.

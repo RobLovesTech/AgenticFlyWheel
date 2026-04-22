@@ -1,0 +1,8 @@
+{
+  "name": "agentic-flywheel",
+  "version": "0.1.0",
+  "description": "Native Claude Code commands for AgenticFlywheel bootstrap, AIP creation, checklist validation, and AGENT_PROMPT generation.",
+  "author": {
+    "name": "ForgeNine"
+  }
+}

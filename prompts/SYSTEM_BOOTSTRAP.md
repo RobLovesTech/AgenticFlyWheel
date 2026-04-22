@@ -35,7 +35,7 @@ Goals
   - `docs/templates/aip-lite/*` (copy from `AgenticFlywheel/templates/aip-lite/*` - lightweight AIP templates)
   - `docs/features/REGISTRY.yaml` and `docs/features/REGISTRY.schema.json` (schema from `AgenticFlywheel/features/REGISTRY.schema.json`)
   - `AGENTS.md` (create or update) to reflect the installed docs layout, environment setup, verification commands, and how to run core prompts in this repo
-  - Optional agent configs with enhanced instructions (proposed with diffs): `.claude/PROJECT_PROMPT.md`, `.codex/agents.yml`, `.cursor/rules/.cursorrules` from `AgenticFlywheel/templates/config/*`
+  - Optional agent configs with enhanced instructions (proposed with diffs): `.claude/CLAUDE.md`, `.claude/skills/agentic-flywheel/`, `.codex/agents.yml`, `.cursor/rules/.cursorrules` from `AgenticFlywheel/templates/config/*`
   - Runtime-layer support: add `.agentic-flywheel/state/` to `.gitignore` when installing the execution-layer prompts
 - Discover existing features in the codebase and offer backfilling options
 - Guide user through creating their first real AIP during setup, and make sure they know how to generate a tailored `AGENT_PROMPT.txt` for it using `AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md` once the packet docs are complete.
@@ -45,6 +45,7 @@ Operating Rules (strict)
 - Plan-first: present a compact file plan (create/update paths + rationale) before any write.
 - Diff previews: show minimal diffs for each file; require user approval per file or “approve all”.
 - Idempotent: detect existing files; propose merge/append where appropriate; never clobber without consent.
+- Preserve-first for Claude Code: if `.claude/CLAUDE.md` already exists, preserve its existing content and structure. Add only the minimum AFW-specific facts, paths, and rules needed for Claude to use the framework correctly. Do not replace or rewrite unrelated sections unless the user explicitly approves that change.
 - Principles-based: encode the user's actual architecture and validation method — do not enforce any specific pattern.
 - No scripts: perform all actions via prompt-guided edits only.
 
@@ -112,6 +113,11 @@ Steps
      - Optional enhanced agent configs with automatic search and dependency checking (diff-only; user may skip)
      - `.gitignore` update for `.agentic-flywheel/state/` when runtime prompts are installed
      - If backfilling: `docs/features/BACKFILL_PLAN.md` with discovered features
+   - For Claude Code config updates:
+     - Treat an existing `.claude/CLAUDE.md` as user-owned content to merge into, not a template to overwrite.
+     - Preserve all unrelated sections verbatim where possible.
+     - Add only the AFW-specific guidance Claude needs: authoritative AFW paths, AIP/checklist expectations, and intent-routing notes.
+     - If a proposed AFW rule conflicts with an existing `CLAUDE.md` rule, call out the conflict explicitly and ask for direction instead of replacing either side silently.
    - Ensure the installed templates are configured for this repo:
      - Populate `verification.commands` in `docs/templates/AIP/CHECKLIST.yaml` and `docs/templates/aip-lite/CHECKLIST.yaml` with the discovered repo-specific commands (replace any placeholders).
      - Keep commands component-scoped and explicit (e.g., “backend: …”, “frontend: …”) when multiple components exist.
@@ -132,6 +138,7 @@ Steps
    - Apply approved changes. Ensure directory creation as needed.
    - Ensure cross-links: `docs/ai/INDEX.md` → AIP spec, templates (full + lite), Feature Registry; AIP docs reference INDEX.
    - Avoid duplicating existing content; merge respectfully with clear section headers.
+   - For `.claude/CLAUDE.md`, prefer appending or inserting a clearly scoped AFW section rather than rewriting the whole file. Keep the user’s existing wording, headings, and non-AFW guidance intact.
    - Verification enforcement:
      - Ensure the installed full and lite checklist templates include a task to run verification commands before completion.
      - Ensure `verification.commands` is non-empty and matches this repo’s actual tooling.
@@ -144,6 +151,7 @@ Steps
 6) Handoff
    - Brief pause: "Your framework is now set up! Before we finish, let's make this real..."
    - Strongly recommend running `AgenticFlywheel/prompts/AGENTS_CONFIG_TAILOR.md` next to non-destructively update your Claude/Codex/Cursor/Gemini configs so that commands like "new AIP" and "run bootstrap" are handled automatically.
+   - For Claude Code, prefer the native split of `.claude/CLAUDE.md` plus `.claude/skills/agentic-flywheel/` instead of the older `.claude/PROJECT_PROMPT.md` pattern.
    - Transition to Step 7 (Tutorial)
 
 7) Tutorial: Create Your First Real AIP (Optional - can defer)

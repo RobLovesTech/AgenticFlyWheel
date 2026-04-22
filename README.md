@@ -89,6 +89,7 @@ The AI follows `CHECKLIST.yaml` like a recipe—Design → Backend → Frontend 
 - **Feature Registry**: Single source of truth for all features, flags, and contracts
 - **Validation Prompts**: Checklist validators, registry validators, dependency analyzers
 - **Agent Configs**: Enhanced configs for Claude, Codex, Cursor
+- **Claude Code Native Assets**: Project-skill templates and a reusable plugin scaffold for AFW workflows
 
 ### 📚 **Your Tailored Documentation Constitution**
 The wizard generates these from your architecture interview:
@@ -131,6 +132,28 @@ cp -r AgenticFlywheel/ ./
 ```
 
 **No scripts. No dependencies. No lock-in.** Works with any AI tool.
+
+## Claude Code Native Use
+
+AFW now has two Claude-native integration modes:
+
+**Project skill**:
+- Install `templates/config/.claude/CLAUDE.md`
+- Install `templates/config/.claude/skills/agentic-flywheel/`
+- This is the recommended default for repos that vendor AFW locally
+
+**Plugin scaffold**:
+- Use `templates/claude-plugin/agentic-flywheel/`
+- This gives you namespaced native commands such as:
+  - `/agentic-flywheel:bootstrap`
+  - `/agentic-flywheel:create-aip <feature-slug>`
+  - `/agentic-flywheel:validate-checklist <path-or-feature-slug>`
+  - `/agentic-flywheel:generate-agent-prompt <feature-slug>`
+
+Recommended Claude split:
+- Put stable repo facts in `.claude/CLAUDE.md`
+- Put repeatable AFW procedures in `.claude/skills/agentic-flywheel/`
+- Keep `AGENT_PROMPT.txt` as the final zero-context handoff artifact inside each completed AIP
 
 ---
 
