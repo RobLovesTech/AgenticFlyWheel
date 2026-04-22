@@ -60,6 +60,9 @@ Read, in order:
 - `templates/aip-lite/*`, `docs/templates/aip-lite/*`, or vendored lite template sources
 
 Execution rules:
+- Treat generic requests like `new AIP` or `create AIP` as entry into the AIP flow, with `AIP_COLLAB.md` as the default route.
+- Use `AIP_NEW.md` only when the user explicitly wants direct/template-only scaffolding or when accepted prior planning artifacts already settle the feature well enough to draft safely.
+- Accepted outputs from `OFFICE_HOURS.md`, `AUTOPLAN.md`, existing `REVIEWS.md`, or equivalent review summaries can satisfy the preflight and avoid redundant questioning.
 - Choose lightweight vs full AIP using AFW scale guidance.
 - Ask only the minimum questions required to define scope, contracts, risks, and verification.
 - Update the feature registry as part of the proposal.

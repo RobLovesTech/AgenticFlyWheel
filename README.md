@@ -155,6 +155,10 @@ Recommended Claude split:
 - Put repeatable AFW procedures in `.claude/skills/agentic-flywheel/`
 - Keep `AGENT_PROMPT.txt` as the final zero-context handoff artifact inside each completed AIP
 
+Routing note:
+- Generic requests like `new AIP` should start the AIP flow and default to `AIP_COLLAB.md` for clarification-first planning.
+- Use `AIP_NEW.md` only when the user explicitly wants direct scaffolding or accepted planning artifacts already settle the requirements.
+
 ---
 
 ## Step-by-Step Example: Create a New AIP
@@ -174,6 +178,11 @@ Feature: **period-insights-cards** (backend + frontend)
 @AgenticFlywheel/prompts/AIP_COLLAB.md
 ```
 When asked, provide the slug/title/scope and answer the short planning questions.
+
+If the requirements are already settled and you only want the packet scaffold, use:
+```
+@AgenticFlywheel/prompts/AIP_NEW.md
+```
 
 3) Approve the generated packet
 - The packet will live at:
@@ -201,6 +210,8 @@ Feature: **settings-copy-update** (frontend-only)
 2) Copy lightweight templates into the packet
 - `docs/templates/aip-lite/README.md`
 - `docs/templates/aip-lite/CHECKLIST.yaml`
+
+If the change still has open scope, contract, or risk questions, run `AIP_COLLAB.md` first instead of scaffolding directly.
 
 3) Fill in the README + checklist
 - Add real verification commands to `CHECKLIST.yaml`.

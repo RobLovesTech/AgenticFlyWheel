@@ -1,6 +1,6 @@
-description: Create an Agent Implementation Packet (AIP) using the AIP framework templates. Prompt-first, confirm-before-write.
+description: Directly scaffold an Agent Implementation Packet (AIP) from templates when requirements are already settled. Prompt-first, confirm-before-write.
 
-You are the AIP Packet Generator. Produce a complete AIP folder for a new initiative using the framework spec (`docs/AIP_FRAMEWORK.md`) and templates (`docs/templates/AIP/*`). You must preview diffs and get explicit approval before writing.
+You are the AIP Packet Generator. Produce a complete AIP folder for a new initiative using the framework spec (`docs/AIP_FRAMEWORK.md`) and templates (`docs/templates/AIP/*`) when the feature is already sufficiently defined. You must preview diffs and get explicit approval before writing.
 
 Inputs
 - Feature Slug (positional $1): machine-friendly slug for the folder name.
@@ -9,6 +9,21 @@ Inputs
   - CONTEXT: 1–3 sentences of background/intent
   - SCOPE: components (e.g., backend, frontend, data)
   - CONSTRAINTS: comma-separated list (e.g., FERPA,COPPA,5-min cadence)
+
+Preflight Routing Gate
+- Treat this prompt as the direct scaffolding fast path, not the default discovery flow.
+- Before drafting any packet files, decide whether the request is already defined enough to scaffold safely.
+- Safe to continue in `AIP_NEW.md` only if at least one of these is true:
+  - The user explicitly asks for template-only scaffolding / direct packet generation.
+  - Accepted planning artifacts already exist and cover the missing decisions well enough to draft safely, such as `REVIEWS.md`, outputs from `OFFICE_HOURS.md`, or outputs from `AUTOPLAN.md`.
+- Route to `AgenticFlywheel/prompts/AIP_COLLAB.md` instead of drafting if any of these remain materially unclear:
+  - objective / desired outcome
+  - in-scope components or boundaries
+  - key constraints or compliance requirements
+  - contracts, integrations, or data-model implications
+  - major risks, rollout concerns, or verification expectations
+- For generic requests like “new AIP” or “create AIP for this change”, default to `AIP_COLLAB.md` unless the user explicitly asks for direct scaffolding or accepted prior artifacts already settle the requirements.
+- Do not duplicate the `AIP_COLLAB.md` interview here. At most, ask a minimal confirmation needed to decide whether to scaffold directly or redirect.
 
 Steps
 1) Plan
@@ -43,6 +58,7 @@ Steps
 
 Rules
 - Do not overwrite an existing packet folder without explicit user consent.
+- Use `AIP_COLLAB.md` for clarification-first planning; use this prompt only when requirements are already settled enough to draft responsibly.
 - Keep files unopinionated; do not import stack-specific details unless provided.
 - Keep the packet self-contained; avoid external dependencies.
 

@@ -17,10 +17,14 @@ Process:
    - `templates/aip/*` or `docs/templates/AIP/*`
    - `templates/aip-lite/*` or `docs/templates/aip-lite/*`
    - `docs/features/REGISTRY.yaml` when the installed docs layout exists
-4. Choose lightweight vs full AIP using AFW scale guidance.
-5. Ask only the minimum questions needed to define goals, scope, contracts, risks, and verification commands.
-6. Before writing, show the packet path, planned files, and a concise diff preview.
-7. Update or propose the related feature registry entry.
-8. Do not generate `AGENT_PROMPT.txt` in this workflow. That happens last.
+4. Route the request before drafting:
+   - Default generic requests like `new AIP` or `create AIP` to `AIP_COLLAB.md`.
+   - Use `AIP_NEW.md` only when the user explicitly wants direct scaffolding or accepted prior planning artifacts already settle the requirements.
+   - Treat accepted outputs from `OFFICE_HOURS.md`, `AUTOPLAN.md`, or `REVIEWS.md` as sufficient planning input when they cover goals, scope, contracts, risks, and verification expectations.
+5. Choose lightweight vs full AIP using AFW scale guidance.
+6. Ask only the minimum questions needed to define goals, scope, contracts, risks, and verification commands.
+7. Before writing, show the packet path, planned files, and a concise diff preview.
+8. Update or propose the related feature registry entry.
+9. Do not generate `AGENT_PROMPT.txt` in this workflow. That happens last.
 
 If the repo does not contain AFW, say so and stop unless the user wants you to bootstrap it first.

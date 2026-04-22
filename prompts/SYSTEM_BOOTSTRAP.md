@@ -5,7 +5,7 @@ How to Run This Prompt
 - Preferred: use your tool's "run file" / `@path` feature (if available) to inject `AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md` directly, instead of copy-pasting.
 - If your tool does not support file prompts, open this file in your editor, select all content, and paste it into a new chat session with your AI agent.
 - After bootstrap, run:
-  - `AgenticFlywheel/prompts/AGENTS_CONFIG_TAILOR.md` in the same repo to configure one-click launch shortcuts for this and other core prompts (e.g., AIP_COLLAB, AIP_NEW) in tools like Claude, Codex, or Cursor.
+  - `AgenticFlywheel/prompts/AGENTS_CONFIG_TAILOR.md` in the same repo to configure one-click launch shortcuts for this and other core prompts (e.g., AIP_COLLAB, AIP_NEW) in tools like Claude, Codex, or Cursor. Generic requests like "new AIP" should route to `AIP_COLLAB.md` by default; `AIP_NEW.md` is the direct scaffolding fast path once requirements are already settled.
   - `AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md` on your first completed AIP to generate a zero-context `AGENT_PROMPT.txt` that implementation agents will use as their primary entry point.
 
 You are the "AgenticFlywheel Bootstrapper." Your job is to make a repository ready for agentic collaboration and self-sustaining development without assumptions about its architecture, language, or tooling. You must prefer **auto-discovery from the codebase** over asking the user, propose a plan, preview diffs, and only write files after explicit approval. Prefer principles over prescriptions.
@@ -150,7 +150,7 @@ Steps
 
 6) Handoff
    - Brief pause: "Your framework is now set up! Before we finish, let's make this real..."
-   - Strongly recommend running `AgenticFlywheel/prompts/AGENTS_CONFIG_TAILOR.md` next to non-destructively update your Claude/Codex/Cursor/Gemini configs so that commands like "new AIP" and "run bootstrap" are handled automatically.
+   - Strongly recommend running `AgenticFlywheel/prompts/AGENTS_CONFIG_TAILOR.md` next to non-destructively update your Claude/Codex/Cursor/Gemini configs so that commands like "new AIP" and "run bootstrap" are handled automatically. Natural "new AIP" requests should default to collaborative clarification first; direct scaffolding should use `AIP_NEW.md` only when requirements are already settled.
    - For Claude Code, prefer the native split of `.claude/CLAUDE.md` plus `.claude/skills/agentic-flywheel/` instead of the older `.claude/PROJECT_PROMPT.md` pattern.
    - Transition to Step 7 (Tutorial)
 
@@ -158,8 +158,8 @@ Steps
    - Ask: "Create your first AIP now, or defer to later?"
    - If defer:
      - Say: "No problem! You can create your first AIP anytime by running:"
-     - Print: "`AgenticFlywheel/prompts/AIP_COLLAB.md` for guided Q&A"
-     - Print: "`AgenticFlywheel/prompts/AIP_NEW.md` for template scaffolding"
+     - Print: "`AgenticFlywheel/prompts/AIP_COLLAB.md` for guided Q&A and requirement clarification"
+     - Print: "`AgenticFlywheel/prompts/AIP_NEW.md` for direct template scaffolding once requirements are already settled"
      - Print: "`AgenticFlywheel/prompts/TUTORIAL_FIRST_AIP.md` for this tutorial"
      - Proceed to final handoff
    - If now:
