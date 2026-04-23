@@ -12,6 +12,7 @@ Authoritative paths:
 - `docs/ai/INDEX.md`: entry point for architecture, coding, testing, security, and ops docs
 - `docs/features/REGISTRY.yaml`: feature inventory, dependencies, contracts, and packet links
 - `docs/Agent Implementation Packets/**/CHECKLIST.yaml`: canonical execution status for each feature
+- `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`: required post-implementation audit gate before packet closure
 - `.claude/skills/agentic-flywheel/SKILL.md`: procedural AFW workflow for bootstrap, AIP creation, validation, and handoff
 
 Operating rules:
@@ -21,6 +22,7 @@ Operating rules:
 - Treat `CHECKLIST.yaml` as the canonical source of task order and completion state.
 - Complete the final `Docs & Handoff` phase before considering a feature done.
 - Generate `AGENT_PROMPT.txt` last, after packet docs are stable.
+- Run the required implementation audit before packet closure; fix or explicitly disposition findings, re-run targeted verification, and refresh `AGENT_PROMPT.txt` if audit-driven packet changes affect it.
 
 Scale guidance:
 - No AIP: tiny bug fixes, typos, docs-only edits, or very small refactors
@@ -28,6 +30,6 @@ Scale guidance:
 - Full AIP: multi-system work, contract changes, migrations, rollout flags, or meaningful risk
 
 Intent mapping:
-- Requests like `new AIP`, `create AIP for <feature>`, `validate checklist`, `generate AGENT_PROMPT`, or `bootstrap AFW` should use the AFW project skill rather than ad hoc chat.
+- Requests like `new AIP`, `create AIP for <feature>`, `implementation audit`, `validate checklist`, `generate AGENT_PROMPT`, `update AFW`, or `bootstrap AFW` should use the AFW project skill rather than ad hoc chat.
 
 Keep this file factual and stable. Put repeatable AFW procedures in `.claude/skills/agentic-flywheel/`.

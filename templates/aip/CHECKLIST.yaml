@@ -1,5 +1,5 @@
 version: 1
-feature: {{FEATURE_SLUG}}
+feature: "{{FEATURE_SLUG}}"
 status: pending
 constraints:
   - Respect privacy and security constraints
@@ -12,15 +12,15 @@ phases:
     tasks:
       - id: contracts
         title: Complete CONTRACTS.md (signals, thresholds, events, fallbacks)
-        files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CONTRACTS.md]
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CONTRACTS.md"]
         status: pending
       - id: review-gauntlet
         title: Capture discovery and review outputs in REVIEWS.md
-        files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md]
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md"]
         status: pending
       - id: backend_plan
         title: Complete BACKEND_IMPLEMENTATION.md (files, flags, pseudocode)
-        files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/BACKEND_IMPLEMENTATION.md]
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/BACKEND_IMPLEMENTATION.md"]
         status: pending
   - id: backend
     name: Backend Implementation
@@ -60,15 +60,15 @@ phases:
     tasks:
       - id: metrics
         title: Add metrics per OBSERVABILITY.md
-        files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/OBSERVABILITY.md]
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/OBSERVABILITY.md"]
         status: pending
       - id: runbook
         title: Add RUNBOOK and execute validation
-        files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/RUNBOOK.md]
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/RUNBOOK.md"]
         status: pending
   - id: handoff
     name: Docs & Handoff
-    description: Final doc sync and registry update
+    description: Final doc sync, required implementation audit, remediation, and closure
     tasks:
       - id: build-verify
         title: Run verification commands (tests/build/lint) for impacted components
@@ -76,11 +76,11 @@ phases:
         status: pending
       - id: reviews-sync
         title: Sync REVIEWS.md accepted decisions, open risks, and final verdict
-        files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md]
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md"]
         status: pending
       - id: context
         title: Update CONTEXT.md with final behavior
-        files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CONTEXT.md]
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CONTEXT.md"]
         status: pending
       - id: registry
         title: Add or update Feature Registry entry
@@ -91,8 +91,24 @@ phases:
         files: [docs/templates/AIP/AGENT_PROMPT_QA_CHECKLIST.md]
         status: pending
       - id: agent-prompt
-        title: Generate AGENT_PROMPT.txt last (follow AGENT_PROMPT_AUTHORING_GUIDE.md)
-        files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/AGENT_PROMPT.txt, docs/templates/AIP/AGENT_PROMPT_AUTHORING_GUIDE.md]
+        title: Generate AGENT_PROMPT.txt late in Docs & Handoff (follow AGENT_PROMPT_AUTHORING_GUIDE.md)
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/AGENT_PROMPT.txt", "docs/templates/AIP/AGENT_PROMPT_AUTHORING_GUIDE.md"]
+        status: pending
+      - id: implementation-audit
+        title: Run IMPLEMENTATION_AUDIT.md and record verdict in REVIEWS.md
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md", "AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md"]
+        status: pending
+      - id: audit-remediation
+        title: Fix or explicitly disposition every implementation audit finding
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CHECKLIST.yaml", "docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CHECKLIST.md", "docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md"]
+        status: pending
+      - id: audit-reverify
+        title: Re-run targeted verification for audit findings and update evidence
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/RUNBOOK.md", "docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md"]
+        status: pending
+      - id: packet-closure
+        title: Confirm audit passed, findings are resolved, and packet may be marked completed
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CHECKLIST.yaml", "docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CHECKLIST.md"]
         status: pending
 verification:
   commands:

@@ -52,8 +52,8 @@ Phases (Q&A → Files)
   - Deliverables: Commands, acceptance bullets, metrics/logs.
 
 8) Phases & Tasks → CHECKLIST.yaml, CHECKLIST.md
-  - Natural phases; smallest file-scoped tasks; acceptance per phase.
-  - Deliverables: Phases/tasks with statuses=pending; verification.commands and acceptance filled.
+   - Natural phases; smallest file-scoped tasks; acceptance per phase.
+   - Deliverables: Phases/tasks with statuses=pending; verification.commands and acceptance filled; required implementation audit/remediation/reverify/closure gates included.
 
 Flow
 1) Start with a concise summary of intent and what you’ll ask next. If CONTEXT/SCOPE/CONSTRAINTS provided, prefill drafts and confirm.
@@ -70,6 +70,8 @@ Flow
    - Ensure `verification.commands` is non-empty and matches this repo’s actual tooling (avoid placeholder TODOs; use component-scoped labels if multiple components exist).
    - Ensure “Docs & Handoff” phase present.
    - Ensure the full AIP checklist contains at least one task referencing `REVIEWS.md`.
+   - Ensure full AIP and AIP-Lite checklists contain `implementation-audit`, `audit-remediation`, `audit-reverify`, and `packet-closure` tasks.
+   - Ensure full AIP `REVIEWS.md` contains `Implementation Audit`; for AIP-Lite, ensure README.md contains `Implementation Audit`.
    - Preview diffs and require approval before writing.
    - Link from `docs/ai/INDEX.md` under “Implementation Packets” (if appropriate).
    - Propose Feature Registry update for this feature (diff-only; obtain approval to write).
@@ -78,6 +80,7 @@ Rules
 - Follow `docs/AIP_FRAMEWORK.md` (AIP-only; no ADR/AEP). Keep packet self-contained; minimize cross-links beyond registry/index.
 - Apply privacy & security constraints provided by the user.
 - Use the user’s architecture and validation method; do not impose frameworks.
+- Do not allow generated packets to omit the required implementation audit gate.
 
 Validation
 - After writing, present:

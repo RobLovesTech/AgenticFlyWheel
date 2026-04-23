@@ -76,7 +76,7 @@ Run the wizard. It interviews you about your architecture, then generates your e
 Run `OFFICE_HOURS.md` and `AUTOPLAN.md` to pressure-test the problem, then `AIP_COLLAB.md` to turn the accepted conclusions into a packet. You review a diff, approve it, and get a **complete implementation packet** with reviews, checklists, contracts, and test plans.
 
 ### **Phase 3: Build (Enforced Execution)**
-The AI follows `CHECKLIST.yaml` like a recipe—Design → Backend → Frontend → Testing → **Docs & Handoff** (mandatory). `PRELANDING_REVIEW.md`, `QA.md`, and `SHIP.md` form the execution-time gauntlet. Each phase has validation gates. Skip a step? The checklist validator catches it.
+The AI follows `CHECKLIST.yaml` like a recipe—Design → Backend → Frontend → Testing → **Docs & Handoff** → **Implementation Audit** → closure. `PRELANDING_REVIEW.md`, `IMPLEMENTATION_AUDIT.md`, `QA.md`, and `SHIP.md` form the execution-time gauntlet. Audit findings update the packet, create remediation work, require targeted re-verification, and block completion until resolved. Skip a step? The checklist validator catches it.
 
 ---
 
@@ -88,6 +88,7 @@ The AI follows `CHECKLIST.yaml` like a recipe—Design → Backend → Frontend 
 - **Runtime Layer**: Local-first checkpoints, learnings, review logs, and host routing under `.agentic-flywheel/state/`
 - **Feature Registry**: Single source of truth for all features, flags, and contracts
 - **Validation Prompts**: Checklist validators, registry validators, dependency analyzers
+- **Implementation Audit Gate**: Required post-implementation audit with security, architecture, QA, frontend, database, agentic AI, product, and DevEx review personas
 - **Agent Configs**: Enhanced configs for Claude, Codex, Cursor
 - **Claude Code Native Assets**: Project-skill templates and a reusable plugin scaffold for AFW workflows
 
@@ -153,7 +154,8 @@ AFW now has two Claude-native integration modes:
 Recommended Claude split:
 - Put stable repo facts in `.claude/CLAUDE.md`
 - Put repeatable AFW procedures in `.claude/skills/agentic-flywheel/`
-- Keep `AGENT_PROMPT.txt` as the final zero-context handoff artifact inside each completed AIP
+- Keep `AGENT_PROMPT.txt` as the zero-context handoff artifact inside each completed AIP, refreshing it if audit-driven packet changes affect execution instructions
+- Run `IMPLEMENTATION_AUDIT.md` before packet closure; accepted findings must be fixed or explicitly dispositioned and re-verified before completion
 
 Routing note:
 - Generic requests like `new AIP` should start the AIP flow and default to `AIP_COLLAB.md` for clarification-first planning.
@@ -196,10 +198,15 @@ If the requirements are already settled and you only want the packet scaffold, u
 5) Finish with Docs & Handoff
 - Run verification commands.
 - Update Feature Registry (`docs/features/REGISTRY.yaml`).
-- Generate the restartable prompt **last**:
+- Generate the restartable prompt late in handoff:
   ```
   @AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md
   ```
+- Run the required implementation audit before closure:
+  ```
+  @AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md
+  ```
+- Fix or explicitly disposition all findings, re-run targeted verification, and refresh `AGENT_PROMPT.txt` if audit findings changed packet docs or handoff instructions.
 
 ### Example (Lightweight AIP)
 Feature: **settings-copy-update** (frontend-only)
@@ -220,7 +227,8 @@ If the change still has open scope, contract, or risk questions, run `AIP_COLLAB
 4) Implement and finish the handoff
 - Run verification commands.
 - Update `docs/features/REGISTRY.yaml`.
-- Generate `AGENT_PROMPT.txt` last (same generator as above).
+- Run the scaled `IMPLEMENTATION_AUDIT.md` gate before closure.
+- Generate or refresh `AGENT_PROMPT.txt` if needed (same generator as above).
 
 ---
 
@@ -247,11 +255,12 @@ Is it a bug or tiny change? → No AIP
 
 The magic isn't in the templates—it's in the **structural constraints** that make it impossible to skip steps:
 
-1. **Required Phases**: `CHECKLIST.yaml` templates mandate Backend, Frontend, and Docs & Handoff
-2. **Validation Gates**: Your agent automatically leverages `CHECKLIST_VALIDATOR.md`—it fails if tests or docs are missing
+1. **Required Phases**: `CHECKLIST.yaml` templates mandate implementation, verification, Docs & Handoff, implementation audit, remediation, re-verification, and closure
+2. **Validation Gates**: Your agent automatically leverages `CHECKLIST_VALIDATOR.md`—it fails if tests, docs, audit, remediation, or closure gates are missing
 3. **Registry Updates**: Feature Registry must be updated during handoff—no feature is complete without traceability
-4. **Dependency Tracking**: AI automatically analyzes impact before modifications
-5. **Prompt-Based**: No scripts to bypass—AI agents follow the structure because it's the only path
+4. **Audit Findings Become Work**: Accepted findings update packet docs and checklist tasks, then block completion until fixed or explicitly dispositioned
+5. **Dependency Tracking**: AI automatically analyzes impact before modifications
+6. **Prompt-Based**: No scripts to bypass—AI agents follow the structure because it's the only path
 
 **Result:** AI agents can't "forget" to write tests or skip docs. The framework guides them to consistency.
 
@@ -264,6 +273,19 @@ A: Initially, yes—by 15-30 minutes for your first AIP. But you eliminate rewor
 
 **Q: What if we skip the "Docs & Handoff" phase?**  
 A: Don't. That's like skipping the foundation of a building. The flywheel breaks, docs drift, and you're back to chaos. This phase is what makes the system self-sustaining.
+
+**Q: What if the implementation audit finds issues after everything looked done?**
+A: That is the point of the gate. The findings are promoted into packet docs, remediation tasks are added to `CHECKLIST.yaml`, targeted verification is re-run, and the packet stays open until the issues are fixed or explicitly dispositioned.
+
+## Updating Existing AFW Installs
+
+If AFW is already deployed in a repo, run:
+
+```
+@AgenticFlywheel/prompts/AFW_IMPORT_UPDATE.md
+```
+
+Use it to merge the implementation-audit gate into vendored or installed AFW assets while preserving local customizations. It proposes diffs, updates templates/prompts/configs, and separately flags in-progress packets that need the new audit gate.
 
 **Q: How is this different from just "being more disciplined"?**  
 A: Discipline fails when you're moving fast. AgenticFlywheel **enforces** the discipline through structure and validation—like guardrails, not guidelines.

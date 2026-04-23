@@ -1,6 +1,6 @@
 ---
 name: validate-checklist
-description: Validate an AgenticFlywheel `CHECKLIST.yaml` for required phases, status coherence, verification coverage, and registry updates.
+description: Validate an AgenticFlywheel `CHECKLIST.yaml` for required phases, status coherence, verification coverage, implementation audit gates, and registry updates.
 disable-model-invocation: true
 argument-hint: [path-or-feature-slug]
 ---
@@ -20,6 +20,7 @@ Process:
    - required top-level fields
    - final `Docs & Handoff` phase
    - verification commands and acceptance
+   - implementation audit, remediation, re-verification, and packet closure tasks
    - status coherence
    - registry update coverage
 5. Return pass or fail with findings and a minimal proposed patch.

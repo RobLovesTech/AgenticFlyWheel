@@ -25,6 +25,7 @@ Process:
 6. Ask only the minimum questions needed to define goals, scope, contracts, risks, and verification commands.
 7. Before writing, show the packet path, planned files, and a concise diff preview.
 8. Update or propose the related feature registry entry.
-9. Do not generate `AGENT_PROMPT.txt` in this workflow. That happens last.
+9. Ensure the packet includes implementation audit, audit remediation, audit re-verification, and packet closure gates.
+10. Do not generate `AGENT_PROMPT.txt` in this workflow. That happens later in Docs & Handoff.
 
 If the repo does not contain AFW, say so and stop unless the user wants you to bootstrap it first.

@@ -2,13 +2,13 @@
 
 ## Project Structure & Module Organization
 - Root docs such as `README.md`, `spec/AIP_FRAMEWORK.md`, and `spec/EXECUTION_LAYER.md` define the AgenticFlywheel control plane and runtime layer.
-- `prompts/` contains the prompt workflows (e.g. `SYSTEM_BOOTSTRAP.md`, `AIP_NEW.md`, `OFFICE_HOURS.md`, `SHIP.md`) that agents run inside AI tools.
+- `prompts/` contains the prompt workflows (e.g. `SYSTEM_BOOTSTRAP.md`, `AIP_NEW.md`, `IMPLEMENTATION_AUDIT.md`, `OFFICE_HOURS.md`, `SHIP.md`) that agents run inside AI tools.
 - `templates/` holds reusable AIP and AIP‑Lite packet templates (`templates/aip/**`, `templates/aip-lite/**`) plus config templates under `templates/config/**`.
 - `features/REGISTRY.schema.json` defines the schema for downstream feature registries; keep it backward compatible.
 
 ## Build, Test, and Development Flow
 - This repository is docs‑ and schema‑only; there is no compile or build step.
-- To exercise flows, run the prompts in `prompts/` against a sample repo (start with `SYSTEM_BOOTSTRAP.md`, then `OFFICE_HOURS.md`/`AUTOPLAN.md`, then `TUTORIAL_FIRST_AIP.md`).
+- To exercise flows, run the prompts in `prompts/` against a sample repo (start with `SYSTEM_BOOTSTRAP.md`, then `OFFICE_HOURS.md`/`AUTOPLAN.md`, then `TUTORIAL_FIRST_AIP.md`, then `IMPLEMENTATION_AUDIT.md` before packet closure).
 - When editing schemas, validate them with your preferred JSON Schema tool (e.g. `ajv`, `spectral`) before opening a PR.
 
 ## Coding Style & Naming Conventions

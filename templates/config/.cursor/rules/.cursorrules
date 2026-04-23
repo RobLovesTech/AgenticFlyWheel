@@ -23,6 +23,7 @@ Before non-trivial changes:
 
 Treat these phrases as structured intents:
 - `new AIP`, `create AIP for <feature>`, `start AIP for this change` → `AgenticFlywheel/prompts/AIP_NEW.md` or `AgenticFlywheel/prompts/AIP_COLLAB.md`
+- `update AFW`, `import AFW update`, `upgrade AgenticFlywheel` → `AgenticFlywheel/prompts/AFW_IMPORT_UPDATE.md`
 - `office hours` → `AgenticFlywheel/prompts/OFFICE_HOURS.md`
 - `product review` → `AgenticFlywheel/prompts/PLAN_PRODUCT_REVIEW.md`
 - `eng review` → `AgenticFlywheel/prompts/PLAN_ENG_REVIEW.md`
@@ -30,6 +31,7 @@ Treat these phrases as structured intents:
 - `devex review` → `AgenticFlywheel/prompts/PLAN_DEVEX_REVIEW.md`
 - `autoplan` → `AgenticFlywheel/prompts/AUTOPLAN.md`
 - `prelanding review` → `AgenticFlywheel/prompts/PRELANDING_REVIEW.md`
+- `implementation audit`, `audit this AIP`, `run AIP audit` → `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`
 - `save context` → `AgenticFlywheel/prompts/CONTEXT_SAVE.md`
 - `resume context` or `restore context` → `AgenticFlywheel/prompts/CONTEXT_RESTORE.md`
 - `qa` → `AgenticFlywheel/prompts/QA.md`
@@ -38,9 +40,10 @@ Treat these phrases as structured intents:
 
 ## Workflow Defaults
 
-- Full feature flow: `OFFICE_HOURS -> AUTOPLAN -> AIP_COLLAB -> implementation -> PRELANDING_REVIEW -> QA -> SHIP`
+- Full feature flow: `OFFICE_HOURS -> AUTOPLAN -> AIP_COLLAB -> implementation -> PRELANDING_REVIEW -> IMPLEMENTATION_AUDIT -> QA -> SHIP`
 - Full AIPs require `REVIEWS.md`
 - Lite AIPs keep review conclusions in `README.md` under `Review Summary (Optional)`
+- All AIPs require implementation audit, remediation, targeted re-verification, and packet closure before top-level `completed`
 
 ## Runtime Layer
 

@@ -69,12 +69,15 @@ Steps
    - Create `docs/Agent Implementation Packets/<feature-slug>/CHECKLIST.yaml` from template
    - Populate with answers: objective, files, tests, acceptance
    - Ensure `verification.commands` is filled with real commands (no placeholders)
+   - Ensure the scaled implementation audit gate is present before packet closure
    
    If full:
-   - Create complete packet docs from templates (README, CONTEXT, CONTRACTS, BACKEND_IMPLEMENTATION, ORCHESTRATION_AND_UI, CHECKLIST, RUNBOOK, OBSERVABILITY, RISKS, DATA_MODEL.sql) but do not create `AGENT_PROMPT.txt` yet.
+   - Create complete packet docs from templates (README, REVIEWS, CONTEXT, CONTRACTS, BACKEND_IMPLEMENTATION, ORCHESTRATION_AND_UI, CHECKLIST, RUNBOOK, OBSERVABILITY, RISKS, DATA_MODEL.sql) but do not create `AGENT_PROMPT.txt` yet.
    - Do not copy `AGENT_PROMPT_AUTHORING_GUIDE.md` or `AGENT_PROMPT_QA_CHECKLIST.md` into the packet folder; they stay in `docs/templates/AIP/` as authoring references when it is time to generate the agent prompt.
    - Use answers to fill in details; leave TODOs where needed
    - Ensure `verification.commands` is filled with real commands (no placeholders)
+   - Ensure `REVIEWS.md` includes `Implementation Audit`
+   - Ensure the implementation audit/remediation/reverify/closure gates are present before packet closure
    - Note: "You can refine these docs before implementing"
    
    Set status: `pending` in CHECKLIST.yaml
@@ -114,7 +117,7 @@ Steps
    2. Refine if needed: Add details to CONTRACTS.md or BACKEND_IMPLEMENTATION.md
    3. Start implementing: Follow CHECKLIST.yaml tasks in order
    4. As you work: Mark tasks as `in_progress` then `completed` in CHECKLIST.yaml
-   5. When done: Complete the "Documentation & Registry" phase
+   5. Before closure: Run `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`, fix findings, re-run targeted verification, then complete the packet-closure task
    
    Pro tip: Share the AIP with your team to align on approach before coding.
    

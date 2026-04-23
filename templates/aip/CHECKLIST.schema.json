@@ -13,6 +13,24 @@
     "phases": {
       "type": "array",
       "minItems": 1,
+      "contains": {
+        "type": "object",
+        "properties": {
+          "id": {"const": "handoff"},
+          "name": {"type": "string"},
+          "tasks": {
+            "type": "array",
+            "allOf": [
+              {"contains": {"type": "object", "properties": {"id": {"const": "build-verify"}}, "required": ["id"]}},
+              {"contains": {"type": "object", "properties": {"id": {"const": "implementation-audit"}}, "required": ["id"]}},
+              {"contains": {"type": "object", "properties": {"id": {"const": "audit-remediation"}}, "required": ["id"]}},
+              {"contains": {"type": "object", "properties": {"id": {"const": "audit-reverify"}}, "required": ["id"]}},
+              {"contains": {"type": "object", "properties": {"id": {"const": "packet-closure"}}, "required": ["id"]}}
+            ]
+          }
+        },
+        "required": ["id", "tasks"]
+      },
       "items": {
         "type": "object",
         "required": ["id", "name", "tasks"],
@@ -45,5 +63,5 @@
       }
     }
   },
-  "description": "Full AIP checklists should include a task referencing REVIEWS.md in addition to the standard Docs & Handoff phase."
+  "description": "Full AIP checklists must include REVIEWS.md coverage plus a Docs & Handoff phase with verification, implementation audit, remediation, re-verification, and packet closure gates."
 }

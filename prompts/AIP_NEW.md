@@ -33,6 +33,8 @@ Steps
    - Replace placeholders: `{{FEATURE_SLUG}}` → $1; `{{TITLE}}` → $TITLE or $1.
    - Ensure “Docs & Handoff” phase exists in `CHECKLIST.yaml`.
    - Ensure the checklist contains a task referencing `REVIEWS.md`.
+   - Ensure the checklist contains required implementation audit gates: `implementation-audit`, `audit-remediation`, `audit-reverify`, and `packet-closure`.
+   - Ensure `REVIEWS.md` contains an `Implementation Audit` section.
    - Ensure `verification.commands` is populated with this repo’s real verification commands (tests/build/lint) for impacted components (do not leave placeholder TODOs).
    - If `docs/templates/AIP/*` is missing, copy from `AgenticFlywheel/templates/aip/*` first.
    - If prior discovery/review artifacts exist in `.agentic-flywheel/state/`, summarize only the accepted conclusions into `REVIEWS.md`.
@@ -54,7 +56,7 @@ Steps
 5) Next Steps
    - Suggest running: `AgenticFlywheel/prompts/CHECKLIST_VALIDATOR.md` on the new `CHECKLIST.yaml`.
    - Propose Feature Registry update via `AgenticFlywheel/prompts/FEATURES_REGISTRY_UPDATE.md`.
-   - Remind: generate AGENT_PROMPT.txt last after packet docs are finalized.
+   - Remind: generate AGENT_PROMPT.txt late in Docs & Handoff, then run `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md` before packet closure.
 
 Rules
 - Do not overwrite an existing packet folder without explicit user consent.

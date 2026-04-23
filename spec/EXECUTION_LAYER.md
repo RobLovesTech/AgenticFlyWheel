@@ -27,6 +27,7 @@ Precedence Rules
 - `REVIEWS.md` is the only review artifact an implementation prompt may treat as authoritative.
 - Runtime logs may inform drafting, summarization, and recovery, but they do not change contracts or acceptance by themselves.
 - If a runtime conclusion matters, it must be promoted into `REVIEWS.md`, `CHECKLIST.*`, or another packet doc before it can gate work.
+- Implementation audit findings are not authoritative until promoted into packet docs, but once accepted and promoted they are hard closure blockers until fixed or explicitly dispositioned with rationale.
 
 Data Contracts
 - `checkpoints/*.md`
@@ -50,10 +51,18 @@ Review Promotion Flow
 4) If accepted conclusions affect implementation scope, update `README.md`, `CONTRACTS.md`, `CHECKLIST.yaml`, or other packet docs.
 5) `AGENT_PROMPT_GENERATOR.md` reads packet docs, not raw runtime logs.
 
+Implementation Audit Flow
+1) After implementation, verification, docs sync, and AGENT_PROMPT generation, run `IMPLEMENTATION_AUDIT.md`.
+2) Append the advisory runtime entry to `.agentic-flywheel/state/reviews.jsonl` when runtime logging is enabled.
+3) Promote accepted audit findings into `REVIEWS.md` for full AIPs or the `Implementation Audit` section of README.md for AIP-Lite.
+4) Create remediation checklist tasks for actionable findings in `CHECKLIST.yaml` and `CHECKLIST.md`.
+5) Fix or explicitly disposition findings, refresh AGENT_PROMPT.txt if audit-driven packet changes affect it, re-run targeted verification, then mark audit remediation, re-verification, and packet closure tasks complete.
+6) Only after this flow may top-level `CHECKLIST.yaml.status` be set to `completed`.
+
 Host Strategy
 - Codex is the primary host in v1.
 - Claude and Cursor should receive compatible, smaller overlays after the Codex path is stable.
-- Host configs should route natural-language commands for planning, reviews, checkpointing, QA, shipping, and guard mode to the matching AFW prompt.
+- Host configs should route natural-language commands for planning, reviews, implementation audit, checkpointing, QA, shipping, and guard mode to the matching AFW prompt.
 
 Privacy and Retention
 - First cut is local-only. No hosted telemetry.

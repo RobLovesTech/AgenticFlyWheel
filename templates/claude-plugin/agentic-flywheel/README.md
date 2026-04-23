@@ -4,7 +4,9 @@ This plugin gives AgenticFlywheel native Claude Code skill entry points instead 
 
 Included commands:
 - `/agentic-flywheel:bootstrap`
+- `/agentic-flywheel:import-update`
 - `/agentic-flywheel:create-aip <feature-slug>`
+- `/agentic-flywheel:implementation-audit <path-or-feature-slug>`
 - `/agentic-flywheel:validate-checklist <path-or-feature-slug>`
 - `/agentic-flywheel:generate-agent-prompt <feature-slug>`
 

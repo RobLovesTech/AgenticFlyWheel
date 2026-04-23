@@ -29,6 +29,9 @@ Verification & Acceptance
 - [ ] Acceptance from README “Acceptance” is included
 - [ ] Acceptance Rules from CONTRACTS are included or referenced
 - [ ] Validation & Observability panels/metrics named (from OBSERVABILITY)
+- [ ] Required IMPLEMENTATION_AUDIT gate is included before packet closure
+- [ ] Audit findings are described as blockers until fixed or explicitly dispositioned with rationale
+- [ ] Targeted re-verification after audit remediation is required
 
 Guardrails & Constraints
 - [ ] Privacy/PII constraints restated (e.g., redaction, no names)

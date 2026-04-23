@@ -24,6 +24,12 @@ Acceptance
 Review Summary (Optional)
 - If planning/review prompts ran first, summarize the accepted conclusions here instead of creating REVIEWS.md.
 
+Implementation Audit
+- Required after implementation, verification, and docs updates, but before packet closure.
+- Record the scaled `IMPLEMENTATION_AUDIT.md` verdict here.
+- List any accepted findings, fixes, targeted re-verification evidence, and explicitly non-blocking concerns.
+- Packet closure is not allowed until actionable findings are fixed or explicitly marked not applicable with rationale.
+
 Rollout
 - How to deploy (flags, gradual rollout, or all-at-once).
 - Rollback plan if issues arise.

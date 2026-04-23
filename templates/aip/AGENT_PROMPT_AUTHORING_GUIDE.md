@@ -1,4 +1,4 @@
-Agent Prompt Authoring Guide (Generate Last)
+Agent Prompt Authoring Guide (Generate Late in Handoff)
 
 Purpose
 - Produce a zero‑context, execution‑ready AGENT_PROMPT.txt that synthesizes the entire AIP into a single, precise instruction set.
@@ -28,6 +28,7 @@ AGENT_PROMPT Structure (must include)
 - Step-by-step tasks (from CHECKLIST.yaml) — summarize concisely
 - Verify & Accept (Acceptance from README + Acceptance Rules from CONTRACTS)
 - Validation & Observability (metrics/dashboards from OBSERVABILITY)
+- Implementation Audit Gate (run IMPLEMENTATION_AUDIT after implementation/docs/verification, fix findings, re-verify, then close)
 - Ground rules (minimize scope; update docs; compliance; no unrelated changes)
 
 Rubric (self‑check before finalizing)
@@ -37,6 +38,7 @@ Rubric (self‑check before finalizing)
 - Are tasks in execution order (phases) and concise?
 - Are acceptance conditions explicit and verifiable?
 - Are validation commands/queries mentioned?
+- Does it state that IMPLEMENTATION_AUDIT is required before packet closure and that findings block completion until fixed or explicitly dispositioned?
 - Is it free of implementation detail that belongs in packet docs (keep it an instruction, not a design doc)?
 
 Anti‑patterns
@@ -49,3 +51,4 @@ Anti‑patterns
 Handoff
 - Save AGENT_PROMPT.txt at the root of the packet.
 - Update CHECKLIST to mark the task complete.
+- Do not mark packet closure complete until the implementation audit, remediation, and targeted re-verification tasks are complete.

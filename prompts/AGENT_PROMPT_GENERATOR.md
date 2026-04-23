@@ -26,7 +26,8 @@ Target Paths
   - `docs/templates/AIP/AGENT_PROMPT_QA_CHECKLIST.md`
 
 Operating Rules
-- Generate AGENT_PROMPT.txt **last**, after packet docs are in a stable state.
+- Generate AGENT_PROMPT.txt late in Docs & Handoff, after packet docs are stable enough for implementation handoff.
+- The generated prompt must include the required implementation audit gate before packet closure.
 - Treat `CHECKLIST.yaml` as the source of truth for execution order and acceptance.
 - Never copy the authoring guide or QA checklist into the packet; they remain in `docs/templates/AIP/`.
 - Always show a diff preview of `AGENT_PROMPT.txt` (new or updated) and require explicit approval before writing.
@@ -51,7 +52,7 @@ Sequence
      - `OBSERVABILITY.md` → metrics names/labels, dashboards, validation panels.
      - `RISKS.md` → top risks and mitigations.
      - `CONTEXT.md` → constraints, env defaults, parity notes.
-     - `CHECKLIST.yaml` → phases/tasks, verification.commands, acceptance.
+     - `CHECKLIST.yaml` → phases/tasks, verification.commands, acceptance, implementation audit/remediation/reverify/closure tasks.
    - Produce a concise, numbered summary of:
      - Main goals and non-goals
      - Accepted review inputs and open risks
@@ -76,6 +77,7 @@ Sequence
      - Execution Plan: step-by-step tasks aligned with `CHECKLIST.yaml` phases/tasks (summarized, not 1:1 copies).
      - Verify & Accept: acceptance criteria distilled from README and CONTRACTS, including any important edge cases.
      - Validation & Observability: metrics, dashboards, and checks required before calling the feature “done”.
+     - Implementation Audit Gate: run `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md` after implementation, verification, docs sync, and AGENT_PROMPT generation; promote findings into packet docs; fix or explicitly disposition each finding; refresh AGENT_PROMPT.txt if audit-driven packet changes affect it; re-run targeted verification; complete packet closure only after the audit passes.
      - Ground Rules: concise bullets for constraints (privacy, security, parity, scope discipline, doc updates).
    - Keep the prompt zero-context and self-contained: do not refer to prior chats; always reference docs and files by path.
    - Never read raw `.agentic-flywheel/state/*` logs into the final prompt.
@@ -86,6 +88,7 @@ Sequence
      - Flags and defaults are correctly captured.
      - Acceptance conditions are explicit and verifiable.
      - Metrics/logs/dashboards used for validation are called out.
+     - IMPLEMENTATION_AUDIT is included as a mandatory closure gate and audit findings block completion until resolved or explicitly dispositioned.
    - If any item would fail the checklist, revise the draft before showing it to the user.
 
 5) Preview & Approval
@@ -104,6 +107,7 @@ Sequence
    - Print:
      - Path written: `docs/Agent Implementation Packets/$1/AGENT_PROMPT.txt`
      - A one-line reminder to mark the “generate AGENT_PROMPT.txt” task as completed in `CHECKLIST.yaml` under the “Docs & Handoff” phase.
+     - A one-line reminder that packet closure still requires `IMPLEMENTATION_AUDIT.md`, remediation, targeted re-verification, and the packet-closure task.
      - Suggestion to use this prompt as the primary entry point for implementation agents working on this AIP.
 
 Output

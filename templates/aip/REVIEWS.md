@@ -20,8 +20,14 @@ Outside Voice
 Accepted Decisions
 - List only the conclusions that are approved to drive implementation.
 
+Implementation Audit
+- Required after implementation, verification, docs sync, and AGENT_PROMPT generation, but before packet closure.
+- Record the `IMPLEMENTATION_AUDIT.md` verdict here: `pass`, `pass with concerns`, or `fail`.
+- Summarize blocking findings, accepted remediation decisions, verification evidence, and any explicitly non-blocking concerns.
+- Packet closure is not allowed until actionable findings are fixed or explicitly marked not applicable with rationale and targeted re-verification is recorded.
+
 Open Risks
 - List unresolved risks, assumptions, and follow-up questions.
 
 Final Verdict
-- State whether the packet is ready to implement, blocked, or needs more review.
+- State whether the packet is ready to implement, blocked, needs more review, or passed implementation audit and may close.

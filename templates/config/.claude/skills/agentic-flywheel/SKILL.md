@@ -1,6 +1,6 @@
 ---
 name: agentic-flywheel
-description: Use AgenticFlywheel for bootstrap, AIP creation, AIP reconciliation, checklist validation, and zero-context AGENT_PROMPT generation. Trigger when the user asks to bootstrap AFW, create or update an AIP, validate `CHECKLIST.yaml`, reconcile packet docs, or generate `AGENT_PROMPT.txt`.
+description: Use AgenticFlywheel for bootstrap, AIP creation, implementation audit, AIP reconciliation, checklist validation, and zero-context AGENT_PROMPT generation. Trigger when the user asks to bootstrap AFW, create or update an AIP, run the implementation audit, validate `CHECKLIST.yaml`, reconcile packet docs, or generate `AGENT_PROMPT.txt`.
 ---
 
 # AgenticFlywheel
@@ -48,6 +48,21 @@ Execution rules:
 - For Claude Code, prefer `.claude/CLAUDE.md` plus `.claude/skills/agentic-flywheel/` over the legacy `.claude/PROJECT_PROMPT.md` pattern.
 - If `.claude/CLAUDE.md` already exists, preserve it. Add only the minimum AFW-specific facts and routing rules needed for Claude to use AFW correctly. Do not rewrite unrelated content or restructure the file unless the user explicitly asks for that.
 
+### Import or Update AFW
+
+Use when the user asks to update AFW, import AFW updates, or upgrade AgenticFlywheel in a repo that already vendors or installs it.
+
+Read:
+- `prompts/AFW_IMPORT_UPDATE.md` or `AgenticFlywheel/prompts/AFW_IMPORT_UPDATE.md`
+- The repo's `AGENTS.md`
+- Existing AFW source, vendored, or installed docs/templates layout
+
+Execution rules:
+- Preserve local customizations and show diffs before writing.
+- Add or update the implementation audit gate across prompts, templates, specs, validators, and host configs.
+- Propose separate migration diffs for in-progress AIPs.
+- Do not modify completed AIPs unless the user explicitly approves.
+
 ### Create or Update an AIP
 
 Use when the user says `new AIP`, `create AIP`, `start AIP for this change`, or asks to plan a feature with AFW.
@@ -66,7 +81,25 @@ Execution rules:
 - Choose lightweight vs full AIP using AFW scale guidance.
 - Ask only the minimum questions required to define scope, contracts, risks, and verification.
 - Update the feature registry as part of the proposal.
+- Ensure the generated checklist includes `implementation-audit`, `audit-remediation`, `audit-reverify`, and `packet-closure`.
 - Do not generate `AGENT_PROMPT.txt` during AIP creation.
+
+### Run Implementation Audit
+
+Use when the user says `implementation audit`, `audit this AIP`, `run AIP audit`, or when an AIP is ready for closure.
+
+Read:
+- `prompts/IMPLEMENTATION_AUDIT.md` or `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`
+- The target packet docs, especially `CHECKLIST.yaml`
+- Changed implementation files and verification evidence named by the packet
+
+Execution rules:
+- Run after implementation, verification, docs sync, and AGENT_PROMPT generation, before packet closure.
+- Treat packet docs as canonical; runtime state is advisory only.
+- Promote accepted findings into `REVIEWS.md` for full AIPs or README.md for AIP-Lite.
+- Add remediation tasks for actionable findings.
+- Block top-level `completed` until findings are fixed or explicitly dispositioned and targeted re-verification passes.
+- Refresh `AGENT_PROMPT.txt` if audit-driven packet changes affect execution or handoff instructions.
 
 ### Reconcile an Existing Packet
 
@@ -87,7 +120,7 @@ Read:
 - The target `CHECKLIST.yaml`
 
 Execution rules:
-- Check required phases, status coherence, verification commands, and registry update coverage.
+- Check required phases, status coherence, verification commands, registry update coverage, implementation audit, audit remediation, audit re-verification, and packet closure coverage.
 - Propose a minimal patch when the checklist is invalid.
 
 ### Generate `AGENT_PROMPT.txt`
@@ -102,7 +135,7 @@ Read:
 
 Execution rules:
 - Treat `CHECKLIST.yaml` as canonical.
-- Generate the prompt last.
+- Generate the prompt late in Docs & Handoff, and include the required implementation audit gate before packet closure.
 - Show the full draft or a concise diff before writing.
 
 ## Output Expectations

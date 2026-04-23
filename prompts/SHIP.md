@@ -16,6 +16,11 @@ Required Checks
 - Verification commands from `CHECKLIST.yaml` and `RUNBOOK.md`
 - Open risks and final verdict in `REVIEWS.md`
 - Docs & Handoff tasks in `CHECKLIST.yaml`
+- Implementation audit verdict and evidence:
+  - Full AIP: `REVIEWS.md` includes an `Implementation Audit` verdict of `pass` or `pass with concerns`.
+  - AIP-Lite: README.md includes the scaled `Implementation Audit` verdict.
+  - `implementation-audit`, `audit-remediation`, `audit-reverify`, and `packet-closure` tasks exist and are completed.
+  - No unresolved blocking audit findings remain.
 - Observability and rollback readiness from `OBSERVABILITY.md` and `RUNBOOK.md`
 
 Write Back
@@ -27,4 +32,4 @@ Output
 - Ship-readiness summary
 - Blocking findings first
 - Exact commands run or still required
-- Recommended next step: revise, QA, or ship
+- Recommended next step: implementation audit, revise, QA, or ship

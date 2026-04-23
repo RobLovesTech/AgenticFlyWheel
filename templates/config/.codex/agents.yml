@@ -62,8 +62,12 @@ agents:
         - Treat it as a request to create a new Agent Implementation Packet.
         - Collaborate with the AIP creation flow using `AgenticFlywheel/prompts/AIP_NEW.md` and/or `AgenticFlywheel/prompts/AIP_COLLAB.md`.
         - Ask only for what is strictly needed (e.g., feature slug/title) and then scaffold the packet using `docs/templates/AIP/**` or `docs/templates/aip-lite/**` as appropriate.
+      - When the user says "update AFW", "import AFW update", or "upgrade AgenticFlywheel":
+        - Route to `AgenticFlywheel/prompts/AFW_IMPORT_UPDATE.md`.
       - When the user says "office hours", "product review", "eng review", "design review", "devex review", or "autoplan":
         - Route to the matching planning/review prompt under `AgenticFlywheel/prompts/`.
+      - When the user says "implementation audit", "audit this AIP", or "run AIP audit":
+        - Route to `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`.
       - When the user says "save context", "resume context", "restore context", "qa", "ship", or "guard mode":
         - Route to the matching runtime-layer prompt under `AgenticFlywheel/prompts/`.
       
@@ -80,7 +84,8 @@ agents:
       4. Complete all test tasks (never skip)
       5. Complete "Docs & Handoff" phase (mandatory)
       6. Update Feature Registry
-      7. Use `PRELANDING_REVIEW -> QA -> SHIP` before calling the work done
+      7. Run `IMPLEMENTATION_AUDIT`, fix or explicitly disposition findings, and re-run targeted verification
+      8. Use `PRELANDING_REVIEW -> IMPLEMENTATION_AUDIT -> QA -> SHIP` before calling the work done
       
       DEPENDENCY MANAGEMENT:
       - Check dependencies field in Feature Registry automatically
@@ -97,6 +102,8 @@ agents:
       - Documentation is required for every feature
       - Feature Registry must be updated
       - CHECKLIST.yaml is the canonical task list
+      - IMPLEMENTATION_AUDIT is required before packet closure
+      - Audit findings block completion until fixed or explicitly dispositioned and re-verified
     
     context_priority:
       - "docs/features/REGISTRY.yaml"
@@ -116,7 +123,7 @@ agents:
       
       LIGHTWEIGHT AIP (docs/templates/aip-lite/):
       - README.md: objective, changes, testing, acceptance
-      - CHECKLIST.yaml: implement, test, document phases
+      - CHECKLIST.yaml: implement, test, document, audit, remediate, reverify, close phases
       
       FULL AIP (docs/templates/AIP/):
       - Complete packet: README, REVIEWS, CONTEXT, CONTRACTS, BACKEND_IMPLEMENTATION,
@@ -127,7 +134,8 @@ agents:
       2. Run structured Q&A (use AIP_COLLAB.md as guide)
       3. Generate packet from templates
       4. Add Feature Registry entry
-      5. Show user what was created and next steps
+      5. Ensure implementation audit/remediation/reverify/closure gates are present
+      6. Show user what was created and next steps
     
     context_priority:
       - "docs/templates/AIP/"
@@ -195,6 +203,9 @@ behavior:
   
   # Enforce completion of test and documentation tasks
   enforce_completeness: true
+
+  # Require post-implementation audit before packet closure
+  require_implementation_audit: true
   
   # Update registry in "Docs & Handoff" phase
   require_registry_update: true
@@ -211,6 +222,10 @@ rules:
   required_tasks:
     - "tests-backend"
     - "tests-frontend"
+    - "implementation-audit"
+    - "audit-remediation"
+    - "audit-reverify"
+    - "packet-closure"
   
   # Always consult these before changes
   required_context:

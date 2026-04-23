@@ -7,6 +7,7 @@ How to Run This Prompt
 - After bootstrap, run:
   - `AgenticFlywheel/prompts/AGENTS_CONFIG_TAILOR.md` in the same repo to configure one-click launch shortcuts for this and other core prompts (e.g., AIP_COLLAB, AIP_NEW) in tools like Claude, Codex, or Cursor. Generic requests like "new AIP" should route to `AIP_COLLAB.md` by default; `AIP_NEW.md` is the direct scaffolding fast path once requirements are already settled.
   - `AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md` on your first completed AIP to generate a zero-context `AGENT_PROMPT.txt` that implementation agents will use as their primary entry point.
+  - `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md` after implementation, verification, docs sync, and prompt generation, before packet closure.
 
 You are the "AgenticFlywheel Bootstrapper." Your job is to make a repository ready for agentic collaboration and self-sustaining development without assumptions about its architecture, language, or tooling. You must prefer **auto-discovery from the codebase** over asking the user, propose a plan, preview diffs, and only write files after explicit approval. Prefer principles over prescriptions.
 
@@ -39,6 +40,7 @@ Goals
   - Runtime-layer support: add `.agentic-flywheel/state/` to `.gitignore` when installing the execution-layer prompts
 - Discover existing features in the codebase and offer backfilling options
 - Guide user through creating their first real AIP during setup, and make sure they know how to generate a tailored `AGENT_PROMPT.txt` for it using `AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md` once the packet docs are complete.
+- Ensure every installed full and lightweight AIP template includes the required implementation audit/remediation/reverify/closure gate.
 
 Operating Rules (strict)
 - Interview-first: ask concise questions in short rounds; reflect back and confirm.
@@ -110,6 +112,7 @@ Steps
      - `docs/templates/aip-lite/*` from `AgenticFlywheel/templates/aip-lite/*` (lightweight templates)
      - `docs/features/REGISTRY.yaml` + schema; initial empty list (or a seed feature if the user requests)
      - `AGENTS.md` updates reflecting environment setup, verification commands, and how to run prompts in this repo
+     - `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md` as the required post-implementation audit gate before packet closure
      - Optional enhanced agent configs with automatic search and dependency checking (diff-only; user may skip)
      - `.gitignore` update for `.agentic-flywheel/state/` when runtime prompts are installed
      - If backfilling: `docs/features/BACKFILL_PLAN.md` with discovered features
@@ -121,6 +124,7 @@ Steps
    - Ensure the installed templates are configured for this repo:
      - Populate `verification.commands` in `docs/templates/AIP/CHECKLIST.yaml` and `docs/templates/aip-lite/CHECKLIST.yaml` with the discovered repo-specific commands (replace any placeholders).
      - Keep commands component-scoped and explicit (e.g., “backend: …”, “frontend: …”) when multiple components exist.
+     - Preserve the required implementation audit, remediation, targeted re-verification, and packet-closure tasks in both full and lite checklist templates.
 
 3) Review & Approval
    - Group files by category for easier review:
@@ -141,6 +145,7 @@ Steps
    - For `.claude/CLAUDE.md`, prefer appending or inserting a clearly scoped AFW section rather than rewriting the whole file. Keep the user’s existing wording, headings, and non-AFW guidance intact.
    - Verification enforcement:
      - Ensure the installed full and lite checklist templates include a task to run verification commands before completion.
+     - Ensure the installed full and lite checklist templates include the required implementation audit, audit remediation, audit re-verification, and packet closure gates.
      - Ensure `verification.commands` is non-empty and matches this repo’s actual tooling.
    - If agent configs approved, emphasize: "Your AI agent will now automatically search AIPs, check dependencies, and suggest appropriate AIP levels — you won't need to manually trigger these actions."
 
@@ -160,6 +165,7 @@ Steps
      - Say: "No problem! You can create your first AIP anytime by running:"
      - Print: "`AgenticFlywheel/prompts/AIP_COLLAB.md` for guided Q&A and requirement clarification"
      - Print: "`AgenticFlywheel/prompts/AIP_NEW.md` for direct template scaffolding once requirements are already settled"
+     - Print: "`AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md` for the required post-implementation closure audit"
      - Print: "`AgenticFlywheel/prompts/TUTORIAL_FIRST_AIP.md` for this tutorial"
      - Proceed to final handoff
    - If now:
@@ -212,7 +218,7 @@ Steps
         1. Review your AIP: docs/Agent Implementation Packets/<feature-slug>/README.md
         2. Start implementing: Follow CHECKLIST.yaml tasks in order
         3. As you work: Mark tasks as in_progress then completed
-        4. When done: Complete "Docs & Handoff" phase to update registry
+        4. Before closure: Run `IMPLEMENTATION_AUDIT.md`, fix or disposition findings, and re-run targeted verification
         
         Optional - Backfill existing features:
         - Use AgenticFlywheel/prompts/FEATURES_RETROFIT.md per feature in your backfill plan
@@ -221,7 +227,7 @@ Steps
         - Small features (<2 days)? Use `docs/templates/aip-lite/`
         - Your AI agent automatically searches AIPs and checks dependencies
         - After you run AGENTS_CONFIG_TAILOR, you can simply say "new AIP" or "run bootstrap wizard" in your primary agent and it will route to the correct prompt
-        - Never skip the "Docs & Handoff" phase — that's what makes the flywheel work
+        - Never skip the "Docs & Handoff" phase or implementation audit gate — that's what makes the flywheel work
         
         Ready to start implementing? Just say "Let's begin" and I'll guide you through the first task.
         ```

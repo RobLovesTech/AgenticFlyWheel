@@ -4,7 +4,7 @@ Claude Code now uses `.claude/CLAUDE.md` plus `.claude/skills/**` as the native 
 
 AgenticFlywheel installs:
 - `.claude/CLAUDE.md` for stable repository facts and non-negotiable rules
-- `.claude/skills/agentic-flywheel/` for repeatable AFW procedures such as bootstrap, AIP creation, checklist validation, and `AGENT_PROMPT.txt` generation
+- `.claude/skills/agentic-flywheel/` for repeatable AFW procedures such as bootstrap, AIP creation, implementation audit, checklist validation, and `AGENT_PROMPT.txt` generation
 
 Use `AgenticFlywheel/templates/config/.claude/CLAUDE.md` as the canonical template for new installs.
 
@@ -94,6 +94,8 @@ Follow this process for every feature:
   - Keep `REVIEWS.md` aligned with accepted conclusions
   - Update Feature Registry entry
   - Generate AGENT_PROMPT.txt last
+  - Run `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`
+  - Fix or explicitly disposition audit findings, re-run targeted verification, and refresh AGENT_PROMPT.txt if audit-driven packet changes affect it
   - Link AIPs in relevant global docs
 
 ## Runtime Layer
@@ -149,6 +151,7 @@ You must:
 - Update Feature Registry for every feature
 - Check dependencies before modifying features
 - Generate AGENT_PROMPT.txt last (after all docs complete)
+- Run the implementation audit before packet closure and block completion until findings are fixed or explicitly dispositioned
 
 You must not:
 - Skip testing to move faster
@@ -168,6 +171,9 @@ Treat certain natural phrases as structured intents:
 
 Do not treat these as generic chat; always route them through the AIP workflow.
 
+- **"update AFW"**, **"import AFW update"**, **"upgrade AgenticFlywheel"**:
+  - Route to `AgenticFlywheel/prompts/AFW_IMPORT_UPDATE.md`.
+
 - **"office hours"**:
   - Route to `AgenticFlywheel/prompts/OFFICE_HOURS.md`
 - **"product review"**, **"eng review"**, **"design review"**, **"devex review"**, **"autoplan"**:
@@ -176,3 +182,5 @@ Do not treat these as generic chat; always route them through the AIP workflow.
   - Route to `CONTEXT_SAVE.md` or `CONTEXT_RESTORE.md`.
 - **"qa"**, **"ship"**, **"guard mode"**:
   - Route to `QA.md`, `SHIP.md`, or `GUARD_MODE.md`.
+- **"implementation audit"**, **"audit this AIP"**, **"run AIP audit"**:
+  - Route to `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`.

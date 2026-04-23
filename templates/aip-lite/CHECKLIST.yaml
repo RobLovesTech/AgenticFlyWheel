@@ -1,5 +1,5 @@
 version: 1
-feature: {{FEATURE_SLUG}}
+feature: "{{FEATURE_SLUG}}"
 status: pending
 constraints: []
 env_defaults: {}
@@ -18,7 +18,7 @@ phases:
         status: pending
   - id: handoff
     name: Documentation & Registry
-    description: Update docs and Feature Registry
+    description: Update docs, run scaled implementation audit, and update Feature Registry
     tasks:
       - id: build-verify
         title: Run verification commands (tests/build/lint) for impacted components
@@ -30,11 +30,27 @@ phases:
         status: pending
       - id: update-readme
         title: Update lightweight AIP README.md with final details
-        files: [docs/Agent Implementation Packets/{{FEATURE_SLUG}}/README.md]
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/README.md"]
         status: pending
       - id: registry
         title: Add or update Feature Registry entry
         files: [docs/features/REGISTRY.yaml]
+        status: pending
+      - id: implementation-audit
+        title: Run scaled IMPLEMENTATION_AUDIT.md and record verdict in README.md
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/README.md", "AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md"]
+        status: pending
+      - id: audit-remediation
+        title: Fix or explicitly disposition every implementation audit finding
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CHECKLIST.yaml", "docs/Agent Implementation Packets/{{FEATURE_SLUG}}/README.md"]
+        status: pending
+      - id: audit-reverify
+        title: Re-run targeted verification for audit findings and update evidence
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/README.md"]
+        status: pending
+      - id: packet-closure
+        title: Confirm audit passed, findings are resolved, and packet may be marked completed
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CHECKLIST.yaml"]
         status: pending
 verification:
   commands:

@@ -22,5 +22,7 @@ Your task is zero‑context: do not rely on prior chats. Follow these steps:
 4) Update Docs & Status
 - Update CHECKLIST.yaml and CHECKLIST.md with statuses and brief notes.
 - If blocked, document the blocker in CHECKLIST.md with file paths and errors.
+- After implementation, verification, docs sync, and AGENT_PROMPT updates are complete, run `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md` before packet closure.
+- Promote accepted audit findings into REVIEWS.md and CHECKLIST.*, fix or explicitly disposition every finding, re-run targeted verification, and only then mark the packet closure task and top-level status completed.
 
 Ground rules: minimize scope, update docs, keep parity, enforce compliance, and do not introduce unrelated changes.

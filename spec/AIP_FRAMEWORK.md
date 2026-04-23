@@ -35,6 +35,7 @@ Every AIP MUST include the following content. Use the templates in `docs/templat
   - DevEx Review
   - Outside Voice (optional, non-gating in v1)
   - Accepted Decisions
+  - Implementation Audit
   - Open Risks
   - Final Verdict
 - CONTRACTS.md
@@ -84,10 +85,16 @@ Documentation Tasks (required)
   - Captures operator notes (how to verify/rollback) and any UI screenshots if relevant.
   - Confirms parity notes (local == prod) are accurate.
   - Runs the Agent Prompt QA Checklist (docs/templates/AIP/AGENT_PROMPT_QA_CHECKLIST.md) before finalizing AGENT_PROMPT.txt
+  - Runs the required implementation audit (`AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`) after implementation, verification, docs sync, and AGENT_PROMPT generation, but before packet closure.
+  - Records the audit verdict and accepted findings in packet truth (`REVIEWS.md` for full AIPs, README.md for AIP-Lite).
+  - Creates remediation checklist tasks for every actionable audit finding, fixes or explicitly dispositions each finding, and re-runs targeted verification before closure.
+  - Refreshes AGENT_PROMPT.txt if audit findings change packet docs, task order, acceptance criteria, or handoff instructions.
+  - Includes a final packet-closure task that confirms the audit passed, findings are resolved, and the packet may be marked `completed`.
 
 Authoring Checklist (copy into CHECKLIST.md)
 - [ ] README has Exec Summary, Goals/Non‑Goals, Signals/Flags, Scope, Outcomes, Success, Rollout, Acceptance
 - [ ] REVIEWS documents the review gauntlet, accepted decisions, open risks, and final verdict
+- [ ] REVIEWS documents the implementation audit verdict, accepted findings, remediation evidence, and closure decision
 - [ ] CONTRACTS includes formulas, buckets/thresholds, event fields, and fallbacks
 - [ ] BACKEND_IMPLEMENTATION lists every file/function to touch and pseudocode for tricky bits
 - [ ] ORCHESTRATION_AND_UI lists frontend files and copy changes
@@ -110,21 +117,24 @@ Checklist YAML Schema (informal)
   }
 ]
 - verification: { commands: [string], acceptance: [string] }
+- Required final gate tasks for full AIPs: `implementation-audit`, `audit-remediation`, `audit-reverify`, `packet-closure`
 
 Completion Status
 - `CHECKLIST.yaml` includes a top-level `status` that tracks packet lifecycle.
 - Start new packets in `pending` (or `in_progress` once execution begins).
 - Use `blocked` when progress is paused on an external dependency, unresolved decision, or failing prerequisite that is documented in packet docs.
 - Build verification is required: the AIP must successfully run the repo’s verification commands (tests/build/lint as applicable) before it can be marked `completed`.
-- When every task in `phases[*].tasks` is marked `completed`, update the top-level `status` to `completed`.
+- Implementation audit is required: the AIP must run `IMPLEMENTATION_AUDIT.md`, promote accepted findings into packet docs, resolve or explicitly disposition every actionable finding, and re-run targeted verification before it can be marked `completed`.
+- When every task in `phases[*].tasks` is marked `completed`, including audit/remediation/reverify/closure tasks, update the top-level `status` to `completed`.
 - Mirror the same state at the top of `CHECKLIST.md` so humans can confirm completion quickly.
 
 Usage
 1) Scaffold a new AIP from templates (see docs/templates/AIP/ and associated prompts).
 2) Fill in README.md, CONTEXT.md, DATA_MODEL.sql as needed for the initiative.
 3) During planning, explicitly check for reuse opportunities (shared modules/components/design system) to avoid duplicating patterns. If you identify a new reusable pattern, implement it in the repo’s shared layer/package.
-4) Populate CHECKLIST.yaml with phases/tasks, keep statuses current, and flip the top-level `status` to `completed` once every task is finished.
-5) Generate AGENT_PROMPT.txt LAST using the Agent Prompt Generator prompt (`AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md`) together with the Authoring Guide (`docs/templates/AIP/AGENT_PROMPT_AUTHORING_GUIDE.md`). Run the Agent Prompt QA Checklist (`docs/templates/AIP/AGENT_PROMPT_QA_CHECKLIST.md`) before finalizing.
+4) Populate CHECKLIST.yaml with phases/tasks and keep statuses current.
+5) Generate AGENT_PROMPT.txt late in Docs & Handoff using the Agent Prompt Generator prompt (`AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md`) together with the Authoring Guide (`docs/templates/AIP/AGENT_PROMPT_AUTHORING_GUIDE.md`). Run the Agent Prompt QA Checklist (`docs/templates/AIP/AGENT_PROMPT_QA_CHECKLIST.md`) before finalizing.
+6) Run `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`, fix or explicitly disposition all findings, refresh AGENT_PROMPT.txt if audit-driven packet changes affect it, re-run targeted verification, then complete the packet-closure task and flip the top-level `status` to `completed`.
 
 Zero‑Context Agent Prompt Guidance
 - The AGENT_PROMPT.txt MUST:
@@ -132,6 +142,7 @@ Zero‑Context Agent Prompt Guidance
   - List flags and defaults
   - Include step‑by‑step tasks and acceptance criteria
   - Use only accepted conclusions from REVIEWS.md; runtime logs under `.agentic-flywheel/state/` are advisory and never override packet docs
+  - Instruct the agent to run the implementation audit gate before packet closure and to treat actionable audit findings as completion blockers
   - Reference packet docs by path; avoid relying on chat history
  - Be created after all packet docs are complete (README, REVIEWS, CONTRACTS, BACKEND_IMPLEMENTATION, ORCHESTRATION_AND_UI, OBSERVABILITY, RUNBOOK, RISKS, CONTEXT, DATA_MODEL, CHECKLIST)
 
@@ -143,6 +154,7 @@ Validation (optional, recommended)
 Features Registry (platform index)
 - Location: docs/features/REGISTRY.yaml (+ schema at docs/features/REGISTRY.schema.json)
 - Every AIP’s “Docs & Handoff” phase must add or update a registry entry for new/changed features.
+- Every AIP’s final phase must include implementation audit, remediation, targeted re-verification, and packet closure gates. AIP-Lite uses the same gate scaled to README.md + CHECKLIST.yaml.
 
 Best Practices
 - Keep tasks small and file-scoped where possible.

@@ -8,6 +8,10 @@ Inputs
 
 Rules
 - Read `docs/Agent Implementation Packets/<slug>/RUNBOOK.md`, `OBSERVABILITY.md`, and `CHECKLIST.yaml` first.
+- Read the implementation audit verdict when present:
+  - Full AIP: `REVIEWS.md` → `Implementation Audit`
+  - AIP-Lite: README.md → `Implementation Audit`
+- If audit blockers remain unresolved, QA must return blocked/fail instead of passing the packet.
 - Pick the validation surface that matches the feature:
   - UI feature → browser or visual verification if the repo supports it
   - API/worker/CLI/background task → command-line, integration, log, metric, or fixture-based verification
@@ -18,6 +22,7 @@ Evidence
 - UI observations if relevant
 - Metrics or log checks from `OBSERVABILITY.md`
 - Acceptance checks from `README.md` and `CONTRACTS.md`
+- Implementation audit verdict, unresolved findings, and targeted re-verification evidence
 
 Write Back
 - Append a runtime review entry with:
