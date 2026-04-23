@@ -42,6 +42,7 @@ Process:
 8. Update or propose the related feature registry entry.
 9. Ensure full AIPs record Collaboration Summary in `REVIEWS.md`; ensure AIP-Lite records it in README.md.
 10. Ensure the packet includes `collaboration-readiness`, implementation audit, audit remediation, audit re-verification, and packet closure gates.
-11. Do not generate `AGENT_PROMPT.txt` in this workflow. That happens later in Docs & Handoff.
+11. For full AIPs, generate `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` from the completed packet docs before the final diff preview and approval bundle.
+12. Tell the user that both prompt artifacts must be refreshed if implementation or audit remediation changes packet docs.
 
 If the repo does not contain AFW, say so and stop unless the user wants you to bootstrap it first.

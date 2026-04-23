@@ -82,5 +82,5 @@
       }
     }
   },
-  "description": "Full AIP checklists must include collaboration readiness, REVIEWS.md coverage, and a Docs & Handoff phase with verification, implementation audit, remediation, re-verification, and packet closure gates. Completed collaboration readiness requires user-confirmed Collaboration Summary evidence or an explicit direct/template-only scaffold exception; inferred assumptions alone are insufficient."
+  "description": "Full AIP checklists must include collaboration readiness, REVIEWS.md coverage, prompt artifact generation/refresh for AGENT_PROMPT.txt and IMPLEMENTATION_AUDIT_PROMPT.txt, and a Docs & Handoff phase with verification, implementation audit, remediation, re-verification, and packet closure gates. Completed collaboration readiness requires user-confirmed Collaboration Summary evidence or an explicit direct/template-only scaffold exception; inferred assumptions alone are insufficient."
 }

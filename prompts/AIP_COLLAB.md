@@ -113,7 +113,9 @@ Flow
    - Ensure `docs/templates/AIP/*` exists; if missing, copy from `AgenticFlywheel/templates/aip/*`.
    - Seed from templates for a new packet, or update the existing packet docs in place.
    - Fill or update: README.md, REVIEWS.md, CONTEXT.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, CONTRACTS.md, DATA_MODEL.sql, RUNBOOK.md, OBSERVABILITY.md, RISKS.md with agreed content.
-   - Do not create `AGENT_PROMPT.txt` as part of this flow and do not copy `AGENT_PROMPT_AUTHORING_GUIDE.md` or `AGENT_PROMPT_QA_CHECKLIST.md` into the packet folder; they remain in `docs/templates/AIP/` as authoring references for generating the prompt later.
+   - For full AIPs, synthesize `AGENT_PROMPT.txt` from the completed packet docs before the final diff preview. Use the Agent Prompt Generator rules in embedded mode, so this parent flow owns the single approval step.
+   - For full AIPs, synthesize `IMPLEMENTATION_AUDIT_PROMPT.txt` from the reusable audit prompt contract and the packet docs before the final diff preview. Tailor it to the packet path, expected surfaces, acceptance, verification commands, required evidence, output format, and write-back instructions.
+   - Do not copy `AGENT_PROMPT_AUTHORING_GUIDE.md`, `AGENT_PROMPT_QA_CHECKLIST.md`, or framework prompt files into the packet folder; they remain in `docs/templates/AIP/` or `AgenticFlywheel/prompts/` as authoring references.
    - If `OFFICE_HOURS.md`, `AUTOPLAN.md`, or other review prompts ran earlier, synthesize only their accepted conclusions into `REVIEWS.md`.
    - Write a `Collaboration Summary` to `REVIEWS.md` for full AIPs or README.md for AIP-Lite. Include confirmed decisions, accepted assumptions, open questions, and the user confirmation text/date or the explicit direct/template-only scaffold exception.
    - Fill `CHECKLIST.yaml` with phases/tasks, constraints, parity, env_defaults, verification.commands, acceptance; mirror status in `CHECKLIST.md` and add a short “Conversation Summary”.
@@ -123,6 +125,7 @@ Flow
    - Ensure the full AIP checklist contains at least one task referencing `REVIEWS.md`.
    - Ensure full AIP and AIP-Lite checklists contain `implementation-audit`, `audit-remediation`, `audit-reverify`, and `packet-closure` tasks.
    - Ensure full AIP `REVIEWS.md` contains `Implementation Audit`; for AIP-Lite, ensure README.md contains `Implementation Audit`.
+   - Include `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` in the same diff preview and approval bundle as the packet docs for full AIPs.
    - Preview diffs and require approval before writing.
    - Link from `docs/ai/INDEX.md` under “Implementation Packets” (if appropriate).
    - Propose Feature Registry update for this feature (diff-only; obtain approval to write).
@@ -132,6 +135,7 @@ Rules
 - Apply privacy & security constraints provided by the user.
 - Use the user’s architecture and validation method; do not impose frameworks.
 - Do not allow generated packets to omit the required implementation audit gate.
+- Do not allow full AIP generation to omit `AGENT_PROMPT.txt` or `IMPLEMENTATION_AUDIT_PROMPT.txt`.
 - Do not allow generated packets to omit the collaboration-readiness gate.
 - Do not write packet files from unconfirmed guesses. If the user refuses or skips a decision, record it as an explicit accepted assumption.
 

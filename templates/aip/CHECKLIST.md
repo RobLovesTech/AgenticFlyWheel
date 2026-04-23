@@ -14,9 +14,10 @@ Phases
   - [ ] Sync REVIEWS.md accepted decisions, open risks, and final verdict
   - [ ] Update CONTEXT.md with final behavior
   - [ ] Add or update Feature Registry entry
-  - [ ] Run Agent Prompt QA Checklist before generating prompt
-  - [ ] Generate AGENT_PROMPT.txt late in Docs & Handoff (follow AGENT_PROMPT_AUTHORING_GUIDE.md)
-  - [ ] Run IMPLEMENTATION_AUDIT.md and record verdict in REVIEWS.md
+  - [ ] Run Agent Prompt QA Checklist before generating or refreshing prompt artifacts
+  - [ ] Generate or refresh AGENT_PROMPT.txt from current packet docs
+  - [ ] Generate or refresh IMPLEMENTATION_AUDIT_PROMPT.txt from current packet docs
+  - [ ] Run packet-local IMPLEMENTATION_AUDIT_PROMPT.txt and record verdict in REVIEWS.md
   - [ ] Fix or explicitly disposition every implementation audit finding
   - [ ] Re-run targeted verification for audit findings and update evidence
   - [ ] Confirm audit passed, findings are resolved, and packet may be marked completed

@@ -37,7 +37,8 @@ Steps
 1) Plan
    - Target: `docs/Agent Implementation Packets/$1/`
    - Seed core packet docs from `docs/templates/AIP/` (README.md, REVIEWS.md, CHECKLIST.yaml/md, CONTEXT.md, CONTRACTS.md, DATA_MODEL.sql, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, RISKS.md).
-   - Do not create `AGENT_PROMPT.txt` yet and do not copy `AGENT_PROMPT_AUTHORING_GUIDE.md` or `AGENT_PROMPT_QA_CHECKLIST.md` into the packet folder; those stay in `docs/templates/AIP/` as authoring references.
+   - For full AIPs, also synthesize `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` after the core packet docs are filled and before the final diff preview.
+   - Keep `AGENT_PROMPT_AUTHORING_GUIDE.md`, `AGENT_PROMPT_QA_CHECKLIST.md`, and framework prompt files in `docs/templates/AIP/` or `AgenticFlywheel/prompts/`; do not copy those reference files into the packet folder.
    - Replace placeholders: `{{FEATURE_SLUG}}` → $1; `{{TITLE}}` → $TITLE or $1.
    - If the packet already exists, treat this prompt as an in-place scaffold/update pass rather than a greenfield creation flow.
    - Ensure `REVIEWS.md` or README.md contains a `Collaboration Summary` with confirmed decisions and accepted assumptions.
@@ -46,6 +47,7 @@ Steps
    - Ensure “Docs & Handoff” phase exists in `CHECKLIST.yaml`.
    - Ensure the checklist contains a task referencing `REVIEWS.md`.
    - Ensure the checklist contains required implementation audit gates: `implementation-audit`, `audit-remediation`, `audit-reverify`, and `packet-closure`.
+   - Ensure full AIP checklists contain tasks to generate or refresh `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt`.
    - Ensure `REVIEWS.md` contains an `Implementation Audit` section.
    - Ensure `verification.commands` is populated with this repo’s real verification commands (tests/build/lint) for impacted components (do not leave placeholder TODOs).
    - If `docs/templates/AIP/*` is missing, copy from `AgenticFlywheel/templates/aip/*` first.
@@ -59,7 +61,7 @@ Steps
    - CONTEXT.md: One paragraph using CONTEXT/SCOPE/CONSTRAINTS if provided.
 
 3) Preview & Approve
-   - Show the list of files and concise diffs.
+   - Show the list of files and concise diffs, including `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` for full AIPs.
    - Ask for approval per file or approve-all.
 
 4) Write
@@ -69,7 +71,7 @@ Steps
 5) Next Steps
    - Suggest running: `AgenticFlywheel/prompts/CHECKLIST_VALIDATOR.md` on the new `CHECKLIST.yaml`.
    - Propose Feature Registry update via `AgenticFlywheel/prompts/FEATURES_REGISTRY_UPDATE.md`.
-   - Remind: generate AGENT_PROMPT.txt late in Docs & Handoff, then run `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md` before packet closure.
+   - Remind: refresh `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` if implementation changes packet docs, then run the packet-local audit prompt before packet closure.
 
 Rules
 - Do not overwrite an existing packet folder without explicit user consent.

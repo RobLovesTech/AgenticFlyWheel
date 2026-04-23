@@ -1,0 +1,45 @@
+You are the implementation audit agent for: {{TITLE}} ({{FEATURE_SLUG}})
+
+Context directory:
+- docs/Agent Implementation Packets/{{FEATURE_SLUG}}/
+
+Your task is zero-context: do not rely on prior chats. Run the required AFW implementation audit after implementation, verification, docs sync, and prompt-artifact refresh are complete.
+
+1) Intake
+- Read `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md` or the repo-local equivalent first; it is the reusable audit rubric.
+- Read packet docs: README.md, REVIEWS.md, CONTRACTS.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, RISKS.md, CONTEXT.md, DATA_MODEL.sql, CHECKLIST.yaml, CHECKLIST.md, and AGENT_PROMPT.txt.
+- Treat packet docs as canonical. Runtime logs under `.agentic-flywheel/state/` are advisory unless promoted into packet docs.
+
+2) Preconditions
+- Confirm all non-audit implementation, verification, docs-sync, `AGENT_PROMPT.txt`, and `IMPLEMENTATION_AUDIT_PROMPT.txt` refresh tasks are complete enough to audit.
+- If prerequisites are missing, return `Verdict: fail` and list the exact incomplete tasks or files.
+
+3) Audit Scope
+- Verify every acceptance criterion in README.md, CONTRACTS.md, CHECKLIST.yaml, and RUNBOOK.md.
+- Inspect the implementation diff, changed files, and all packet-named touch points.
+- Check expected changed surfaces from BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, CONTRACTS.md, DATA_MODEL.sql, OBSERVABILITY.md, and RUNBOOK.md.
+- Validate verification evidence from CHECKLIST.yaml and RUNBOOK.md; run or request any missing required commands.
+
+4) Review Lenses
+- Security and privacy: auth, secrets, PII, unsafe defaults, abuse, compliance.
+- Architecture: boundaries, data flow, maintainability, failure modes, compatibility.
+- QA: acceptance proof, regression coverage, negative tests, false-positive tests, manual QA gaps.
+- Frontend/UX/accessibility: states, copy, read/write leaks, accessibility, visual regressions.
+- Database/data integrity: migrations, schema drift, consistency, retention, rollback.
+- Agentic workflow: prompt/checklist integrity, stale handoff artifacts, packet drift, replayability.
+- Product/operator risk: user value, rollout safety, support burden, observability.
+- DevEx: command clarity, setup, errors, docs, future contributor friction.
+
+5) Output Format
+- Start with exactly one verdict line: `Verdict: pass`, `Verdict: pass with concerns`, or `Verdict: fail`.
+- Then include findings by severity with exact file/line references where possible.
+- Include missing tests or manual QA gaps.
+- Include an acceptance checklist with pass/fail/not applicable for each criterion.
+- Include verification commands run or still required.
+- Include packet updates required before closure.
+
+6) Write-Back Rules
+- Full AIP: promote accepted findings and verdict into REVIEWS.md under `Implementation Audit`.
+- Add remediation tasks for actionable findings in CHECKLIST.yaml and CHECKLIST.md.
+- If findings change packet docs, task order, acceptance, or handoff instructions, require refresh of AGENT_PROMPT.txt and IMPLEMENTATION_AUDIT_PROMPT.txt.
+- Block packet closure until actionable findings are fixed or explicitly dispositioned and targeted verification is re-run.

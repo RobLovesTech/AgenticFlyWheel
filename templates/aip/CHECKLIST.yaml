@@ -95,16 +95,20 @@ phases:
         files: [docs/features/REGISTRY.yaml]
         status: pending
       - id: prompt-qa
-        title: Run Agent Prompt QA Checklist before generating prompt
+        title: Run Agent Prompt QA Checklist before generating or refreshing prompt artifacts
         files: [docs/templates/AIP/AGENT_PROMPT_QA_CHECKLIST.md]
         status: pending
       - id: agent-prompt
-        title: Generate AGENT_PROMPT.txt late in Docs & Handoff (follow AGENT_PROMPT_AUTHORING_GUIDE.md)
+        title: Generate or refresh AGENT_PROMPT.txt from current packet docs
         files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/AGENT_PROMPT.txt", "docs/templates/AIP/AGENT_PROMPT_AUTHORING_GUIDE.md"]
         status: pending
+      - id: audit-prompt
+        title: Generate or refresh IMPLEMENTATION_AUDIT_PROMPT.txt from current packet docs
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/IMPLEMENTATION_AUDIT_PROMPT.txt", "docs/templates/AIP/IMPLEMENTATION_AUDIT_PROMPT.txt", "AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md"]
+        status: pending
       - id: implementation-audit
-        title: Run IMPLEMENTATION_AUDIT.md and record verdict in REVIEWS.md
-        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md", "AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md"]
+        title: Run packet-local IMPLEMENTATION_AUDIT_PROMPT.txt and record verdict in REVIEWS.md
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md", "docs/Agent Implementation Packets/{{FEATURE_SLUG}}/IMPLEMENTATION_AUDIT_PROMPT.txt", "AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md"]
         status: pending
       - id: audit-remediation
         title: Fix or explicitly disposition every implementation audit finding
