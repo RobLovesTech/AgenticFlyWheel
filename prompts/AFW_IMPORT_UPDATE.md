@@ -14,6 +14,7 @@ Rules
 - Add or update `IMPLEMENTATION_AUDIT.md`.
 - Ensure `AIP_COLLAB.md` contains the AIP Collaboration Steward persona and readiness gate.
 - Ensure `AIP_NEW.md` stays scaffold/write-only unless collaboration readiness is satisfied.
+- Ensure detailed feature requests cannot satisfy collaboration readiness by themselves; user-confirmed summary evidence or an explicit direct/template-only scaffold exception is required before packet writes, readiness completion, or implementation.
 - Update full AIP and AIP-Lite templates so every newly generated packet includes audit, remediation, re-verification, and closure gates.
 - Update full AIP and AIP-Lite templates so every newly generated packet includes a `collaboration-readiness` task and a Collaboration Summary write-back section.
 - Update CHECKLIST_VALIDATOR, SHIP, QA, AGENT_PROMPT_GENERATOR, AIP_NEW, AIP_COLLAB, SYSTEM_BOOTSTRAP, AGENTS_CONFIG_TAILOR, and host configs so the gate is enforced.

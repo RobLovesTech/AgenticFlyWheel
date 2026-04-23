@@ -42,6 +42,7 @@ Treat these phrases as structured intents:
 
 - Full feature flow: `OFFICE_HOURS -> AUTOPLAN -> AIP_COLLAB -> implementation -> PRELANDING_REVIEW -> IMPLEMENTATION_AUDIT -> QA -> SHIP`
 - AIP creation requires active collaboration before scaffolding unless accepted prior planning artifacts already settle the work.
+- A detailed feature request is seed context, not accepted collaboration readiness. Stop for user confirmation after the Collaboration Summary before packet writes, readiness completion, or implementation.
 - Full AIPs record the Collaboration Summary in `REVIEWS.md`; AIP-Lite records it in README.md.
 - Every new full and lite AIP checklist must include `collaboration-readiness` before implementation tasks.
 - Full AIPs require `REVIEWS.md`

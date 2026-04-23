@@ -60,6 +60,8 @@ Collaboration Intake Flow
    - AIP-Lite: README.md -> `Collaboration Summary`
 5) Mark or create `collaboration-readiness` in `CHECKLIST.yaml` before implementation tasks begin.
 6) `AIP_NEW.md` may scaffold directly only when the user explicitly asks for direct/template-only scaffolding or accepted prior planning artifacts already satisfy collaboration readiness.
+7) A detailed request does not satisfy collaboration readiness by itself. Agent-inferred assumptions must stay proposed until the user confirms the Collaboration Summary.
+8) For explicit `new AIP` requests, do not scaffold packet files, complete `collaboration-readiness`, or start implementation in the same response that first proposes the collaboration receipt.
 
 Implementation Audit Flow
 1) After implementation, verification, docs sync, and AGENT_PROMPT generation, run `IMPLEMENTATION_AUDIT.md`.

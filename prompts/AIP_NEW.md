@@ -14,9 +14,12 @@ Preflight Routing Gate
 - Treat this prompt as the direct scaffolding fast path, not the default discovery flow.
 - Before drafting any packet files, decide whether collaboration readiness is already satisfied.
 - Safe to continue in `AIP_NEW.md` only if at least one of these is true:
-  - The user explicitly asks for template-only scaffolding and accepts that unresolved product/technical details will be marked as assumptions or TODOs.
+  - The user explicitly asks for direct/template-only scaffolding and accepts that unresolved product/technical details will be marked as assumptions or TODOs.
   - Accepted planning artifacts already exist and cover the collaboration readiness gate well enough to draft safely, such as `REVIEWS.md`, outputs from `AIP_COLLAB.md`, `OFFICE_HOURS.md`, or `AUTOPLAN.md`.
-  - The current request includes enough explicit detail to satisfy the collaboration readiness gate and the agent has shown the user a summary for confirmation.
+  - The agent has already shown the user a Collaboration Summary for this exact work and the user has explicitly confirmed it.
+- A detailed feature request by itself is not collaboration readiness. Even if the request appears specific, route to `AIP_COLLAB.md` until the user has confirmed the Collaboration Summary or explicitly accepted the assumptions.
+- Agent-inferred assumptions are proposed assumptions, not accepted assumptions. Do not treat them as packet truth until the user confirms them.
+- Hard stop: do not create or update packet files, mark `collaboration-readiness` complete, or begin implementation in the same turn that first infers the Collaboration Summary.
 - Route to `AgenticFlywheel/prompts/AIP_COLLAB.md` instead of drafting if any of these remain materially unclear:
   - objective / desired outcome
   - primary user/operator and job-to-be-done
@@ -28,7 +31,7 @@ Preflight Routing Gate
   - major risks, rollout concerns, or verification expectations
 - For generic requests like “new AIP” or “create AIP for this change”, default to `AIP_COLLAB.md` unless the user explicitly asks for direct scaffolding or accepted prior artifacts already settle the requirements.
 - Do not duplicate the `AIP_COLLAB.md` interview here. At most, ask a minimal confirmation needed to decide whether to scaffold directly or redirect.
-- If continuing without a full collaboration round, write a `Collaboration Summary` explaining why the gate was satisfied or which assumptions the user accepted.
+- If continuing without a full collaboration round, write a `Collaboration Summary` explaining the accepted prior planning artifact, user confirmation, or explicit direct/template-only scaffold exception that satisfied the gate.
 
 Steps
 1) Plan
@@ -39,6 +42,7 @@ Steps
    - If the packet already exists, treat this prompt as an in-place scaffold/update pass rather than a greenfield creation flow.
    - Ensure `REVIEWS.md` or README.md contains a `Collaboration Summary` with confirmed decisions and accepted assumptions.
    - Ensure the checklist contains a `collaboration-readiness` task.
+   - Only mark `collaboration-readiness` completed when the packet records the user-confirmed Collaboration Summary or the explicit direct/template-only scaffold exception. Otherwise leave it `pending` or `blocked`.
    - Ensure “Docs & Handoff” phase exists in `CHECKLIST.yaml`.
    - Ensure the checklist contains a task referencing `REVIEWS.md`.
    - Ensure the checklist contains required implementation audit gates: `implementation-audit`, `audit-remediation`, `audit-reverify`, and `packet-closure`.
@@ -46,7 +50,7 @@ Steps
    - Ensure `verification.commands` is populated with this repo’s real verification commands (tests/build/lint) for impacted components (do not leave placeholder TODOs).
    - If `docs/templates/AIP/*` is missing, copy from `AgenticFlywheel/templates/aip/*` first.
    - If prior discovery/review artifacts exist in `.agentic-flywheel/state/`, summarize only the accepted conclusions into `REVIEWS.md`.
-   - If decisions are obviously unresolved, stop and route back to `AgenticFlywheel/prompts/AIP_COLLAB.md` instead of guessing.
+   - If decisions are unresolved or lack user-confirmed readiness evidence, stop and route back to `AgenticFlywheel/prompts/AIP_COLLAB.md` instead of guessing.
 
 2) Prefill (optional)
    - README.md: Title; Objective (from CONTEXT); Scope (from SCOPE); Constraints (from CONSTRAINTS).

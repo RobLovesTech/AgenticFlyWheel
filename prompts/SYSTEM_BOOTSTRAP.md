@@ -42,6 +42,7 @@ Goals
 - Guide user through creating their first real AIP during setup, and make sure they know how to generate a tailored `AGENT_PROMPT.txt` for it using `AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md` once the packet docs are complete.
 - Ensure every installed full and lightweight AIP template includes the required implementation audit/remediation/reverify/closure gate.
 - Ensure every installed full and lightweight AIP template includes a required collaboration-readiness task and Collaboration Summary section.
+- Ensure installed agent configs treat detailed new-AIP requests as seed context only: user-confirmed summary evidence is required before packet writes, `collaboration-readiness` completion, or implementation.
 
 Operating Rules (strict)
 - Interview-first: ask concise questions in short rounds; reflect back and confirm.
@@ -126,6 +127,7 @@ Steps
      - Populate `verification.commands` in `docs/templates/AIP/CHECKLIST.yaml` and `docs/templates/aip-lite/CHECKLIST.yaml` with the discovered repo-specific commands (replace any placeholders).
      - Keep commands component-scoped and explicit (e.g., “backend: …”, “frontend: …”) when multiple components exist.
      - Preserve the required collaboration-readiness task and Collaboration Summary section in both full and lite templates.
+     - Preserve the rule that inferred assumptions are not accepted assumptions until the user confirms the Collaboration Summary or requests a direct/template-only scaffold exception.
      - Preserve the required implementation audit, remediation, targeted re-verification, and packet-closure tasks in both full and lite checklist templates.
 
 3) Review & Approval
@@ -147,6 +149,7 @@ Steps
    - For `.claude/CLAUDE.md`, prefer appending or inserting a clearly scoped AFW section rather than rewriting the whole file. Keep the user’s existing wording, headings, and non-AFW guidance intact.
    - Verification enforcement:
      - Ensure the installed full and lite checklist templates include a collaboration-readiness task before implementation work.
+     - Ensure that task requires user-confirmed summary evidence, not agent-inferred assumptions alone.
      - Ensure the installed full and lite checklist templates include a task to run verification commands before completion.
      - Ensure the installed full and lite checklist templates include the required implementation audit, audit remediation, audit re-verification, and packet closure gates.
      - Ensure `verification.commands` is non-empty and matches this repo’s actual tooling.

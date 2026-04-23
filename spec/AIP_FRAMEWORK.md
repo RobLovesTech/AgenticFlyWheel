@@ -38,6 +38,8 @@ Collaboration by Default
   3) ask only the remaining high-impact questions needed to lock decisions
   4) summarize confirmed decisions, accepted assumptions, and open questions
   5) get user confirmation before scaffolding or updating packet docs
+- A detailed feature request is still only seed context until the user confirms the Collaboration Summary. Specificity can shorten the collaboration round, but it cannot replace the confirmation step.
+- Agents must not create or update packet files, mark `collaboration-readiness` complete, or begin implementation in the same turn that first infers the Collaboration Summary for an explicit `new AIP` / `create AIP` / `start AIP` request.
 - Escalate to a fuller planning gauntlet such as `OFFICE_HOURS -> AUTOPLAN -> AIP_COLLAB` when risk is high, the scope is unresolved, or tradeoffs need deeper review.
 
 Collaboration Readiness Gate
@@ -56,6 +58,7 @@ Collaboration Readiness Gate
   - Full AIP: `REVIEWS.md` → `Collaboration Summary`
   - AIP-Lite: README.md → `Collaboration Summary`
 - CHECKLIST.yaml must include a `collaboration-readiness` task before implementation tasks.
+- `collaboration-readiness` may be marked `completed` only when the packet records a user-confirmed Collaboration Summary or a user-requested direct/template-only scaffold exception. Agent-inferred assumptions are proposed assumptions, not accepted assumptions.
 
 Minimum Required Sections (Quality Bar)
 Every AIP MUST include the following content. Use the templates in `docs/templates/AIP/`:

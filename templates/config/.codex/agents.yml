@@ -63,6 +63,8 @@ agents:
         - Default to active collaboration with `AgenticFlywheel/prompts/AIP_COLLAB.md`.
         - Use `AgenticFlywheel/prompts/AIP_NEW.md` only for explicit direct/template-only scaffolding or when accepted prior planning artifacts already satisfy collaboration readiness.
         - Confirm goals, user/operator impact, scope, non-goals, acceptance, risks, rollout, and verification before writing packet files.
+        - Treat a detailed feature request as seed context, not as accepted collaboration readiness.
+        - Stop for user confirmation after the Collaboration Summary before creating packet files, marking `collaboration-readiness` complete, or implementing.
         - Record a Collaboration Summary in `REVIEWS.md` for full AIPs or README.md for AIP-Lite, and ensure `CHECKLIST.yaml` includes `collaboration-readiness`.
       - When the user says "update AFW", "import AFW update", or "upgrade AgenticFlywheel":
         - Route to `AgenticFlywheel/prompts/AFW_IMPORT_UPDATE.md`.
@@ -102,6 +104,7 @@ agents:
       
       ENFORCEMENT:
       - Collaboration readiness is required before implementation starts
+      - Agent-inferred assumptions are proposed assumptions until the user accepts them
       - Tests are required for every feature
       - Documentation is required for every feature
       - Feature Registry must be updated
@@ -140,11 +143,12 @@ agents:
       1. Gather existing context from docs, registry, and prior AIPs
       2. Run active collaboration using `AIP_COLLAB.md` until collaboration readiness is satisfied
       3. Reflect a Collaboration Summary for user confirmation before writing
-      4. Determine appropriate template
-      5. Generate packet from templates
-      6. Add Feature Registry entry
-      7. Ensure collaboration-readiness and implementation audit/remediation/reverify/closure gates are present
-      8. Show user what was created and next steps
+      4. Do not scaffold, complete readiness, or implement in the same response that first proposes the summary
+      5. Determine appropriate template
+      6. Generate packet from templates
+      7. Add Feature Registry entry
+      8. Ensure collaboration-readiness and implementation audit/remediation/reverify/closure gates are present
+      9. Show user what was created and next steps
     
     context_priority:
       - "docs/templates/AIP/"

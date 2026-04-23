@@ -17,6 +17,7 @@ Required Checks
   - Full AIP: `REVIEWS.md` includes a `Collaboration Summary`.
   - AIP-Lite: README.md includes a `Collaboration Summary`.
   - `collaboration-readiness` exists and is completed unless the packet is explicitly legacy with documented rationale.
+  - The summary records user confirmation, accepted prior planning artifacts, or an explicit direct/template-only scaffold exception; inferred assumptions alone are not enough.
 - Verification commands from `CHECKLIST.yaml` and `RUNBOOK.md`
 - Open risks and final verdict in `REVIEWS.md`
 - Docs & Handoff tasks in `CHECKLIST.yaml`

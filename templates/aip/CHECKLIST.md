@@ -2,7 +2,8 @@ Status: pending
 
 Phases
 - Design & Contracts — finalize contracts and plan
-  - [ ] Confirm collaboration readiness and record Collaboration Summary
+  - [ ] Confirm user-approved collaboration readiness and record Collaboration Summary
+    - Evidence: user-confirmed summary, accepted prior planning artifacts, or explicit direct/template-only scaffold exception; inferred assumptions alone are not enough.
   - [ ] Capture discovery/review outputs in REVIEWS.md
 - Backend Implementation — implement + tests
 - Frontend Implementation — implement + tests

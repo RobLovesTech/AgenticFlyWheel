@@ -73,6 +73,7 @@ Follow this process for every feature:
 - Create appropriate AIP (lightweight or full)
 - If feature exists, locate its AIP via Feature Registry
 - Follow active collaboration in `AIP_COLLAB.md`; use `AIP_NEW.md` only after collaboration readiness is satisfied or when the user explicitly asks for direct/template-only scaffolding
+- A detailed feature request is not accepted collaboration readiness by itself; stop for user confirmation after the Collaboration Summary before packet writes, readiness completion, or implementation.
 - Record a Collaboration Summary in `REVIEWS.md` for full AIPs or README.md for AIP-Lite
 - Ensure `CHECKLIST.yaml` includes `collaboration-readiness` before implementation work
 
@@ -149,6 +150,7 @@ Every feature must include:
 You must:
 - Create AIPs for non-trivial features (use scale guidance)
 - Actively collaborate before creating new AIP packet truth; do not silently decide scope, acceptance, rollout, or verification
+- Do not mark `collaboration-readiness` complete from inferred assumptions alone; the packet needs user-confirmed decisions, accepted prior planning artifacts, or an explicit direct-scaffold exception.
 - Include `collaboration-readiness` in every new full and lightweight AIP checklist
 - Follow CHECKLIST.yaml as canonical task list
 - Complete all test tasks before marking phases done
@@ -175,6 +177,7 @@ Treat certain natural phrases as structured intents:
   - Ask short, targeted rounds until goals, user/operator impact, scope, non-goals, acceptance, contracts/data model, rollout, risks, and verification are confirmed or explicitly accepted as assumptions.
   - Use `AgenticFlywheel/prompts/AIP_NEW.md` only after collaboration readiness is satisfied or when the user explicitly asks for direct/template-only scaffolding.
   - Propose a file plan and diffs following the AIP framework rules only after the Collaboration Summary is confirmed.
+  - Do not implement or update packet truth in the same response that first proposes the Collaboration Summary.
 
 Do not treat these as generic chat; always route them through the AIP workflow.
 

@@ -39,6 +39,7 @@ Checks (must perform)
    - If all tasks are completed, top-level `status` must be `completed`.
    - If top-level `status` is `completed`, all tasks must be completed.
    - If top-level `status` is `in_progress` or `completed`, collaboration-readiness must exist and be completed unless the packet is explicitly legacy with a documented rationale.
+   - If collaboration-readiness is completed, the packet must have a Collaboration Summary that records user confirmation, accepted prior planning artifacts, or an explicit direct/template-only scaffold exception. Inferred assumptions alone are not valid evidence.
    - If top-level `status` is `completed`, implementation-audit, audit-remediation, audit-reverify, and packet-closure tasks must exist and be completed.
    - If any implementation audit/remediation/reverify/closure task is pending, in_progress, blocked, abandoned, or incomplete, top-level `status` must not be `completed`.
 
@@ -50,6 +51,7 @@ Checks (must perform)
    - `constraints`, `parity`, and `env_defaults` exist when applicable.
    - Full AIP `REVIEWS.md` includes a `Collaboration Summary` section.
    - AIP-Lite README.md includes a `Collaboration Summary` section.
+   - Collaboration Summary distinguishes confirmed decisions from proposed assumptions.
 
 Output
 - Verdict: Pass/Fail + brief rationale.

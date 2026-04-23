@@ -12,6 +12,7 @@ Rules
   - Full AIP: `REVIEWS.md` -> `Collaboration Summary`
   - AIP-Lite: README.md -> `Collaboration Summary`
   - `collaboration-readiness` exists and is completed before implementation tasks
+  - The summary records user confirmation, accepted prior planning artifacts, or an explicit direct/template-only scaffold exception; inferred assumptions alone are not enough
 - Read the implementation audit verdict when present:
   - Full AIP: `REVIEWS.md` → `Implementation Audit`
   - AIP-Lite: README.md → `Implementation Audit`

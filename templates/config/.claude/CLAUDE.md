@@ -22,6 +22,7 @@ Operating rules:
 - Before changing an existing feature, check the registry and its AIP packet first.
 - Use a lightweight or full AIP for non-trivial feature work; do not skip directly to implementation.
 - For `new AIP`, `create AIP`, `start AIP`, or packet-sized work, actively collaborate with the user before scaffolding. Confirm goals, scope, non-goals, acceptance, risks, rollout, and verification rather than silently choosing them.
+- Treat detailed requests as seed context, not as completed collaboration. Stop for user confirmation after the Collaboration Summary before writing packet files, completing `collaboration-readiness`, or implementing.
 - New full AIPs must record a `Collaboration Summary` in `REVIEWS.md`; AIP-Lite must record it in README.md.
 - New full and lite checklists must include `collaboration-readiness` before implementation tasks.
 - Treat `CHECKLIST.yaml` as the canonical source of task order and completion state.

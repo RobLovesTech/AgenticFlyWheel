@@ -80,9 +80,11 @@ Execution rules:
 - Treat generic requests like `new AIP` or `create AIP` as entry into the AIP flow, with `AIP_COLLAB.md` as the default route.
 - Use `AIP_NEW.md` only when the user explicitly wants direct/template-only scaffolding or when accepted prior planning artifacts already settle the feature well enough to draft safely.
 - Accepted outputs from `OFFICE_HOURS.md`, `AUTOPLAN.md`, existing `REVIEWS.md`, or equivalent review summaries can satisfy the preflight and avoid redundant questioning.
+- Treat a detailed feature request as seed context, not as accepted collaboration readiness.
 - Choose lightweight vs full AIP using AFW scale guidance.
 - Ask short, targeted rounds until goals, user/operator impact, scope, non-goals, acceptance, contracts/data model, rollout, risks, and verification are confirmed or explicitly accepted as assumptions.
 - Reflect a Collaboration Summary and open assumptions before writing packet files.
+- Stop for user confirmation after the first Collaboration Summary. Do not create or update packet files, mark `collaboration-readiness` complete, or implement in the same turn that first proposes the summary.
 - Update the feature registry as part of the proposal.
 - Ensure full AIPs write the Collaboration Summary to `REVIEWS.md`; ensure AIP-Lite writes it to README.md.
 - Ensure the generated checklist includes `collaboration-readiness` before implementation tasks.

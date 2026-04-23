@@ -17,7 +17,7 @@ Scope:
   - an installed AFW docs layout under `docs/`
 - The plugin is a native command surface for AFW workflows. It does not package the entire framework by itself.
 - `create-aip` defaults generic packet requests to active collaboration with `AIP_COLLAB.md`; direct scaffolding is reserved for explicit/template-only requests or already-satisfied collaboration readiness.
-- New full and lite packets must include Collaboration Summary write-back and `collaboration-readiness` before implementation tasks.
+- New full and lite packets must include user-confirmed Collaboration Summary write-back and `collaboration-readiness` before implementation tasks. Detailed requests are seed context, not accepted readiness.
 
 Local development:
 ```bash

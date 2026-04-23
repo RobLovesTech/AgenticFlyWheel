@@ -65,6 +65,7 @@
               "properties": {
                 "id": {"type": "string"},
                 "title": {"type": "string"},
+                "acceptance": {"type": "array", "items": {"type": "string"}},
                 "files": {"type": "array", "items": {"type": "string"}},
                 "status": {"type": "string", "enum": ["pending", "in_progress", "blocked", "completed", "abandoned", "incomplete"]}
               }
@@ -81,5 +82,5 @@
       }
     }
   },
-  "description": "Full AIP checklists must include collaboration readiness, REVIEWS.md coverage, and a Docs & Handoff phase with verification, implementation audit, remediation, re-verification, and packet closure gates."
+  "description": "Full AIP checklists must include collaboration readiness, REVIEWS.md coverage, and a Docs & Handoff phase with verification, implementation audit, remediation, re-verification, and packet closure gates. Completed collaboration readiness requires user-confirmed Collaboration Summary evidence or an explicit direct/template-only scaffold exception; inferred assumptions alone are insufficient."
 }

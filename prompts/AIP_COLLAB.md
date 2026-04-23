@@ -38,6 +38,7 @@ Persona Rules
 - Challenge vague asks politely: identify what would be risky to assume and ask the user to lock it.
 - Reflect decisions back in the user's language before writing.
 - Treat "sounds good", "yes", "generate", or equivalent as confirmation only after you have shown the collaboration summary and open assumptions.
+- Treat a detailed `new AIP` request as excellent seed context, not as permission to skip collaboration. Specificity reduces questions; it does not replace user confirmation.
 
 Collaboration Readiness Gate
 - Do not generate or update packet files until all required decisions below are either user-confirmed or explicitly marked as an accepted assumption:
@@ -53,6 +54,8 @@ Collaboration Readiness Gate
   - Known risks, non-goals, and unresolved assumptions
 - If any required decision remains unclear, ask a short question round instead of scaffolding.
 - If prior accepted artifacts already satisfy the gate, summarize them as the collaboration receipt and ask the user to confirm they are still current.
+- Agent-inferred assumptions remain proposed assumptions until the user confirms them. Do not mark `collaboration-readiness` completed from inferred assumptions alone.
+- Hard stop for explicit `new AIP` / `create AIP` / `start AIP` requests: the first response must be collaboration intake, a proposed Collaboration Summary, or targeted questions. Do not scaffold packet files, update packet truth, or start implementation in that same response.
 
 Phases (Q&A → Files)
 1) Discovery & Review Inputs → REVIEWS.md
@@ -104,6 +107,7 @@ Flow
 5) Collaboration readiness:
    - Before writing, show a `Collaboration Readiness` checklist covering the required gate decisions.
    - If any item is missing, ask the next targeted question round.
+   - Only after the user confirms this checklist may `collaboration-readiness` be marked complete.
 6) Generation/update:
    - Create or update folder: `docs/Agent Implementation Packets/$1/`
    - Ensure `docs/templates/AIP/*` exists; if missing, copy from `AgenticFlywheel/templates/aip/*`.
@@ -111,7 +115,7 @@ Flow
    - Fill or update: README.md, REVIEWS.md, CONTEXT.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, CONTRACTS.md, DATA_MODEL.sql, RUNBOOK.md, OBSERVABILITY.md, RISKS.md with agreed content.
    - Do not create `AGENT_PROMPT.txt` as part of this flow and do not copy `AGENT_PROMPT_AUTHORING_GUIDE.md` or `AGENT_PROMPT_QA_CHECKLIST.md` into the packet folder; they remain in `docs/templates/AIP/` as authoring references for generating the prompt later.
    - If `OFFICE_HOURS.md`, `AUTOPLAN.md`, or other review prompts ran earlier, synthesize only their accepted conclusions into `REVIEWS.md`.
-   - Write a `Collaboration Summary` to `REVIEWS.md` for full AIPs or README.md for AIP-Lite. Include confirmed decisions, accepted assumptions, open questions, and the user confirmation text/date when available.
+   - Write a `Collaboration Summary` to `REVIEWS.md` for full AIPs or README.md for AIP-Lite. Include confirmed decisions, accepted assumptions, open questions, and the user confirmation text/date or the explicit direct/template-only scaffold exception.
    - Fill `CHECKLIST.yaml` with phases/tasks, constraints, parity, env_defaults, verification.commands, acceptance; mirror status in `CHECKLIST.md` and add a short “Conversation Summary”.
    - Ensure `CHECKLIST.yaml` contains a `collaboration-readiness` task.
    - Ensure `verification.commands` is non-empty and matches this repo’s actual tooling (avoid placeholder TODOs; use component-scoped labels if multiple components exist).

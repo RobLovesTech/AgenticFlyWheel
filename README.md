@@ -156,11 +156,13 @@ Recommended Claude split:
 - Put repeatable AFW procedures in `.claude/skills/agentic-flywheel/`
 - Keep `AGENT_PROMPT.txt` as the zero-context handoff artifact inside each completed AIP, refreshing it if audit-driven packet changes affect execution instructions
 - Start new packet requests with active collaboration; every full and lite AIP records a `Collaboration Summary` and includes a `collaboration-readiness` checklist task before implementation
+- Treat a detailed new-AIP request as seed context, not completed collaboration; packet writes, `collaboration-readiness: completed`, and implementation wait for user-confirmed summary evidence or an explicit direct/template-only scaffold exception
 - Run `IMPLEMENTATION_AUDIT.md` before packet closure; accepted findings must be fixed or explicitly dispositioned and re-verified before completion
 
 Routing note:
 - Generic requests like `new AIP` should start the AIP flow and default to `AIP_COLLAB.md` for active collaboration and user-confirmed planning.
 - Use `AIP_NEW.md` only when the user explicitly wants direct scaffolding or accepted planning artifacts already satisfy the collaboration readiness gate.
+- A specific feature description can shorten the collaboration round, but it does not authorize immediate packet scaffolding or implementation.
 
 ---
 
@@ -180,7 +182,7 @@ Feature: **period-insights-cards** (backend + frontend)
 ```
 @AgenticFlywheel/prompts/AIP_COLLAB.md
 ```
-Work with the AIP Collaboration Steward to confirm goals, scope, non-goals, acceptance, risks, rollout, and verification. The packet should not be written until the Collaboration Readiness checklist is satisfied.
+Work with the AIP Collaboration Steward to confirm goals, scope, non-goals, acceptance, risks, rollout, and verification. The packet should not be written until the user confirms the Collaboration Summary and the Collaboration Readiness checklist is satisfied.
 
 If the requirements are already settled and you only want the packet scaffold, use:
 ```

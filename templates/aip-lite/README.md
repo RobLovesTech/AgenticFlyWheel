@@ -25,6 +25,7 @@ Collaboration Summary
 - Required before packet scaffolding or update.
 - Capture confirmed user decisions, accepted assumptions, unresolved questions, and the confirmation that allowed packet generation.
 - Do not let implementation agents treat unconfirmed guesses as packet truth.
+- Agent-inferred assumptions are proposed assumptions until the user confirms them or approves a direct/template-only scaffold exception.
 
 Review Summary (Optional)
 - If planning/review prompts ran first, summarize the accepted conclusions here instead of creating REVIEWS.md.
