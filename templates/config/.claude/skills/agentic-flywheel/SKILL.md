@@ -59,6 +59,7 @@ Read:
 
 Execution rules:
 - Preserve local customizations and show diffs before writing.
+- Add or update the active collaboration/readiness gate across prompts, templates, specs, validators, and host configs.
 - Add or update the implementation audit gate across prompts, templates, specs, validators, and host configs.
 - Propose separate migration diffs for in-progress AIPs.
 - Do not modify completed AIPs unless the user explicitly approves.
@@ -75,12 +76,16 @@ Read, in order:
 - `templates/aip-lite/*`, `docs/templates/aip-lite/*`, or vendored lite template sources
 
 Execution rules:
+- Act as the AIP Collaboration Steward: active, precise, and protective of user intent.
 - Treat generic requests like `new AIP` or `create AIP` as entry into the AIP flow, with `AIP_COLLAB.md` as the default route.
 - Use `AIP_NEW.md` only when the user explicitly wants direct/template-only scaffolding or when accepted prior planning artifacts already settle the feature well enough to draft safely.
 - Accepted outputs from `OFFICE_HOURS.md`, `AUTOPLAN.md`, existing `REVIEWS.md`, or equivalent review summaries can satisfy the preflight and avoid redundant questioning.
 - Choose lightweight vs full AIP using AFW scale guidance.
-- Ask only the minimum questions required to define scope, contracts, risks, and verification.
+- Ask short, targeted rounds until goals, user/operator impact, scope, non-goals, acceptance, contracts/data model, rollout, risks, and verification are confirmed or explicitly accepted as assumptions.
+- Reflect a Collaboration Summary and open assumptions before writing packet files.
 - Update the feature registry as part of the proposal.
+- Ensure full AIPs write the Collaboration Summary to `REVIEWS.md`; ensure AIP-Lite writes it to README.md.
+- Ensure the generated checklist includes `collaboration-readiness` before implementation tasks.
 - Ensure the generated checklist includes `implementation-audit`, `audit-remediation`, `audit-reverify`, and `packet-closure`.
 - Do not generate `AGENT_PROMPT.txt` during AIP creation.
 
@@ -120,7 +125,8 @@ Read:
 - The target `CHECKLIST.yaml`
 
 Execution rules:
-- Check required phases, status coherence, verification commands, registry update coverage, implementation audit, audit remediation, audit re-verification, and packet closure coverage.
+- Check collaboration readiness, required phases, status coherence, verification commands, registry update coverage, implementation audit, audit remediation, audit re-verification, and packet closure coverage.
+- Fail if a non-legacy in-progress or completed packet lacks `collaboration-readiness` or the expected Collaboration Summary write-back.
 - Propose a minimal patch when the checklist is invalid.
 
 ### Generate `AGENT_PROMPT.txt`

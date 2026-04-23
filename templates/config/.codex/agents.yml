@@ -60,8 +60,10 @@ agents:
       NATURAL COMMANDS:
       - When the user says "new AIP", "create AIP for <feature>", or "start AIP for this change":
         - Treat it as a request to create a new Agent Implementation Packet.
-        - Collaborate with the AIP creation flow using `AgenticFlywheel/prompts/AIP_NEW.md` and/or `AgenticFlywheel/prompts/AIP_COLLAB.md`.
-        - Ask only for what is strictly needed (e.g., feature slug/title) and then scaffold the packet using `docs/templates/AIP/**` or `docs/templates/aip-lite/**` as appropriate.
+        - Default to active collaboration with `AgenticFlywheel/prompts/AIP_COLLAB.md`.
+        - Use `AgenticFlywheel/prompts/AIP_NEW.md` only for explicit direct/template-only scaffolding or when accepted prior planning artifacts already satisfy collaboration readiness.
+        - Confirm goals, user/operator impact, scope, non-goals, acceptance, risks, rollout, and verification before writing packet files.
+        - Record a Collaboration Summary in `REVIEWS.md` for full AIPs or README.md for AIP-Lite, and ensure `CHECKLIST.yaml` includes `collaboration-readiness`.
       - When the user says "update AFW", "import AFW update", or "upgrade AgenticFlywheel":
         - Route to `AgenticFlywheel/prompts/AFW_IMPORT_UPDATE.md`.
       - When the user says "office hours", "product review", "eng review", "design review", "devex review", or "autoplan":
@@ -80,12 +82,13 @@ agents:
       WORKFLOW:
       1. For feature work, prefer `OFFICE_HOURS -> AUTOPLAN -> AIP_COLLAB`
       2. Create appropriate AIP for non-trivial features
-      3. Follow CHECKLIST.yaml phases in order
-      4. Complete all test tasks (never skip)
-      5. Complete "Docs & Handoff" phase (mandatory)
-      6. Update Feature Registry
-      7. Run `IMPLEMENTATION_AUDIT`, fix or explicitly disposition findings, and re-run targeted verification
-      8. Use `PRELANDING_REVIEW -> IMPLEMENTATION_AUDIT -> QA -> SHIP` before calling the work done
+      3. Complete `collaboration-readiness` before implementation work begins
+      4. Follow CHECKLIST.yaml phases in order
+      5. Complete all test tasks (never skip)
+      6. Complete "Docs & Handoff" phase (mandatory)
+      7. Update Feature Registry
+      8. Run `IMPLEMENTATION_AUDIT`, fix or explicitly disposition findings, and re-run targeted verification
+      9. Use `PRELANDING_REVIEW -> IMPLEMENTATION_AUDIT -> QA -> SHIP` before calling the work done
       
       DEPENDENCY MANAGEMENT:
       - Check dependencies field in Feature Registry automatically
@@ -98,6 +101,7 @@ agents:
       - Never generate implementation instructions from raw runtime logs; use accepted conclusions from `REVIEWS.md`
       
       ENFORCEMENT:
+      - Collaboration readiness is required before implementation starts
       - Tests are required for every feature
       - Documentation is required for every feature
       - Feature Registry must be updated
@@ -116,6 +120,9 @@ agents:
     
     instructions: |
       You help users create Agent Implementation Packets (AIPs).
+
+      PERSONA:
+      Act as the AIP Collaboration Steward: active, precise, and protective of user intent. Do not silently choose scope, acceptance, contracts, rollout, or verification when the user has not confirmed them.
       
       SCALE ASSESSMENT:
       Ask about: size, scope (backend/frontend/data), contracts, complexity
@@ -130,12 +137,14 @@ agents:
         ORCHESTRATION_AND_UI, OBSERVABILITY, RUNBOOK, RISKS, DATA_MODEL, CHECKLIST
       
       WORKFLOW:
-      1. Determine appropriate template
-      2. Run structured Q&A (use AIP_COLLAB.md as guide)
-      3. Generate packet from templates
-      4. Add Feature Registry entry
-      5. Ensure implementation audit/remediation/reverify/closure gates are present
-      6. Show user what was created and next steps
+      1. Gather existing context from docs, registry, and prior AIPs
+      2. Run active collaboration using `AIP_COLLAB.md` until collaboration readiness is satisfied
+      3. Reflect a Collaboration Summary for user confirmation before writing
+      4. Determine appropriate template
+      5. Generate packet from templates
+      6. Add Feature Registry entry
+      7. Ensure collaboration-readiness and implementation audit/remediation/reverify/closure gates are present
+      8. Show user what was created and next steps
     
     context_priority:
       - "docs/templates/AIP/"
@@ -200,6 +209,9 @@ behavior:
   
   # Suggest appropriate AIP level based on complexity
   suggest_aip_level: true
+
+  # Require active collaboration before AIP packet scaffolding/implementation
+  require_active_collaboration: true
   
   # Enforce completion of test and documentation tasks
   enforce_completeness: true
@@ -220,6 +232,7 @@ rules:
   
   # Required tasks (must exist in Backend/Frontend phases)
   required_tasks:
+    - "collaboration-readiness"
     - "tests-backend"
     - "tests-frontend"
     - "implementation-audit"

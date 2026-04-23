@@ -12,6 +12,10 @@ Checks (must perform)
    - Each phase has `id`, `name`, and `tasks[]` with `id`, `title`, and `status`.
 
 2) Required phase
+   - A collaboration readiness task exists before implementation begins.
+     - Prefer task id `collaboration-readiness`.
+     - Full AIPs should reference `REVIEWS.md` so the Collaboration Summary is recorded.
+     - AIP-Lite should reference README.md so the Collaboration Summary is recorded.
    - A final phase named “Docs & Handoff” or “Documentation & Registry” (case-insensitive, allow minor punctuation) exists with tasks to update docs/context, run prompt QA and generate AGENT_PROMPT.txt when applicable, run implementation audit, remediate findings, re-verify, and close the packet.
    - The final phase includes:
      - A task to run verification commands (tests/build/lint) for impacted components.
@@ -34,6 +38,7 @@ Checks (must perform)
 3) Status coherence
    - If all tasks are completed, top-level `status` must be `completed`.
    - If top-level `status` is `completed`, all tasks must be completed.
+   - If top-level `status` is `in_progress` or `completed`, collaboration-readiness must exist and be completed unless the packet is explicitly legacy with a documented rationale.
    - If top-level `status` is `completed`, implementation-audit, audit-remediation, audit-reverify, and packet-closure tasks must exist and be completed.
    - If any implementation audit/remediation/reverify/closure task is pending, in_progress, blocked, abandoned, or incomplete, top-level `status` must not be `completed`.
 
@@ -43,6 +48,8 @@ Checks (must perform)
 
 5) Optional (recommend)
    - `constraints`, `parity`, and `env_defaults` exist when applicable.
+   - Full AIP `REVIEWS.md` includes a `Collaboration Summary` section.
+   - AIP-Lite README.md includes a `Collaboration Summary` section.
 
 Output
 - Verdict: Pass/Fail + brief rationale.

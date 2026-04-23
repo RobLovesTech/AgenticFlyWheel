@@ -1,6 +1,11 @@
 Discovery Reframe
 - Summarize the reframed problem statement and user/job-to-be-done.
 
+Collaboration Summary
+- Required before packet scaffolding or update.
+- Capture confirmed user decisions, accepted assumptions, unresolved questions, and the confirmation that allowed packet generation.
+- Do not let implementation agents treat unconfirmed guesses as packet truth.
+
 Product Review
 - Capture product-level findings, scope expansions, and tradeoffs.
 

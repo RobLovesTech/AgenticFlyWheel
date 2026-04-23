@@ -5,7 +5,7 @@ How to Run This Prompt
 - Preferred: use your tool's "run file" / `@path` feature (if available) to inject `AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md` directly, instead of copy-pasting.
 - If your tool does not support file prompts, open this file in your editor, select all content, and paste it into a new chat session with your AI agent.
 - After bootstrap, run:
-  - `AgenticFlywheel/prompts/AGENTS_CONFIG_TAILOR.md` in the same repo to configure one-click launch shortcuts for this and other core prompts (e.g., AIP_COLLAB, AIP_NEW) in tools like Claude, Codex, or Cursor. Generic requests like "new AIP" should route to `AIP_COLLAB.md` by default; `AIP_NEW.md` is the direct scaffolding fast path once requirements are already settled.
+  - `AgenticFlywheel/prompts/AGENTS_CONFIG_TAILOR.md` in the same repo to configure active collaboration defaults plus one-click shortcuts for this and other core prompts (e.g., AIP_COLLAB, AIP_NEW) in tools like Claude, Codex, or Cursor. Generic requests like "new AIP" must route to active collaboration by default; `AIP_NEW.md` is the scaffold/write fast path once collaboration readiness is satisfied.
   - `AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md` on your first completed AIP to generate a zero-context `AGENT_PROMPT.txt` that implementation agents will use as their primary entry point.
   - `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md` after implementation, verification, docs sync, and prompt generation, before packet closure.
 
@@ -41,6 +41,7 @@ Goals
 - Discover existing features in the codebase and offer backfilling options
 - Guide user through creating their first real AIP during setup, and make sure they know how to generate a tailored `AGENT_PROMPT.txt` for it using `AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md` once the packet docs are complete.
 - Ensure every installed full and lightweight AIP template includes the required implementation audit/remediation/reverify/closure gate.
+- Ensure every installed full and lightweight AIP template includes a required collaboration-readiness task and Collaboration Summary section.
 
 Operating Rules (strict)
 - Interview-first: ask concise questions in short rounds; reflect back and confirm.
@@ -113,7 +114,7 @@ Steps
      - `docs/features/REGISTRY.yaml` + schema; initial empty list (or a seed feature if the user requests)
      - `AGENTS.md` updates reflecting environment setup, verification commands, and how to run prompts in this repo
      - `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md` as the required post-implementation audit gate before packet closure
-     - Optional enhanced agent configs with automatic search and dependency checking (diff-only; user may skip)
+     - Optional enhanced agent configs with automatic search, dependency checking, and active collaboration before packet scaffolding (diff-only; user may skip)
      - `.gitignore` update for `.agentic-flywheel/state/` when runtime prompts are installed
      - If backfilling: `docs/features/BACKFILL_PLAN.md` with discovered features
    - For Claude Code config updates:
@@ -124,6 +125,7 @@ Steps
    - Ensure the installed templates are configured for this repo:
      - Populate `verification.commands` in `docs/templates/AIP/CHECKLIST.yaml` and `docs/templates/aip-lite/CHECKLIST.yaml` with the discovered repo-specific commands (replace any placeholders).
      - Keep commands component-scoped and explicit (e.g., “backend: …”, “frontend: …”) when multiple components exist.
+     - Preserve the required collaboration-readiness task and Collaboration Summary section in both full and lite templates.
      - Preserve the required implementation audit, remediation, targeted re-verification, and packet-closure tasks in both full and lite checklist templates.
 
 3) Review & Approval
@@ -144,10 +146,11 @@ Steps
    - Avoid duplicating existing content; merge respectfully with clear section headers.
    - For `.claude/CLAUDE.md`, prefer appending or inserting a clearly scoped AFW section rather than rewriting the whole file. Keep the user’s existing wording, headings, and non-AFW guidance intact.
    - Verification enforcement:
+     - Ensure the installed full and lite checklist templates include a collaboration-readiness task before implementation work.
      - Ensure the installed full and lite checklist templates include a task to run verification commands before completion.
      - Ensure the installed full and lite checklist templates include the required implementation audit, audit remediation, audit re-verification, and packet closure gates.
      - Ensure `verification.commands` is non-empty and matches this repo’s actual tooling.
-   - If agent configs approved, emphasize: "Your AI agent will now automatically search AIPs, check dependencies, and suggest appropriate AIP levels — you won't need to manually trigger these actions."
+   - If agent configs approved, emphasize: "Your AI agent will now automatically search AIPs, check dependencies, actively collaborate before packet scaffolding, and suggest appropriate AIP levels — exact trigger phrases are shortcuts rather than requirements."
 
 5) Validate
    - Verify links exist and basic structure is sound.
@@ -155,7 +158,7 @@ Steps
 
 6) Handoff
    - Brief pause: "Your framework is now set up! Before we finish, let's make this real..."
-   - Strongly recommend running `AgenticFlywheel/prompts/AGENTS_CONFIG_TAILOR.md` next to non-destructively update your Claude/Codex/Cursor/Gemini configs so that commands like "new AIP" and "run bootstrap" are handled automatically. Natural "new AIP" requests should default to collaborative clarification first; direct scaffolding should use `AIP_NEW.md` only when requirements are already settled.
+   - Strongly recommend running `AgenticFlywheel/prompts/AGENTS_CONFIG_TAILOR.md` next to non-destructively update your Claude/Codex/Cursor/Gemini configs so that packet-sized work gets active collaboration by default and commands like "new AIP" and "run bootstrap" remain shortcuts. Natural "new AIP" requests must default to collaborative clarification first; direct scaffolding should use `AIP_NEW.md` only when collaboration readiness is satisfied.
    - For Claude Code, prefer the native split of `.claude/CLAUDE.md` plus `.claude/skills/agentic-flywheel/` instead of the older `.claude/PROJECT_PROMPT.md` pattern.
    - Transition to Step 7 (Tutorial)
 
@@ -163,8 +166,8 @@ Steps
    - Ask: "Create your first AIP now, or defer to later?"
    - If defer:
      - Say: "No problem! You can create your first AIP anytime by running:"
-     - Print: "`AgenticFlywheel/prompts/AIP_COLLAB.md` for guided Q&A and requirement clarification"
-     - Print: "`AgenticFlywheel/prompts/AIP_NEW.md` for direct template scaffolding once requirements are already settled"
+     - Print: "`AgenticFlywheel/prompts/AIP_COLLAB.md` for active collaboration and requirement confirmation"
+     - Print: "`AgenticFlywheel/prompts/AIP_NEW.md` for scaffold/write once collaboration readiness is satisfied"
      - Print: "`AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md` for the required post-implementation closure audit"
      - Print: "`AgenticFlywheel/prompts/TUTORIAL_FIRST_AIP.md` for this tutorial"
      - Proceed to final handoff
@@ -225,7 +228,7 @@ Steps
         
         Pro Tips:
         - Small features (<2 days)? Use `docs/templates/aip-lite/`
-        - Your AI agent automatically searches AIPs and checks dependencies
+        - Your AI agent automatically searches AIPs, checks dependencies, and actively collaborates before packet scaffolding
         - After you run AGENTS_CONFIG_TAILOR, you can simply say "new AIP" or "run bootstrap wizard" in your primary agent and it will route to the correct prompt
         - Never skip the "Docs & Handoff" phase or implementation audit gate — that's what makes the flywheel work
         

@@ -10,6 +10,7 @@ Structure & Context
 Goals & Non‑Goals
 - [ ] Primary goals listed as bullets
 - [ ] Non‑Goals listed to prevent scope creep
+- [ ] Collaboration Summary is reflected as confirmed user intent and accepted assumptions
 - [ ] Review Inputs use only the Accepted Decisions section of REVIEWS.md
 
 Signals & Flags

@@ -8,6 +8,10 @@ Inputs
 
 Rules
 - Read `docs/Agent Implementation Packets/<slug>/RUNBOOK.md`, `OBSERVABILITY.md`, and `CHECKLIST.yaml` first.
+- Confirm collaboration readiness evidence when the packet is not explicitly legacy:
+  - Full AIP: `REVIEWS.md` -> `Collaboration Summary`
+  - AIP-Lite: README.md -> `Collaboration Summary`
+  - `collaboration-readiness` exists and is completed before implementation tasks
 - Read the implementation audit verdict when present:
   - Full AIP: `REVIEWS.md` → `Implementation Audit`
   - AIP-Lite: README.md → `Implementation Audit`
@@ -18,6 +22,7 @@ Rules
 - Do not assume a browser is required.
 
 Evidence
+- Collaboration Summary and readiness task status
 - Command output summaries
 - UI observations if relevant
 - Metrics or log checks from `OBSERVABILITY.md`

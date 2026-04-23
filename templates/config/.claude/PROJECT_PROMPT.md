@@ -72,7 +72,9 @@ Follow this process for every feature:
 - For substantial feature work, prefer `OFFICE_HOURS -> AUTOPLAN -> AIP_COLLAB`
 - Create appropriate AIP (lightweight or full)
 - If feature exists, locate its AIP via Feature Registry
-- Follow structured Q&A in AIP_COLLAB.md or AIP_NEW.md
+- Follow active collaboration in `AIP_COLLAB.md`; use `AIP_NEW.md` only after collaboration readiness is satisfied or when the user explicitly asks for direct/template-only scaffolding
+- Record a Collaboration Summary in `REVIEWS.md` for full AIPs or README.md for AIP-Lite
+- Ensure `CHECKLIST.yaml` includes `collaboration-readiness` before implementation work
 
 ### 3. Implementation
 - Follow CHECKLIST.yaml phases in order:
@@ -135,6 +137,7 @@ Report findings to user without making them search manually.
 ## Quality Standards
 
 Every feature must include:
+- **Collaboration Summary**: Confirmed user intent, accepted assumptions, open questions, and collaboration-readiness status
 - **Contracts**: Explicit API/event/data schemas (CONTRACTS.md)
 - **Testing**: Unit and integration tests marked complete
 - **Observability**: Metrics and logging (OBSERVABILITY.md)
@@ -145,6 +148,8 @@ Every feature must include:
 
 You must:
 - Create AIPs for non-trivial features (use scale guidance)
+- Actively collaborate before creating new AIP packet truth; do not silently decide scope, acceptance, rollout, or verification
+- Include `collaboration-readiness` in every new full and lightweight AIP checklist
 - Follow CHECKLIST.yaml as canonical task list
 - Complete all test tasks before marking phases done
 - Complete "Docs & Handoff" phase (non-negotiable)
@@ -166,8 +171,10 @@ Treat certain natural phrases as structured intents:
 
 - **"new AIP"**, **"create AIP for <feature>"**, **"start AIP for this change"**:
   - Interpret as a request to create a new Agent Implementation Packet.
-  - Use `docs/templates/AIP/**` or `docs/templates/aip-lite/**` plus the AIP prompts (`AgenticFlywheel/prompts/AIP_NEW.md`, `AgenticFlywheel/prompts/AIP_COLLAB.md`) to scaffold the packet.
-  - Ask only for the minimum necessary details (e.g., feature slug/title, rough scope), then propose a file plan and diffs following the AIP framework rules.
+  - Default to `AgenticFlywheel/prompts/AIP_COLLAB.md` and act as the AIP Collaboration Steward.
+  - Ask short, targeted rounds until goals, user/operator impact, scope, non-goals, acceptance, contracts/data model, rollout, risks, and verification are confirmed or explicitly accepted as assumptions.
+  - Use `AgenticFlywheel/prompts/AIP_NEW.md` only after collaboration readiness is satisfied or when the user explicitly asks for direct/template-only scaffolding.
+  - Propose a file plan and diffs following the AIP framework rules only after the Collaboration Summary is confirmed.
 
 Do not treat these as generic chat; always route them through the AIP workflow.
 

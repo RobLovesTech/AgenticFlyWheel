@@ -31,6 +31,24 @@
         },
         "required": ["id", "tasks"]
       },
+      "allOf": [
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "tasks": {
+                "type": "array",
+                "contains": {
+                  "type": "object",
+                  "properties": {"id": {"const": "collaboration-readiness"}},
+                  "required": ["id"]
+                }
+              }
+            },
+            "required": ["tasks"]
+          }
+        }
+      ],
       "items": {
         "type": "object",
         "required": ["id", "name", "tasks"],
@@ -63,5 +81,5 @@
       }
     }
   },
-  "description": "Full AIP checklists must include REVIEWS.md coverage plus a Docs & Handoff phase with verification, implementation audit, remediation, re-verification, and packet closure gates."
+  "description": "Full AIP checklists must include collaboration readiness, REVIEWS.md coverage, and a Docs & Handoff phase with verification, implementation audit, remediation, re-verification, and packet closure gates."
 }

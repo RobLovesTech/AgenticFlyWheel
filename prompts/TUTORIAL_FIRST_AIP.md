@@ -61,6 +61,14 @@ Steps
    
    Keep it brief: gather enough to populate the AIP, don't deep-dive
 
+   Before creating files, show a Collaboration Summary:
+   - confirmed goal and user/operator
+   - in/out of scope
+   - acceptance criteria
+   - verification commands
+   - accepted assumptions
+   Ask the user to confirm or correct it. Do not create files until collaboration readiness is satisfied.
+
 4) AIP Generation
    Say: "Great! I'm creating your AIP now..."
    
@@ -69,6 +77,7 @@ Steps
    - Create `docs/Agent Implementation Packets/<feature-slug>/CHECKLIST.yaml` from template
    - Populate with answers: objective, files, tests, acceptance
    - Ensure `verification.commands` is filled with real commands (no placeholders)
+   - Ensure `collaboration-readiness` is present and README.md includes Collaboration Summary
    - Ensure the scaled implementation audit gate is present before packet closure
    
    If full:
@@ -76,6 +85,7 @@ Steps
    - Do not copy `AGENT_PROMPT_AUTHORING_GUIDE.md` or `AGENT_PROMPT_QA_CHECKLIST.md` into the packet folder; they stay in `docs/templates/AIP/` as authoring references when it is time to generate the agent prompt.
    - Use answers to fill in details; leave TODOs where needed
    - Ensure `verification.commands` is filled with real commands (no placeholders)
+   - Ensure `collaboration-readiness` is present and REVIEWS.md includes Collaboration Summary
    - Ensure `REVIEWS.md` includes `Implementation Audit`
    - Ensure the implementation audit/remediation/reverify/closure gates are present before packet closure
    - Note: "You can refine these docs before implementing"

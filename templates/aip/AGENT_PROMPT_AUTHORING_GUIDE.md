@@ -6,7 +6,7 @@ Purpose
 Sequence (must follow)
 1) Ensure packet docs are complete: README.md, REVIEWS.md, CONTRACTS.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, RISKS.md, CONTEXT.md, DATA_MODEL.sql, CHECKLIST.yaml.
 2) Read README.md → extract: Executive Summary, Goals, Non‑Goals, Signals & Flags (Summary), Acceptance, Rollout.
-3) Read REVIEWS.md → extract only the Accepted Decisions, Open Risks, and Final Verdict. Ignore advisory notes that were not accepted.
+3) Read REVIEWS.md → extract the Collaboration Summary plus only the Accepted Decisions, Open Risks, and Final Verdict. Ignore advisory notes that were not accepted.
 4) Read CONTRACTS.md → extract: signal formulas, thresholds/buckets, events, fallbacks, Acceptance Rules.
 5) Read BACKEND_IMPLEMENTATION.md → extract: file paths + functions to edit; flags; pseudocode.
 6) Read ORCHESTRATION_AND_UI.md → extract: FE files + copy/threshold changes.
@@ -22,6 +22,7 @@ AGENT_PROMPT Structure (must include)
 - Primary goals (bullets)
 - Non‑Goals (bullets)
 - Review Inputs (Accepted Decisions from REVIEWS.md only)
+- Collaboration Inputs (confirmed decisions and accepted assumptions from Collaboration Summary)
 - Signals & Flags (summary of formulas and flags)
 - Runtime Flags (from RUNBOOK)
 - Touch points (Backend files, Frontend files) — exact paths
@@ -39,6 +40,7 @@ Rubric (self‑check before finalizing)
 - Are acceptance conditions explicit and verifiable?
 - Are validation commands/queries mentioned?
 - Does it state that IMPLEMENTATION_AUDIT is required before packet closure and that findings block completion until fixed or explicitly dispositioned?
+- Does it preserve the Collaboration Summary so implementation does not depend on prior chat or unconfirmed assumptions?
 - Is it free of implementation detail that belongs in packet docs (keep it an instruction, not a design doc)?
 
 Anti‑patterns

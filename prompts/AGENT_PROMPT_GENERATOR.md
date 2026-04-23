@@ -44,7 +44,7 @@ Sequence
    - Read the Authoring Guide: `docs/templates/AIP/AGENT_PROMPT_AUTHORING_GUIDE.md` and internalize the required structure and rubric.
    - Read:
      - `README.md` → feature title, exec summary, goals/non-goals, signals & flags summary, acceptance, rollout.
-     - `REVIEWS.md` → Accepted Decisions, Open Risks, Final Verdict. Ignore advisory notes that were not accepted.
+     - `REVIEWS.md` → Collaboration Summary, Accepted Decisions, Open Risks, Final Verdict. Ignore advisory notes that were not accepted.
      - `CONTRACTS.md` → formulas, thresholds/buckets, events, fallbacks, acceptance rules.
      - `BACKEND_IMPLEMENTATION.md` → backend file paths, functions/methods, flags, pseudocode.
      - `ORCHESTRATION_AND_UI.md` → frontend file paths, flows, copy/threshold changes.
@@ -71,6 +71,7 @@ Sequence
      - Primary Goals: bullets summarizing what success looks like.
      - Non-Goals: bullets for what is explicitly out-of-scope.
      - Review Inputs: accepted conclusions from `REVIEWS.md` only.
+     - Collaboration Inputs: confirmed decisions and accepted assumptions from the packet Collaboration Summary.
      - Signals & Flags: summary of core formulas, thresholds, and key flags.
      - Runtime Flags: explicit list of flags and defaults from RUNBOOK (and related docs).
      - Touch Points: backend and frontend file paths grouped by area, with intent per group.
@@ -89,6 +90,7 @@ Sequence
      - Acceptance conditions are explicit and verifiable.
      - Metrics/logs/dashboards used for validation are called out.
      - IMPLEMENTATION_AUDIT is included as a mandatory closure gate and audit findings block completion until resolved or explicitly dispositioned.
+     - Collaboration Summary is reflected so the implementation agent does not rely on prior chat or unconfirmed assumptions.
    - If any item would fail the checklist, revise the draft before showing it to the user.
 
 5) Preview & Approval

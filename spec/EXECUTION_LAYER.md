@@ -51,6 +51,16 @@ Review Promotion Flow
 4) If accepted conclusions affect implementation scope, update `README.md`, `CONTRACTS.md`, `CHECKLIST.yaml`, or other packet docs.
 5) `AGENT_PROMPT_GENERATOR.md` reads packet docs, not raw runtime logs.
 
+Collaboration Intake Flow
+1) For generic `new AIP`, `create AIP`, `start AIP`, or packet-sized work, route to `AIP_COLLAB.md` by default.
+2) Use runtime notes, prior chat, and review logs only as advisory inputs while clarifying the request.
+3) Confirm or explicitly accept assumptions for goals, users/operators, in-scope and out-of-scope work, acceptance criteria, constraints, impacted surfaces, contracts/data model, rollout, verification, risks, and non-goals.
+4) Promote the accepted collaboration result into packet docs before scaffolding implementation truth:
+   - Full AIP: `REVIEWS.md` -> `Collaboration Summary`
+   - AIP-Lite: README.md -> `Collaboration Summary`
+5) Mark or create `collaboration-readiness` in `CHECKLIST.yaml` before implementation tasks begin.
+6) `AIP_NEW.md` may scaffold directly only when the user explicitly asks for direct/template-only scaffolding or accepted prior planning artifacts already satisfy collaboration readiness.
+
 Implementation Audit Flow
 1) After implementation, verification, docs sync, and AGENT_PROMPT generation, run `IMPLEMENTATION_AUDIT.md`.
 2) Append the advisory runtime entry to `.agentic-flywheel/state/reviews.jsonl` when runtime logging is enabled.
@@ -62,7 +72,8 @@ Implementation Audit Flow
 Host Strategy
 - Codex is the primary host in v1.
 - Claude and Cursor should receive compatible, smaller overlays after the Codex path is stable.
-- Host configs should route natural-language commands for planning, reviews, implementation audit, checkpointing, QA, shipping, and guard mode to the matching AFW prompt.
+- Host configs should route natural-language commands for planning, AIP collaboration, reviews, implementation audit, checkpointing, QA, shipping, and guard mode to the matching AFW prompt.
+- Host configs must treat active collaboration as the default for new AIP requests and packet-sized work; direct scaffolding is a narrow fast path after collaboration readiness is satisfied.
 
 Privacy and Retention
 - First cut is local-only. No hosted telemetry.

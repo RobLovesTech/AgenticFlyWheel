@@ -21,6 +21,11 @@ Testing
 Acceptance
 - Checklist of conditions that must be true when complete.
 
+Collaboration Summary
+- Required before packet scaffolding or update.
+- Capture confirmed user decisions, accepted assumptions, unresolved questions, and the confirmation that allowed packet generation.
+- Do not let implementation agents treat unconfirmed guesses as packet truth.
+
 Review Summary (Optional)
 - If planning/review prompts ran first, summarize the accepted conclusions here instead of creating REVIEWS.md.
 

@@ -155,11 +155,12 @@ Recommended Claude split:
 - Put stable repo facts in `.claude/CLAUDE.md`
 - Put repeatable AFW procedures in `.claude/skills/agentic-flywheel/`
 - Keep `AGENT_PROMPT.txt` as the zero-context handoff artifact inside each completed AIP, refreshing it if audit-driven packet changes affect execution instructions
+- Start new packet requests with active collaboration; every full and lite AIP records a `Collaboration Summary` and includes a `collaboration-readiness` checklist task before implementation
 - Run `IMPLEMENTATION_AUDIT.md` before packet closure; accepted findings must be fixed or explicitly dispositioned and re-verified before completion
 
 Routing note:
-- Generic requests like `new AIP` should start the AIP flow and default to `AIP_COLLAB.md` for clarification-first planning.
-- Use `AIP_NEW.md` only when the user explicitly wants direct scaffolding or accepted planning artifacts already settle the requirements.
+- Generic requests like `new AIP` should start the AIP flow and default to `AIP_COLLAB.md` for active collaboration and user-confirmed planning.
+- Use `AIP_NEW.md` only when the user explicitly wants direct scaffolding or accepted planning artifacts already satisfy the collaboration readiness gate.
 
 ---
 
@@ -179,7 +180,7 @@ Feature: **period-insights-cards** (backend + frontend)
 ```
 @AgenticFlywheel/prompts/AIP_COLLAB.md
 ```
-When asked, provide the slug/title/scope and answer the short planning questions.
+Work with the AIP Collaboration Steward to confirm goals, scope, non-goals, acceptance, risks, rollout, and verification. The packet should not be written until the Collaboration Readiness checklist is satisfied.
 
 If the requirements are already settled and you only want the packet scaffold, use:
 ```
@@ -190,6 +191,7 @@ If the requirements are already settled and you only want the packet scaffold, u
 - The packet will live at:
   - `docs/Agent Implementation Packets/period-insights-cards/`
 - Confirm that `CHECKLIST.yaml` includes real verification commands (tests/build/lint) for your repo.
+- Confirm that `REVIEWS.md` includes the Collaboration Summary and `CHECKLIST.yaml` includes `collaboration-readiness`.
 
 4) Implement by following the checklist
 - Work through `CHECKLIST.yaml` phases in order.
@@ -218,10 +220,11 @@ Feature: **settings-copy-update** (frontend-only)
 - `docs/templates/aip-lite/README.md`
 - `docs/templates/aip-lite/CHECKLIST.yaml`
 
-If the change still has open scope, contract, or risk questions, run `AIP_COLLAB.md` first instead of scaffolding directly.
+If the change still has open scope, contract, acceptance, verification, rollout, or risk questions, run `AIP_COLLAB.md` first instead of scaffolding directly.
 
 3) Fill in the README + checklist
 - Add real verification commands to `CHECKLIST.yaml`.
+- Record the Collaboration Summary in README.md.
 - Keep tasks scoped to the few files you’re touching.
 
 4) Implement and finish the handoff
@@ -255,12 +258,13 @@ Is it a bug or tiny change? → No AIP
 
 The magic isn't in the templates—it's in the **structural constraints** that make it impossible to skip steps:
 
-1. **Required Phases**: `CHECKLIST.yaml` templates mandate implementation, verification, Docs & Handoff, implementation audit, remediation, re-verification, and closure
-2. **Validation Gates**: Your agent automatically leverages `CHECKLIST_VALIDATOR.md`—it fails if tests, docs, audit, remediation, or closure gates are missing
-3. **Registry Updates**: Feature Registry must be updated during handoff—no feature is complete without traceability
-4. **Audit Findings Become Work**: Accepted findings update packet docs and checklist tasks, then block completion until fixed or explicitly dispositioned
-5. **Dependency Tracking**: AI automatically analyzes impact before modifications
-6. **Prompt-Based**: No scripts to bypass—AI agents follow the structure because it's the only path
+1. **Collaboration Readiness**: new packets require confirmed user intent, accepted assumptions, and a recorded Collaboration Summary before implementation begins
+2. **Required Phases**: `CHECKLIST.yaml` templates mandate implementation, verification, Docs & Handoff, implementation audit, remediation, re-verification, and closure
+3. **Validation Gates**: Your agent automatically leverages `CHECKLIST_VALIDATOR.md`—it fails if collaboration readiness, tests, docs, audit, remediation, or closure gates are missing
+4. **Registry Updates**: Feature Registry must be updated during handoff—no feature is complete without traceability
+5. **Audit Findings Become Work**: Accepted findings update packet docs and checklist tasks, then block completion until fixed or explicitly dispositioned
+6. **Dependency Tracking**: AI automatically analyzes impact before modifications
+7. **Prompt-Based**: No scripts to bypass—AI agents follow the structure because it's the only path
 
 **Result:** AI agents can't "forget" to write tests or skip docs. The framework guides them to consistency.
 
@@ -285,7 +289,7 @@ If AFW is already deployed in a repo, run:
 @AgenticFlywheel/prompts/AFW_IMPORT_UPDATE.md
 ```
 
-Use it to merge the implementation-audit gate into vendored or installed AFW assets while preserving local customizations. It proposes diffs, updates templates/prompts/configs, and separately flags in-progress packets that need the new audit gate.
+Use it to merge the active-collaboration and implementation-audit gates into vendored or installed AFW assets while preserving local customizations. It proposes diffs, updates templates/prompts/configs, and separately flags in-progress packets that need the new gates.
 
 **Q: How is this different from just "being more disciplined"?**  
 A: Discipline fails when you're moving fast. AgenticFlywheel **enforces** the discipline through structure and validation—like guardrails, not guidelines.

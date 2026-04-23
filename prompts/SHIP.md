@@ -13,6 +13,10 @@ Rules
 - Do not ship when the packet is clearly incomplete or blocked.
 
 Required Checks
+- Collaboration readiness evidence:
+  - Full AIP: `REVIEWS.md` includes a `Collaboration Summary`.
+  - AIP-Lite: README.md includes a `Collaboration Summary`.
+  - `collaboration-readiness` exists and is completed unless the packet is explicitly legacy with documented rationale.
 - Verification commands from `CHECKLIST.yaml` and `RUNBOOK.md`
 - Open risks and final verdict in `REVIEWS.md`
 - Docs & Handoff tasks in `CHECKLIST.yaml`

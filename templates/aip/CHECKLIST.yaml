@@ -10,6 +10,10 @@ phases:
     name: Design & Contracts
     description: Finalize contracts and implementation plan
     tasks:
+      - id: collaboration-readiness
+        title: Confirm collaboration readiness and record Collaboration Summary
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md", "docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CHECKLIST.yaml"]
+        status: pending
       - id: contracts
         title: Complete CONTRACTS.md (signals, thresholds, events, fallbacks)
         files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CONTRACTS.md"]

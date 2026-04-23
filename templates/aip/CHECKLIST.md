@@ -2,6 +2,7 @@ Status: pending
 
 Phases
 - Design & Contracts — finalize contracts and plan
+  - [ ] Confirm collaboration readiness and record Collaboration Summary
   - [ ] Capture discovery/review outputs in REVIEWS.md
 - Backend Implementation — implement + tests
 - Frontend Implementation — implement + tests

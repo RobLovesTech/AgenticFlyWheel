@@ -22,7 +22,7 @@ Before non-trivial changes:
 ## Natural Command Routing
 
 Treat these phrases as structured intents:
-- `new AIP`, `create AIP for <feature>`, `start AIP for this change` → `AgenticFlywheel/prompts/AIP_NEW.md` or `AgenticFlywheel/prompts/AIP_COLLAB.md`
+- `new AIP`, `create AIP for <feature>`, `start AIP for this change` → active collaboration with `AgenticFlywheel/prompts/AIP_COLLAB.md`; use `AgenticFlywheel/prompts/AIP_NEW.md` only after collaboration readiness is satisfied or the user explicitly requests direct/template-only scaffolding
 - `update AFW`, `import AFW update`, `upgrade AgenticFlywheel` → `AgenticFlywheel/prompts/AFW_IMPORT_UPDATE.md`
 - `office hours` → `AgenticFlywheel/prompts/OFFICE_HOURS.md`
 - `product review` → `AgenticFlywheel/prompts/PLAN_PRODUCT_REVIEW.md`
@@ -41,6 +41,9 @@ Treat these phrases as structured intents:
 ## Workflow Defaults
 
 - Full feature flow: `OFFICE_HOURS -> AUTOPLAN -> AIP_COLLAB -> implementation -> PRELANDING_REVIEW -> IMPLEMENTATION_AUDIT -> QA -> SHIP`
+- AIP creation requires active collaboration before scaffolding unless accepted prior planning artifacts already settle the work.
+- Full AIPs record the Collaboration Summary in `REVIEWS.md`; AIP-Lite records it in README.md.
+- Every new full and lite AIP checklist must include `collaboration-readiness` before implementation tasks.
 - Full AIPs require `REVIEWS.md`
 - Lite AIPs keep review conclusions in `README.md` under `Review Summary (Optional)`
 - All AIPs require implementation audit, remediation, targeted re-verification, and packet closure before top-level `completed`
