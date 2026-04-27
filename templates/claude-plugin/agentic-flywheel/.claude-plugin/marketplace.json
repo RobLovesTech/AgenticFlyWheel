@@ -1,0 +1,27 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "agentic-flywheel",
+  "description": "Native Claude Code commands for AgenticFlywheel workflows (bootstrap, AIP creation, audit, checklist validation, agent prompt generation).",
+  "owner": {
+    "name": "ForgeNine"
+  },
+  "plugins": [
+    {
+      "name": "agentic-flywheel",
+      "description": "Native Claude Code commands for AgenticFlywheel bootstrap, AIP creation, implementation audit, checklist validation, and AGENT_PROMPT generation.",
+      "version": "0.1.0",
+      "author": {
+        "name": "ForgeNine"
+      },
+      "source": "./",
+      "category": "productivity",
+      "tags": [
+        "agentic-flywheel",
+        "aip",
+        "planning",
+        "audit"
+      ]
+    }
+  ],
+  "version": "0.1.0"
+}
