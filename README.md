@@ -1,297 +1,200 @@
-
 <img width="2752" height="1536" alt="image" src="https://github.com/user-attachments/assets/4f14fb02-1f25-4d2c-ad7f-024173f2279e" />
 
 Version: 1.0.0
 
-AgenticFlywheel Framework (Self‑Sustaining AI‑Human Development)
+AgenticFlyWheel Framework (Self-Sustaining AI-Human Development)
 
-**Turn AI Development Chaos Into a Self-Sustaining Engine of Quality**
+**Turn AI development chaos into a self-sustaining engine of quality**
 
-*Version 1.0.0 | Architecture-Agnostic | Prompt-First | Zero Dependencies*
+*Version 1.0.0 | Architecture-agnostic | Prompt-first | Zero dependencies*
 
 ---
 
 ## The 30-Second Version
 
-**Before AgenticFlywheel:** Every AI feature is a snowflake—different patterns, skipped tests, missing docs, lost context. Six months later, nobody knows how anything works.
+**Before AgenticFlyWheel:** every AI-driven feature is a snowflake. Patterns drift, docs go stale, tests get skipped, and intent disappears into chat history.
 
-**After AgenticFlywheel:** Every feature follows the same bulletproof process—planned, tested, documented, and traceable. Each feature makes the next one 2-3x faster. Your codebase becomes self-documenting and AI-agent-friendly.
+**After AgenticFlyWheel:** feature work moves through a repeatable control plane: active collaboration, packet scaffolding, checklist-driven implementation, docs sync, required audit, remediation, and clean closure.
 
----
-
-## The Problem: AI Development Is Broken
-
-You've felt it. That initial rush of AI-powered velocity... followed by the slow realization that you're building a house of cards.
-
-- **Inconsistent patterns**: Each feature reinvents the wheel—different error handling, different testing, different everything
-- **Skipped steps**: AI "forgets" to write tests, update docs, or consider edge cases (because nothing enforces it)
-- **Lost context**: Requirements vanish into chat history black holes—"Wait, why did we build it this way?"
-- **Zero traceability**: Features exist in code but aren't mapped to contracts, flags, or metrics
-- **Documentation drift**: Docs are outdated before the PR merges
-
-**Result:** Fast today, unmaintainable tomorrow. Technical debt that compounds with every feature.
+The goal is not "more process." The goal is reliable velocity that compounds instead of rotting.
 
 ---
 
-## The Game-Changer: A Self-Sustaining Flywheel
+## What Changed In The Current Framework
 
-AgenticFlywheel doesn't just *suggest* a process—it **enforces** a systematic workflow that gets stronger with every feature you ship.
+This repo now reflects a stricter AFW model than the older README described:
 
-### The 5 Big Wins 
+- New packet work defaults to **active collaboration first** through `prompts/AIP_COLLAB.md`.
+- A detailed request is still only **seed context** until the user confirms the Collaboration Summary.
+- Full packets now use a **manifest-driven shape** in `CHECKLIST.yaml` with `packet_level`, `enabled_modules`, and `omitted_modules`.
+- Full packet creation includes both `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` in the initial approval bundle.
+- Packet closure now requires the full chain: **verification -> implementation audit -> remediation -> re-verification -> packet closure**.
+- Runtime state under `.agentic-flywheel/state/` is advisory only. Packet docs remain canonical.
 
-#### 1. **From Chaos to Clockwork**
-Every feature follows the **exact same pattern**: Context → Plan → Develop → Test → Document. No more guessing. No more "how did we do this last time?"
-
-#### 2. **The Compound Effect**
-Each completed AIP (Agent Implementation Packet) becomes a building block for the next. Better docs → Better AI results → Better docs. By your 10th feature, you're **2-3x faster** than ad-hoc development.
-
-#### 3. **Zero-Context Restartability**
-New AI session? New team member? Pick up any feature in 30 seconds with `AGENT_PROMPT.txt`. No more "let me search the chat history" or "can you remind me..."
-
-#### 4. **Quality That's Unskippable**
-Tests, docs, and observability aren't optional—they're **structurally required**. The framework won't let you mark a feature complete until everything is documented and validated.
-
-#### 5. **Complete Traceability**
-Every feature is mapped in the Feature Registry with its contracts, flags, metrics, owners, and dependencies. "Where's the auth contract?" → **Line 23 of `REGISTRY.yaml`**
+If you already installed an older AFW version into another repo, use `prompts/AFW_IMPORT_UPDATE.md` to merge these gates in without clobbering local customizations.
 
 ---
 
-## How It Works: The 3-Phase Transformation
+## What This Repo Contains
 
-```mermaid
-graph TD
-    A[Phase 1: Bootstrap] --> B[Phase 2: Plan]
-    B --> C[Phase 3: Build]
-    C --> A
-    
-    style A fill:#4a90e2
-    style B fill:#7b68ee
-    style C fill:#50c878
-```
+This repository is the **framework source**. It is not the installed downstream docs layout.
 
-### **Phase 1: Bootstrap (One-Time, 15-30 min)**
-Run the wizard. It interviews you about your architecture, then generates your entire documentation foundation—coding standards, testing rules, security policies, and a Feature Registry. You get **immediate value** with your first real AIP.
+### Framework source layout
 
-### **Phase 2: Plan (Per Feature, 10-20 min)**
-Run `OFFICE_HOURS.md` and `AUTOPLAN.md` to pressure-test the problem, then `AIP_COLLAB.md` to turn the accepted conclusions into a packet. You review a diff, approve it, and get a **complete implementation packet** with reviews, checklists, contracts, and test plans.
+- `prompts/` - executable workflow prompts such as bootstrap, collaboration, audit, QA, ship, and import/update
+- `spec/` - framework specs, especially `spec/AIP_FRAMEWORK.md` and `spec/EXECUTION_LAYER.md`
+- `templates/aip/` - full AIP templates
+- `templates/aip-lite/` - lightweight AIP templates
+- `templates/config/` - host config templates for Claude, Codex, and Cursor
+- `templates/claude-plugin/agentic-flywheel/` - Claude-native plugin scaffold
+- `features/REGISTRY.schema.json` - schema for downstream feature registries
+- `model-overlays/` - host-specific behavioral overlays
 
-### **Phase 3: Build (Enforced Execution)**
-The AI follows `CHECKLIST.yaml` like a recipe—Design → Backend → Frontend → Testing → **Docs & Handoff** → **Implementation Audit** → closure. The mandatory closure chain is verification → implementation audit → remediation → re-verification → packet closure. `PRELANDING_REVIEW.md`, `QA.md`, and `SHIP.md` are recommended execution-review prompts you can layer on top of that chain when the repo wants a broader gauntlet.
+### Installed downstream layout
 
----
+After running bootstrap in a product repo, AFW is typically copied into:
 
-## What You Get: Your Complete System
+- `docs/AIP_FRAMEWORK.md`
+- `docs/templates/AIP/*`
+- `docs/templates/aip-lite/*`
+- `docs/features/REGISTRY.yaml`
+- `docs/features/REGISTRY.schema.json`
+- `docs/ai/**`
 
-### 📦 **The Core Framework**
-- **Context Your AI Needs**: AFW establishes core context about your project that drives amazing results
-- **AIP Templates**: Full and lightweight versions for any feature size
-- **Runtime Layer**: Local-first checkpoints, learnings, review logs, and host routing under `.agentic-flywheel/state/`
-- **Feature Registry**: Single source of truth for all features, flags, and contracts
-- **Validation Prompts**: Checklist validators, registry validators, dependency analyzers
-- **Implementation Audit Gate**: Required post-implementation audit with security, architecture, QA, frontend, database, agentic AI, product, and DevEx review personas
-- **Agent Configs**: Enhanced configs for Claude, Codex, Cursor
-- **Claude Code Native Assets**: Project-skill templates and a reusable plugin scaffold for AFW workflows
-
-### 📚 **Your Tailored Documentation Constitution**
-The wizard generates these from your architecture interview:
-- `CODING-STANDARD.md` - Your language idioms and anti-patterns
-- `TESTING-STANDARDS.md` - Test pyramid, coverage targets, CI commands
-- `PLATFORM-ARCHITECTURE.md` - Your boundaries and "illegal moves"
-- `API-DOCUMENTATION.md` - Versioning, schemas, error models
-- `SECURITY.md` - Auth models, PII handling, secrets
-- `OBSERVABILITY.md` - Metrics, logging, tracing conventions
-- `ERROR-HANDLING.md` - Retry policies, circuit breakers
-- `CONFIGURATION-MANAGEMENT.md` - Feature flags, env vars
-
-### 🎯 **Real Results From Day One**
-- **Feature traceability**: 100% of features mapped to contracts and metrics
-- **Documentation coverage**: Tests and docs are non-negotiable
-- **Onboarding time**: New AI agents productive in minutes, not hours
-- **Technical debt**: Prevented at the source, not cleaned up later
+That source-vs-installed distinction matters. In this repo, templates live under `templates/`. In a bootstrapped product repo, they live under `docs/templates/`.
 
 ---
 
-## Quick Start: Your First AIP in 15 Minutes
+## How AFW Works
+
+### 1. Bootstrap
+
+Run `prompts/SYSTEM_BOOTSTRAP.md` in the target repo. It is repo-discovery-first, asks only a few confirmation questions when needed, supports `Minimal Boot`, `Standard Boot`, and `Custom Boot`, installs the AIP framework, seeds the Feature Registry, and can propose host config updates.
+
+### 2. Collaborate Before Scaffolding
+
+For new packet-sized work, start with `prompts/AIP_COLLAB.md`.
+
+The collaboration gate locks:
+
+- goal and desired outcome
+- personas and per-persona scope
+- in-scope and out-of-scope work
+- acceptance signals
+- contracts or data model implications
+- rollout and rollback expectations
+- verification commands
+- risks and non-goals
+
+`prompts/AIP_NEW.md` is now the **direct scaffolding fast path**, not the default intake path.
+
+The Collaboration Summary is now a structured readiness receipt. At minimum it should record:
+
+- confirmation basis
+- confirmed by
+- confirmed at
+- confirmed decisions
+- accepted assumptions
+- open questions or deferred follow-ups
+- persona scope decisions
+
+### 3. Execute Through Closure
+
+Implementation follows `CHECKLIST.yaml`, then must complete the required closure chain:
+
+1. run verification commands
+2. run `prompts/CHECKLIST_VALIDATOR.md` when validating packet structure and closure readiness
+3. sync docs and run prompt QA before refreshing prompt artifacts
+4. refresh `AGENT_PROMPT.txt` and, for full AIPs, `IMPLEMENTATION_AUDIT_PROMPT.txt`
+5. run the required implementation audit flow using `prompts/IMPLEMENTATION_AUDIT.md` plus the packet-local `IMPLEMENTATION_AUDIT_PROMPT.txt` for full AIPs
+6. fix or explicitly disposition findings
+7. re-run targeted verification
+8. close the packet
+
+---
+
+## Quick Start
+
+### Install AFW into another repo
 
 ```bash
-# 1. Copy to your repo root
-cp -r AgenticFlywheel/ ./
-
-# 2. Run the bootstrap wizard in your AI tool
-# Claude/Cursor/Codex: @AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md
-
-# 3. Answer 5-10 questions about your stack
-# The wizard discovers your codebase and generates tailored docs
-
-# 4. Choose your first real feature to AIP-ify
-# The wizard guides you through creating your first packet
-
-# 5. Done! You now have:
-#    - Complete docs/ai/** foundation
-#    - Your first feature AIP ready to implement
-#    - AI agent configured for systematic development
+# From the target repo root
+cp -R /path/to/AgenticFlyWheel ./AgenticFlyWheel
 ```
 
-**No scripts. No dependencies. No lock-in.** Works with any AI tool.
+Then run:
 
-## Host Install Surfaces
+```text
+@AgenticFlyWheel/prompts/SYSTEM_BOOTSTRAP.md
+```
 
-Use `AGENTS.md` as the first repo-specific source of truth after installing AFW, regardless of host.
+Recommended next steps after bootstrap:
 
-| Host | Install Surface | Notes |
-|------|-----------------|-------|
-| Claude | `templates/config/.claude/CLAUDE.md` + `templates/config/.claude/skills/agentic-flywheel/` | Recommended default. Stable repo facts in `CLAUDE.md`, repeatable AFW procedures in the skill. |
-| Claude plugin | `templates/claude-plugin/agentic-flywheel/` | Focused native command surface for the most common AFW workflows. Other AFW prompts still route through natural-language intent handling or project skills. |
-| Codex | `templates/config/.codex/agents.yml` | Primary host overlay in v1. Reads `AGENTS.md` first, then registry/docs/AIPs. |
-| Cursor | `templates/config/.cursor/rules/.cursorrules` | Lightweight routing and docs-first guardrails. Uses prompt-path fallback rather than a full command surface. |
+1. Run `@AgenticFlyWheel/prompts/AGENTS_CONFIG_TAILOR.md` to wire Claude, Codex, and/or Cursor into the docs-first AFW flow.
+2. Start your first packet with `@AgenticFlyWheel/prompts/AIP_COLLAB.md`.
+3. Use `@AgenticFlyWheel/prompts/IMPLEMENTATION_AUDIT.md` before closing that packet.
 
-## Claude Code Native Use
+### Use AFW inside this framework repo
 
-AFW now has two Claude-native integration modes:
+If you are editing AFW itself, the source-of-truth files are the ones in this repo:
 
-**Project skill**:
-- Install `templates/config/.claude/CLAUDE.md`
-- Install `templates/config/.claude/skills/agentic-flywheel/`
-- This is the recommended default for repos that vendor AFW locally
+- prompts: `prompts/*.md`
+- specs: `spec/*.md`
+- templates: `templates/aip/**`, `templates/aip-lite/**`
+- host configs: `templates/config/**`
 
-**Plugin scaffold**:
-- Use `templates/claude-plugin/agentic-flywheel/`
-- This gives you a focused namespaced command surface such as:
-  - `/agentic-flywheel:bootstrap`
-  - `/agentic-flywheel:import-update`
-  - `/agentic-flywheel:create-aip <feature-slug>`
-  - `/agentic-flywheel:implementation-audit <path-or-feature-slug>`
-  - `/agentic-flywheel:validate-checklist <path-or-feature-slug>`
-  - `/agentic-flywheel:generate-agent-prompt <feature-slug>`
-- Broader AFW intents like office hours, QA, ship, guard mode, and prompt-path execution still route through the project skill or natural-language intent handling.
-
-Recommended Claude split:
-- Put stable repo facts in `.claude/CLAUDE.md`
-- Put repeatable AFW procedures in `.claude/skills/agentic-flywheel/`
-- For full AIPs, include initial `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` in the packet-creation approval bundle, then refresh prompt artifacts again during Docs & Handoff before the required implementation audit
-- Keep `AGENT_PROMPT.txt` as the zero-context handoff artifact inside each completed AIP, refreshing it if audit-driven packet changes affect execution instructions
-- Start new packet requests with active collaboration; every full and lite AIP records a `Collaboration Summary` and includes a `collaboration-readiness` checklist task before implementation
-- Treat a detailed new-AIP request as seed context, not completed collaboration; packet writes, `collaboration-readiness: completed`, and implementation wait for user-confirmed summary evidence or an explicit direct/template-only scaffold exception
-- Run `IMPLEMENTATION_AUDIT.md` before packet closure; accepted findings must be fixed or explicitly dispositioned and re-verified before completion
-
-Routing note:
-- Generic requests like `new AIP` should start the AIP flow and default to `AIP_COLLAB.md` for active collaboration and user-confirmed planning.
-- Use `AIP_NEW.md` only when the user explicitly wants direct scaffolding or accepted planning artifacts already satisfy the collaboration readiness gate.
-- A specific feature description can shorten the collaboration round, but it does not authorize immediate packet scaffolding or implementation.
+Do not document framework-source behavior using downstream `docs/...` paths unless you are explicitly describing the installed layout in a target repo.
 
 ---
 
-## Step-by-Step Example: Create a New AIP
+## Prompt Map
 
-Below is a concrete, repeatable flow you can follow for any new feature.
+### Core workflow prompts
 
-### Example (Full AIP)
-Feature: **period-insights-cards** (backend + frontend)
+- `prompts/SYSTEM_BOOTSTRAP.md` - install AFW into a repo and generate the initial docs foundation
+- `prompts/AGENTS_CONFIG_TAILOR.md` - propose host config updates for Claude, Codex, Cursor, and Gemini CLI
+- `prompts/AIP_COLLAB.md` - collaboration-first intake for new or updated packets
+- `prompts/AIP_NEW.md` - scaffold or update a packet only after collaboration readiness is satisfied
+- `prompts/CHECKLIST_VALIDATOR.md` - validate packet checklist structure, readiness evidence, and closure gates
+- `prompts/AGENT_PROMPT_GENERATOR.md` - generate or refresh `AGENT_PROMPT.txt`
+- `prompts/IMPLEMENTATION_AUDIT.md` - required post-implementation audit before packet closure
+- `prompts/AIP_RECONCILE.md` - reconcile packet truth with accepted changes or follow-on decisions
+- `prompts/AFW_IMPORT_UPDATE.md` - update an existing AFW install to the latest framework gates
 
-1) Choose the feature slug and scope
-- Slug: `period-insights-cards`
-- Scope: backend + frontend
-- Size: full AIP
+### Supporting prompts
 
-2) Run the guided AIP creation prompt
-```
-@AgenticFlywheel/prompts/AIP_COLLAB.md
-```
-Work with the AIP Collaboration Steward to confirm goals, scope, non-goals, acceptance, risks, rollout, and verification. The packet should not be written until the user confirms the Collaboration Summary and the Collaboration Readiness checklist is satisfied.
-
-If the requirements are already settled and you only want the packet scaffold, use:
-```
-@AgenticFlywheel/prompts/AIP_NEW.md
-```
-
-3) Approve the generated packet
-- The packet will live at:
-  - `docs/Agent Implementation Packets/period-insights-cards/`
-- Confirm that `CHECKLIST.yaml` records `packet_level`, `enabled_modules`, and any `omitted_modules` rationale for a full AIP.
-- Confirm that `CHECKLIST.yaml` includes real verification commands (tests/build/lint) for your repo.
-- Confirm that `REVIEWS.md` includes the Collaboration Summary and `CHECKLIST.yaml` includes `collaboration-readiness`.
-- Confirm that only the enabled optional module docs were scaffolded.
-- Confirm that the initial approval bundle for a full AIP includes both `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt`.
-
-4) Implement by following the checklist
-- Work through `CHECKLIST.yaml` phases in order.
-- Mark tasks as `in_progress` / `completed` as you go.
-
-5) Finish with Docs & Handoff
-- Run verification commands.
-- Update Feature Registry (`docs/features/REGISTRY.yaml`).
-- Generate or refresh prompt artifacts from the current packet docs late in handoff:
-  ```
-  @AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md
-  ```
-- Run the required implementation audit before closure:
-  ```
-  @AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md
-  ```
-- Fix or explicitly disposition all findings, re-run targeted verification, and refresh prompt artifacts if audit findings changed packet docs or handoff instructions.
-
-### Example (Lightweight AIP)
-Feature: **settings-copy-update** (frontend-only)
-
-1) Create the packet folder
-- `docs/Agent Implementation Packets/settings-copy-update/`
-
-2) Copy lightweight templates into the packet
-- `docs/templates/aip-lite/README.md`
-- `docs/templates/aip-lite/CHECKLIST.yaml`
-
-If the change still has open scope, contract, acceptance, verification, rollout, or risk questions, run `AIP_COLLAB.md` first instead of scaffolding directly.
-
-3) Fill in the README + checklist
-- Add real verification commands to `CHECKLIST.yaml`.
-- Record the Collaboration Summary in README.md.
-- Keep tasks scoped to the few files you’re touching.
-- Generate `AGENT_PROMPT.txt` only if the repo wants a zero-context handoff artifact for this small change.
-
-4) Implement and finish the handoff
-- Run verification commands.
-- Update `docs/features/REGISTRY.yaml`.
-- Run the scaled `IMPLEMENTATION_AUDIT.md` gate before closure.
-- Generate or refresh `AGENT_PROMPT.txt` if needed (same generator as above).
+- `prompts/OFFICE_HOURS.md`, `prompts/AUTOPLAN.md` - deeper planning before packet creation when risk or scope is high
+- `prompts/PRELANDING_REVIEW.md`, `prompts/QA.md`, `prompts/SHIP.md` - reusable review and release prompts
+- `prompts/CONTEXT_SAVE.md`, `prompts/CONTEXT_RESTORE.md`, `prompts/GUARD_MODE.md`, `prompts/LEARNINGS.md` - runtime support and operator workflows
+- `prompts/FEATURES_REGISTRY_*` - bootstrap, update, validate, and retrofit registry entries
 
 ---
 
-## The AIP Spectrum: Right-Size Your Process
+## Packet Types
 
-Not every change needs a 50-page document. Choose the right tool:
+### No AIP
 
-| Type | When to Use | Time Investment |
-|------|-------------|-----------------|
-| **No AIP** | Bug fixes, typos, <3 file changes | 0 min (document in commit) |
-| **Lightweight AIP** | Small features, single-sided changes | 10-15 min |
-| **Full AIP** | Major features, contracts, multi-system | 20-30 min |
+Use for trivial work such as typos, tiny docs fixes, or very narrow low-risk changes.
 
-**Decision tree:**
-```
-Is it a bug or tiny change? → No AIP
-├─ No → Is it <2 days and simple? → Lightweight AIP
-    ├─ No → Full AIP
-```
+### AIP-Lite
 
----
+Use for smaller single-sided changes that still need explicit scope, verification, and closure discipline.
 
-## Why This Works: The Invisible Enforcement
+Required tracked artifacts:
 
-The magic isn't in the templates alone. It is in the combination of packet structure, host routing, and validation that makes the happy path the easiest path:
+- `README.md`
+- `CHECKLIST.yaml`
 
-1. **Collaboration Readiness**: new packets require confirmed user intent, accepted assumptions, and a recorded Collaboration Summary before implementation begins
-2. **Required Phases**: `CHECKLIST.yaml` templates mandate implementation, verification, Docs & Handoff, implementation audit, remediation, re-verification, and closure
-3. **Validation Gates**: `CHECKLIST_VALIDATOR.md` is a required AFW validation step before approving a new packet and again before closure; schema checks can add machine enforcement when your repo wires them into local tooling or CI
-4. **Registry Updates**: Feature Registry must be updated during handoff—no feature is complete without traceability
-5. **Audit Findings Become Work**: Accepted findings update packet docs and checklist tasks, then block completion until fixed or explicitly dispositioned
-6. **Dependency Tracking**: AI automatically analyzes impact before modifications
-7. **Prompt-Based**: AFW works in plain prompt surfaces first, and gets stronger when repos add schema or CI validation on top
+Optional artifact:
 
-**Result:** AI agents are much less likely to skip tests, docs, or closure gates, and repos can keep tightening enforcement over time.
+- `AGENT_PROMPT.txt` when the repo wants a zero-context handoff for the change
 
-## Canonical Artifact Matrix
+### Full AIP
 
-**Full AIP required tracked artifacts**
+Use for larger feature work, cross-cutting changes, multi-surface implementation, contract changes, migrations, or anything that needs a stronger planning and closure surface.
+
+Required tracked artifacts:
+
 - `README.md`
 - `REVIEWS.md`
 - `CHECKLIST.yaml`
@@ -301,83 +204,122 @@ The magic isn't in the templates alone. It is in the combination of packet struc
 - `AGENT_PROMPT.txt`
 - `IMPLEMENTATION_AUDIT_PROMPT.txt`
 
-**Full AIP optional capability modules**
-- `CONTRACTS.md` when API, event, validation, integration, or compatibility contracts change
-- `DATA_MODEL.sql` when schema, persistence, retention, backfill, or storage semantics change
-- `BACKEND_IMPLEMENTATION.md` when backend/services/jobs/workers are in scope
-- `ORCHESTRATION_AND_UI.md` when UI, orchestration, or user/operator journeys are in scope
-- `OBSERVABILITY.md` when metrics/logging/alerts/tracing/operational validation materially change
-- `RUNBOOK.md` when rollout, flags, migrations, rollback, or operator actions matter
+Optional capability modules:
 
-**Full AIP packet manifest**
-- Record packet shape directly in `CHECKLIST.yaml`
-- Use `packet_level: full`
-- Use `enabled_modules` for the relevant optional modules
-- Use `omitted_modules` entries with `module` + `reason` for intentionally skipped modules
-- Older full packets without the manifest remain valid; treat them as legacy packets and infer enabled docs from the packet itself
+- `CONTRACTS.md`
+- `DATA_MODEL.sql`
+- `BACKEND_IMPLEMENTATION.md`
+- `ORCHESTRATION_AND_UI.md`
+- `OBSERVABILITY.md`
+- `RUNBOOK.md`
 
-**AIP-Lite required tracked artifacts**
-- `README.md`
-- `CHECKLIST.yaml`
+New full packets should record their shape directly in `CHECKLIST.yaml`:
 
-**AIP-Lite optional artifacts**
-- `AGENT_PROMPT.txt` when the repo wants a zero-context handoff artifact
+```yaml
+packet_level: full
+enabled_modules:
+  - contracts
+  - backend_implementation
+omitted_modules:
+  - module: observability
+    reason: "No metrics or rollout changes in this packet"
+```
 
-**Review prompt scope**
-- Mandatory closure chain: verification, implementation audit, audit remediation, audit re-verification, packet closure
-- Recommended reusable prompts: `PRELANDING_REVIEW.md`, `QA.md`, `SHIP.md`
-- Those review prompts become hard gates only if the repo explicitly adds them to packet tasks or local automation
+Older full packets without the manifest remain valid. Prompts and validators should infer their shape from the packet docs already present.
 
 ---
 
-## FAQ: The Hard Questions
+## Collaboration And Closure Rules
 
-**Q: Does this slow us down?**  
-A: Initially, yes—by 15-30 minutes for your first AIP. But you eliminate rework, prevent technical debt, and by your 10th feature, you're **2-3x faster** with higher quality.
+These are the rules most worth internalizing:
 
-**Q: What if we skip the "Docs & Handoff" phase?**  
-A: Don't. That's like skipping the foundation of a building. The flywheel breaks, docs drift, and you're back to chaos. This phase is what makes the system self-sustaining.
-
-**Q: What if the implementation audit finds issues after everything looked done?**
-A: That is the point of the gate. The findings are promoted into packet docs, remediation tasks are added to `CHECKLIST.yaml`, targeted verification is re-run, and the packet stays open until the issues are fixed or explicitly dispositioned.
-
-## Updating Existing AFW Installs
-
-If AFW is already deployed in a repo, run:
-
-```
-@AgenticFlywheel/prompts/AFW_IMPORT_UPDATE.md
-```
-
-Use it to merge the active-collaboration and implementation-audit gates into vendored or installed AFW assets while preserving local customizations. It proposes diffs, updates templates/prompts/configs, and separately flags in-progress packets that need the new gates.
-
-**Q: How is this different from just "being more disciplined"?**  
-A: Discipline fails when you're moving fast. AgenticFlywheel uses structure, routing, and validation as guardrails. If you add schema or CI checks on top, those guardrails become even harder to bypass.
-
-**Q: Can we adapt this to our existing workflow?**  
-A: Yes. The wizard interviews you about your actual process and generates docs that match your reality—not some idealized version. It merges with existing docs and respects your boundaries.
-
-**Q: Do we need to install anything?**  
-A: **Zero dependencies.** It's prompt-based. Copy the folder and run the prompts in your existing AI tool. That's it.
+- Generic requests like `new AIP`, `create AIP`, or `start AIP` should default to `AIP_COLLAB.md`.
+- A specific feature description can shorten the collaboration round, but it does not authorize packet writes by itself.
+- `collaboration-readiness` must exist before implementation work begins.
+- Full packets write the Collaboration Summary into `REVIEWS.md`.
+- AIP-Lite writes the Collaboration Summary into `README.md`.
+- Inferred assumptions are not accepted assumptions until the user confirms them or explicitly chooses a direct/template-only scaffold exception.
+- Full packet creation must include both prompt artifacts up front: `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt`.
+- Packet completion is not honest until the implementation audit has run and its actionable findings are resolved or explicitly dispositioned.
 
 ---
 
-## The Bottom Line
+## Host Surfaces
 
-AgenticFlywheel transforms AI development from **artisanal chaos** to **industrial-grade consistency**. It's not about adding process for process's sake—it's about building a system where each feature strengthens the next, documentation stays current automatically, and you can hand off to any AI agent (or human) with zero context loss.
+AFW supports multiple host experiences. In this repo, the current shipped surfaces are:
 
-**Your codebase becomes a self-improving system.** That's the flywheel effect.
+| Host Surface | Path | Purpose |
+|--------------|------|---------|
+| Claude project config | `templates/config/.claude/CLAUDE.md` | Stable repo-level AFW guidance |
+| Claude project prompt compatibility layer | `templates/config/.claude/PROJECT_PROMPT.md` | Compatibility with older Claude repo setups |
+| Claude project skill | `templates/config/.claude/skills/agentic-flywheel/SKILL.md` | Repeatable AFW workflows in Claude |
+| Codex config | `templates/config/.codex/agents.yml` | Docs-first Codex host configuration |
+| Cursor rules | `templates/config/.cursor/rules/.cursorrules` | Lightweight Cursor routing and guardrails |
+| Claude plugin scaffold | `templates/claude-plugin/agentic-flywheel/` | Focused native command surface for key AFW workflows |
+| Model overlays | `model-overlays/claude.md`, `model-overlays/codex.md` | Host behavior overlays aligned with current AFW rules |
+
+Use `AGENTS.md` as the first repo-specific source of truth after AFW is installed, regardless of host.
 
 ---
 
-## Next Step: Run the Bootstrap Wizard
+## Runtime Layer
 
-Copy this framework into your repo and run:
+`spec/EXECUTION_LAYER.md` defines AFW's local runtime layer.
 
+Key ideas:
+
+- repo-tracked packet docs are canonical
+- `.agentic-flywheel/state/` is local, advisory, and gitignored
+- runtime notes can inform work, but they do not change packet truth until promoted into packet docs
+- accepted audit findings become closure blockers only after they are written back into packet truth
+
+Canonical runtime paths:
+
+- `.agentic-flywheel/state/checkpoints/`
+- `.agentic-flywheel/state/learnings.jsonl`
+- `.agentic-flywheel/state/reviews.jsonl`
+- `.agentic-flywheel/state/timeline.jsonl`
+- `.agentic-flywheel/state/question-prefs.json`
+
+---
+
+## Updating An Existing AFW Install
+
+If a repo already vendors or installs AFW, run:
+
+```text
+@AgenticFlyWheel/prompts/AFW_IMPORT_UPDATE.md
 ```
-@AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md
+
+That flow is designed to:
+
+- preserve local customizations
+- merge in the collaboration-readiness gate
+- merge in the implementation-audit gate
+- update templates and host configs
+- flag in-progress packets that still need migration
+
+---
+
+## Why This Works
+
+AFW combines four things that usually drift apart:
+
+1. planning that captures real user intent
+2. packet docs that stay self-contained and restartable
+3. host routing that nudges agents into the right workflow
+4. closure gates that force docs, verification, audit, and truth write-back to match reality
+
+The result is a development loop where each finished feature makes the next one easier to reason about, safer to change, and faster to ship.
+
+---
+
+## Bottom Line
+
+AgenticFlyWheel is a prompt-first control plane for systematic AI-assisted development. It helps teams replace ad hoc AI sessions with repeatable collaboration, explicit packet truth, honest audits, and low-friction handoff.
+
+If you want the framework in another repo, start with:
+
+```text
+@AgenticFlyWheel/prompts/SYSTEM_BOOTSTRAP.md
 ```
-
-In 15 minutes, you'll have a complete documentation constitution and your first AIP ready to implement.
-
-**Welcome to systematic AI development.** 🎯
