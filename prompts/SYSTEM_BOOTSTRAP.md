@@ -195,10 +195,12 @@ Steps
       - "How will you test this?"
       - If full AIP: "Any API endpoints or data model changes?"
       - If full AIP: "Any security or compliance considerations?"
+      - If full AIP: "Which optional modules are actually needed: contracts, data_model, backend_implementation, orchestration_and_ui, observability, runbook?"
    
    d) Generate AIP
       - Create packet in `docs/Agent Implementation Packets/<feature-slug>/`
       - Use appropriate template (lightweight or full)
+      - For full AIPs, record `packet_level`, `enabled_modules`, and `omitted_modules` in `CHECKLIST.yaml` and scaffold only the enabled optional module docs
       - Populate with interview answers
       - Set status to `pending`
       - Add to Feature Registry with status `planned`

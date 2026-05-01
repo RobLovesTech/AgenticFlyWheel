@@ -11,17 +11,21 @@ Inputs
 Target Paths
 - Packet root: `docs/Agent Implementation Packets/$1/`
 - Packet docs (must exist before generation):
+  - Read `CHECKLIST.yaml` first to determine `packet_level`, `enabled_modules`, and `omitted_modules`.
+  - Always-present docs for full AIPs:
   - `README.md`
   - `REVIEWS.md`
   - `CONTEXT.md`
-  - `CONTRACTS.md`
-  - `BACKEND_IMPLEMENTATION.md`
-  - `ORCHESTRATION_AND_UI.md`
-  - `OBSERVABILITY.md`
-  - `RUNBOOK.md`
   - `RISKS.md`
-  - `DATA_MODEL.sql`
   - `CHECKLIST.yaml`
+  - Enabled module docs when applicable:
+    - `CONTRACTS.md`
+    - `BACKEND_IMPLEMENTATION.md`
+    - `ORCHESTRATION_AND_UI.md`
+    - `OBSERVABILITY.md`
+    - `RUNBOOK.md`
+    - `DATA_MODEL.sql`
+  - If the packet predates the manifest, infer enabled module docs from the packet files already present and the checklist references instead of failing on the missing manifest.
 - Prompt helpers (reference-only; DO NOT copy into the packet):
   - `docs/templates/AIP/AGENT_PROMPT_AUTHORING_GUIDE.md`
   - `docs/templates/AIP/AGENT_PROMPT_QA_CHECKLIST.md`
@@ -38,7 +42,7 @@ Operating Rules
 Sequence
 1) Validate Inputs & Packet
    - Confirm that `docs/Agent Implementation Packets/$1/` exists.
-   - Confirm that the core packet docs listed above are present.
+   - Confirm that the always-present packet docs listed above are present, and that every enabled module doc exists when the manifest says it is enabled.
    - If anything is missing or obviously incomplete, print a clear summary and ask the user whether to proceed, fix docs first, or abort.
    - If `REVIEWS.md` is missing, treat the packet as incomplete by default. Only proceed in explicit legacy mode if the user confirms they want to generate without review inputs.
 
@@ -47,14 +51,15 @@ Sequence
    - Read:
      - `README.md` → feature title, exec summary, goals/non-goals, signals & flags summary, acceptance, rollout.
      - `REVIEWS.md` → Collaboration Summary, Accepted Decisions, Open Risks, Final Verdict. Ignore advisory notes that were not accepted.
-     - `CONTRACTS.md` → formulas, thresholds/buckets, events, fallbacks, acceptance rules.
-     - `BACKEND_IMPLEMENTATION.md` → backend file paths, functions/methods, flags, pseudocode.
-     - `ORCHESTRATION_AND_UI.md` → frontend file paths, flows, copy/threshold changes.
-     - `RUNBOOK.md` → flags/defaults, commands, flip/rollback, queries.
-     - `OBSERVABILITY.md` → metrics names/labels, dashboards, validation panels.
      - `RISKS.md` → top risks and mitigations.
      - `CONTEXT.md` → constraints, env defaults, parity notes.
      - `CHECKLIST.yaml` → phases/tasks, verification.commands, acceptance, implementation audit/remediation/reverify/closure tasks.
+     - If `contracts` is enabled: `CONTRACTS.md` → formulas, thresholds/buckets, events, fallbacks, acceptance rules.
+     - If `backend_implementation` is enabled: `BACKEND_IMPLEMENTATION.md` → backend file paths, functions/methods, flags, pseudocode.
+     - If `orchestration_and_ui` is enabled: `ORCHESTRATION_AND_UI.md` → frontend file paths, flows, copy/threshold changes.
+     - If `runbook` is enabled: `RUNBOOK.md` → flags/defaults, commands, flip/rollback, queries.
+     - If `observability` is enabled: `OBSERVABILITY.md` → metrics names/labels, dashboards, validation panels.
+     - If `data_model` is enabled: `DATA_MODEL.sql` → schema/storage semantics, DDL notes, retention/backfill expectations.
    - Produce a concise, numbered summary of:
      - Main goals and non-goals
      - Accepted review inputs and open risks
@@ -76,11 +81,11 @@ Sequence
      - Review Inputs: accepted conclusions from `REVIEWS.md` only.
      - Collaboration Inputs: confirmed decisions and accepted assumptions from the packet Collaboration Summary.
      - Signals & Flags: summary of core formulas, thresholds, and key flags.
-     - Runtime Flags: explicit list of flags and defaults from RUNBOOK (and related docs).
+     - Runtime Flags: explicit list of flags and defaults from RUNBOOK when enabled, otherwise from CHECKLIST.yaml / CONTEXT.md when packet-level defaults exist.
      - Touch Points: backend and frontend file paths grouped by area, with intent per group.
      - Execution Plan: step-by-step tasks aligned with `CHECKLIST.yaml` phases/tasks (summarized, not 1:1 copies).
-     - Verify & Accept: acceptance criteria distilled from README and CONTRACTS, including any important edge cases.
-     - Validation & Observability: metrics, dashboards, and checks required before calling the feature “done”.
+     - Verify & Accept: acceptance criteria distilled from README, CHECKLIST.yaml, and CONTRACTS when enabled, including any important edge cases.
+     - Validation & Observability: metrics, dashboards, and checks required before calling the feature “done”, only when those surfaces exist.
      - Implementation Audit Gate: run the packet-local `IMPLEMENTATION_AUDIT_PROMPT.txt` when present, otherwise run `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`, after implementation, verification, docs sync, and prompt-artifact refresh; promote findings into packet docs; fix or explicitly disposition each finding; refresh prompt artifacts if audit-driven packet changes affect them; re-run targeted verification; complete packet closure only after the audit passes.
      - Ground Rules: concise bullets for constraints (privacy, security, parity, scope discipline, doc updates).
    - Keep the prompt zero-context and self-contained: do not refer to prior chats; always reference docs and files by path.
@@ -91,7 +96,7 @@ Sequence
      - Concrete file paths and intent are present.
      - Flags and defaults are correctly captured.
      - Acceptance conditions are explicit and verifiable.
-     - Metrics/logs/dashboards used for validation are called out.
+     - Metrics/logs/dashboards used for validation are called out when the packet enables `observability`.
      - IMPLEMENTATION_AUDIT is included as a mandatory closure gate and audit findings block completion until resolved or explicitly dispositioned.
      - Collaboration Summary is reflected so the implementation agent does not rely on prior chat or unconfirmed assumptions.
    - If any item would fail the checklist, revise the draft before showing it to the user.

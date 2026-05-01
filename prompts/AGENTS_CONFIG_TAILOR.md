@@ -14,11 +14,20 @@ Proposal Rules
 - Claude: Provide a `.claude/skills/agentic-flywheel/SKILL.md` for AFW procedures such as bootstrap, AIP creation, checklist validation, and `AGENT_PROMPT.txt` generation. Keep repeatable workflow logic out of `CLAUDE.md`.
 - Codex: For `.codex/agents.yml`, add or merge an agent that includes `docs/**`, `docs/Agent Implementation Packets/**`, `docs/features/**`, and the execution-layer prompts in context. Treat Codex as the primary generated host config. Do not remove existing entries.
 - Cursor: For `.cursor/rules/.cursorrules`, merge a short rule set that prioritizes `docs/ai/INDEX.md` → referenced docs and AIP packet CHECKLIST.yaml as authoritative during changes.
-- All tools that support named agents/commands: add convenient entry points to launch core AgenticFlywheel prompts **without manual copy/paste**, including at minimum `AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md` (Bootstrap Wizard), `AgenticFlywheel/prompts/AFW_IMPORT_UPDATE.md`, `AgenticFlywheel/prompts/AIP_COLLAB.md`, `AgenticFlywheel/prompts/AIP_NEW.md`, `AgenticFlywheel/prompts/OFFICE_HOURS.md`, `AgenticFlywheel/prompts/AUTOPLAN.md`, `AgenticFlywheel/prompts/PRELANDING_REVIEW.md`, `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`, `AgenticFlywheel/prompts/CONTEXT_SAVE.md`, `AgenticFlywheel/prompts/CONTEXT_RESTORE.md`, `AgenticFlywheel/prompts/QA.md`, and `AgenticFlywheel/prompts/SHIP.md`.
+- All tools that support named agents/commands: add convenient entry points to launch core AgenticFlywheel prompts **without manual copy/paste**.
+- Preferred minimum command surface when the host supports only a focused set:
+  - `AgenticFlywheel/prompts/SYSTEM_BOOTSTRAP.md` (Bootstrap Wizard)
+  - `AgenticFlywheel/prompts/AFW_IMPORT_UPDATE.md`
+  - `AgenticFlywheel/prompts/AIP_COLLAB.md` / `AIP_NEW.md` through a create-AIP entry point
+  - `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`
+  - checklist validation
+  - prompt generation
+- Remaining prompts such as `OFFICE_HOURS.md`, `AUTOPLAN.md`, `PRELANDING_REVIEW.md`, `CONTEXT_SAVE.md`, `CONTEXT_RESTORE.md`, `QA.md`, `SHIP.md`, and `GUARD_MODE.md` may route through natural-language intent handling or project skills when the host does not expose a first-class command for each one.
 - For each tool’s primary “feature” agent, teach it to interpret natural commands like **"new AIP"**, **"create AIP for \<feature\>"**, or **"start AIP for this change"** by invoking the AIP creation flow instead of treating them as generic chat. Route generic requests to `AIP_COLLAB.md` by default, and use `AIP_NEW.md` only for explicit direct/template-only scaffolding or when accepted prior planning artifacts already settle the requirements.
 - For each tool’s primary “feature” agent, teach it that `AIP_COLLAB.md` means active collaboration with a readiness gate, not just passive template Q&A.
 - Teach the agent that detailed feature requests are seed context, not accepted collaboration readiness.
 - Teach the agent to record user-confirmed Collaboration Summary evidence and `collaboration-readiness` before scaffolding packet files, completing readiness, or implementing.
+- For every host, make `AGENTS.md` the first repo-specific source of truth before the registry, packet docs, or prompts.
 - Also teach the primary agent to route natural language commands for office hours, product review, eng review, design review, devex review, prelanding review, implementation audit, save context, resume context, QA, ship, and guard mode.
 - If the user wants shareable Claude-native packaging, propose the plugin scaffold at `AgenticFlywheel/templates/claude-plugin/agentic-flywheel/`.
 - All: Propose changes as minimal diffs; preserve existing content and comments.

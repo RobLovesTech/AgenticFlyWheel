@@ -7,18 +7,21 @@ Your task is zero‑context: do not rely on prior chats. Follow these steps:
 
 1) Intake
 - Read CHECKLIST.yaml and pick the first pending task in phase order.
-- Read: README.md, REVIEWS.md, CONTRACTS.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, RISKS.md, CONTEXT.md, DATA_MODEL.sql.
+- Treat `packet_level`, `enabled_modules`, and `omitted_modules` in CHECKLIST.yaml as authoritative for which packet docs exist.
+- Read the always-present docs: README.md, REVIEWS.md, RISKS.md, CONTEXT.md.
+- Read only the enabled module docs when they exist: CONTRACTS.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, DATA_MODEL.sql.
 - Treat the Collaboration Summary in REVIEWS.md as the record of confirmed user intent and accepted assumptions.
 - Treat only the Accepted Decisions section of REVIEWS.md as implementation-driving review guidance.
 
 2) Implement
 - Apply minimal, file‑scoped changes in the order described.
-- Respect flags/defaults in RUNBOOK.md.
+- Respect flags/defaults in RUNBOOK.md when the `runbook` module is enabled, otherwise follow packet-level defaults in CHECKLIST.yaml and CONTEXT.md.
 - Keep privacy and security constraints (no PII; paraphrase/redact as required).
 
 3) Verify
-- Run commands in RUNBOOK.md and confirm acceptance in README.md → Acceptance section.
-- If metrics are part of acceptance, check OBSERVABILITY.md panels.
+- Run verification commands from CHECKLIST.yaml and confirm acceptance in README.md → Acceptance section.
+- If the `runbook` module is enabled, also follow RUNBOOK.md validation, flip/rollback, and query guidance.
+- If metrics are part of acceptance and the `observability` module is enabled, check OBSERVABILITY.md panels.
 
 4) Update Docs & Status
 - Update CHECKLIST.yaml and CHECKLIST.md with statuses and brief notes.

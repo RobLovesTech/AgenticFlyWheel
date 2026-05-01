@@ -1,5 +1,14 @@
 version: 1
 feature: "{{FEATURE_SLUG}}"
+packet_level: full
+enabled_modules:
+  - contracts
+  - data_model
+  - backend_implementation
+  - orchestration_and_ui
+  - observability
+  - runbook
+omitted_modules: []
 status: pending
 constraints:
   - Respect privacy and security constraints
@@ -7,19 +16,19 @@ parity: {}
 env_defaults: {}
 phases:
   - id: design
-    name: Design & Contracts
-    description: Finalize contracts and implementation plan
+    name: Design & Planning
+    description: Finalize collaboration output plus any enabled planning/contract modules
     tasks:
       - id: collaboration-readiness
         title: Confirm user-approved collaboration readiness and record Collaboration Summary
         files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md", "docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CHECKLIST.yaml"]
         acceptance:
-          - "REVIEWS.md records the user-confirmed Collaboration Summary or an explicit direct/template-only scaffold exception"
+          - "REVIEWS.md records the structured Collaboration Summary receipt or an explicit direct/template-only scaffold exception"
           - "Agent-inferred assumptions are not treated as accepted assumptions without user confirmation"
           - "No packet implementation task begins until this evidence exists"
         status: pending
       - id: contracts
-        title: Complete CONTRACTS.md (signals, thresholds, events, fallbacks)
+        title: If `contracts` is enabled, complete CONTRACTS.md (signals, thresholds, events, fallbacks)
         files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CONTRACTS.md"]
         status: pending
       - id: review-gauntlet
@@ -27,15 +36,15 @@ phases:
         files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md"]
         status: pending
       - id: backend_plan
-        title: Complete BACKEND_IMPLEMENTATION.md (files, flags, pseudocode)
+        title: If `backend_implementation` is enabled, complete BACKEND_IMPLEMENTATION.md (files, flags, pseudocode)
         files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/BACKEND_IMPLEMENTATION.md"]
         status: pending
   - id: backend
     name: Backend Implementation
-    description: Implement backend changes
+    description: Enable this phase only when `backend_implementation` is in enabled_modules
     tasks:
       - id: impl-core
-        title: Implement core logic per BACKEND_IMPLEMENTATION.md
+        title: Implement enabled backend/service logic per BACKEND_IMPLEMENTATION.md
         files: []
         status: pending
       - id: tests-backend
@@ -44,10 +53,10 @@ phases:
         status: pending
   - id: frontend
     name: Frontend Implementation
-    description: Implement UI/UX per ORCHESTRATION_AND_UI.md
+    description: Enable this phase only when `orchestration_and_ui` is in enabled_modules
     tasks:
       - id: impl-ui
-        title: Implement UI/UX changes
+        title: Implement enabled UI/orchestration changes
         files: []
         status: pending
       - id: tests-frontend
@@ -64,14 +73,14 @@ phases:
         status: pending
   - id: observe
     name: Observability & Rollout
-    description: Metrics, dashboards, flip/rollback
+    description: Include only the observability/runbook tasks for the modules enabled in this packet
     tasks:
       - id: metrics
-        title: Add metrics per OBSERVABILITY.md
+        title: If `observability` is enabled, add metrics per OBSERVABILITY.md
         files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/OBSERVABILITY.md"]
         status: pending
       - id: runbook
-        title: Add RUNBOOK and execute validation
+        title: If `runbook` is enabled, add RUNBOOK and execute validation
         files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/RUNBOOK.md"]
         status: pending
   - id: handoff
@@ -116,14 +125,12 @@ phases:
         status: pending
       - id: audit-reverify
         title: Re-run targeted verification for audit findings and update evidence
-        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/RUNBOOK.md", "docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md"]
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CHECKLIST.yaml", "docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md"]
         status: pending
       - id: packet-closure
         title: Confirm audit passed, findings are resolved, and packet may be marked completed
         files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CHECKLIST.yaml", "docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CHECKLIST.md"]
         status: pending
 verification:
-  commands:
-    - "TODO: add repo-specific verification commands (tests/build/lint) for impacted components"
-  acceptance:
-    - "TODO: add feature-specific acceptance criteria"
+  commands: []
+  acceptance: []

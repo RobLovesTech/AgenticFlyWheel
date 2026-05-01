@@ -58,6 +58,7 @@ Steps
    - "Any API endpoints or data model changes?"
    - "Any security or compliance considerations?"
    - "What metrics will show it's working?"
+   - "Which optional full-AIP modules are actually needed: contracts, data_model, backend_implementation, orchestration_and_ui, observability, runbook?"
    
    Keep it brief: gather enough to populate the AIP, don't deep-dive
 
@@ -81,7 +82,9 @@ Steps
    - Ensure the scaled implementation audit gate is present before packet closure
    
    If full:
-   - Create complete packet docs from templates (README, REVIEWS, CONTEXT, CONTRACTS, BACKEND_IMPLEMENTATION, ORCHESTRATION_AND_UI, CHECKLIST, RUNBOOK, OBSERVABILITY, RISKS, DATA_MODEL.sql).
+   - Create the always-present full-AIP docs from templates (README, REVIEWS, CONTEXT, CHECKLIST, RISKS).
+   - Write `packet_level: full`, `enabled_modules`, and `omitted_modules` into CHECKLIST.yaml.
+   - Create only the enabled optional module docs from templates (CONTRACTS, BACKEND_IMPLEMENTATION, ORCHESTRATION_AND_UI, RUNBOOK, OBSERVABILITY, DATA_MODEL.sql).
    - Generate `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` from the completed packet docs before the final write/approval bundle.
    - Do not copy `AGENT_PROMPT_AUTHORING_GUIDE.md`, `AGENT_PROMPT_QA_CHECKLIST.md`, or framework prompt files into the packet folder; they stay in `docs/templates/AIP/` or `AgenticFlywheel/prompts/` as authoring references.
    - Use answers to fill in details; leave TODOs where needed
@@ -125,7 +128,7 @@ Steps
    
    Next steps:
    1. Review the AIP: Open `docs/Agent Implementation Packets/<feature-slug>/README.md`
-   2. Refine if needed: Add details to CONTRACTS.md or BACKEND_IMPLEMENTATION.md
+   2. Refine if needed: Add details to the enabled optional module docs (for example CONTRACTS.md or BACKEND_IMPLEMENTATION.md)
    3. Start implementing: Follow CHECKLIST.yaml tasks in order
    4. As you work: Mark tasks as `in_progress` then `completed` in CHECKLIST.yaml
    5. Before closure: Run `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`, fix findings, re-run targeted verification, then complete the packet-closure task

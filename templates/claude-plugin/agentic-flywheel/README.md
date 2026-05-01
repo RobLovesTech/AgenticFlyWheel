@@ -16,12 +16,13 @@ Scope:
   - a vendored `AgenticFlywheel/` folder, or
   - an installed AFW docs layout under `docs/`
 - The plugin is a native command surface for AFW workflows. It does not package the entire framework by itself.
+- The plugin intentionally exposes a focused command surface for the most common AFW workflows. Broader prompt intents may still route through project skills or natural-language command handling.
 - `create-aip` defaults generic packet requests to active collaboration with `AIP_COLLAB.md`; direct scaffolding is reserved for explicit/template-only requests or already-satisfied collaboration readiness.
 - New full and lite packets must include user-confirmed Collaboration Summary write-back and `collaboration-readiness` before implementation tasks. Detailed requests are seed context, not accepted readiness.
 
 Local development:
 ```bash
-claude --plugin-dir /absolute/path/to/AgenticFlyWheel/templates/claude-plugin/agentic-flywheel
+claude --plugin-dir /absolute/path/to/AgenticFlywheel/templates/claude-plugin/agentic-flywheel
 ```
 
 Recommended pairing:

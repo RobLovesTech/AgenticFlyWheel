@@ -28,24 +28,25 @@ Steps
    - Note current statuses (AIP status, registry status)
 
 2) Analyze Documentation
+   - Extract from CHECKLIST.yaml first: packet level, enabled modules, omitted modules, and intended scope
    - Extract from README.md: objectives, scope, acceptance criteria
-   - Extract from CONTRACTS.md: API endpoints, events, data schemas, error model
-   - Extract from BACKEND_IMPLEMENTATION.md: files to touch, functions, logic
-   - Extract from ORCHESTRATION_AND_UI.md: components, flows, UI changes
-   - Extract from OBSERVABILITY.md: metrics, dashboards, logging
+   - If `contracts` is enabled, extract from CONTRACTS.md: API endpoints, events, data schemas, error model
+   - If `backend_implementation` is enabled, extract from BACKEND_IMPLEMENTATION.md: files to touch, functions, logic
+   - If `orchestration_and_ui` is enabled, extract from ORCHESTRATION_AND_UI.md: components, flows, UI changes
+   - If `observability` is enabled, extract from OBSERVABILITY.md: metrics, dashboards, logging
    - Extract from CHECKLIST.yaml: what tasks are marked complete vs pending
 
 3) Analyze Code Implementation
    Backend:
-   - Check if files mentioned in BACKEND_IMPLEMENTATION exist and contain expected logic
-   - Verify API endpoints match CONTRACTS.md (routes, methods, request/response)
-   - Check database schema matches DATA_MODEL.sql
-   - Verify metrics are instrumented per OBSERVABILITY.md
+   - If `backend_implementation` is enabled, check if files mentioned in BACKEND_IMPLEMENTATION exist and contain expected logic
+   - If `contracts` is enabled, verify API endpoints match CONTRACTS.md (routes, methods, request/response)
+   - If `data_model` is enabled, check database schema matches DATA_MODEL.sql
+   - If `observability` is enabled, verify metrics are instrumented per OBSERVABILITY.md
    
    Frontend:
-   - Check if components mentioned in ORCHESTRATION_AND_UI exist
-   - Verify UI flows match documented behavior
-   - Check for expected state management and API calls
+   - If `orchestration_and_ui` is enabled, check if components mentioned in ORCHESTRATION_AND_UI exist
+   - If `orchestration_and_ui` is enabled, verify UI flows match documented behavior
+   - If `orchestration_and_ui` is enabled, check for expected state management and API calls
    
    Tests:
    - Verify test files exist for backend and frontend
@@ -58,17 +59,17 @@ Steps
    - Component documented but file doesn't exist
    - Metric documented but not instrumented
    - Database field documented but column missing
-   
+
    **Not Documented** (code says yes, doc says no):
-   - API endpoint exists but not in CONTRACTS.md
-   - Component exists but not in ORCHESTRATION_AND_UI.md
+   - API endpoint exists but not in CONTRACTS.md when the `contracts` module is enabled
+   - Component exists but not in ORCHESTRATION_AND_UI.md when the `orchestration_and_ui` module is enabled
    - Behavior implemented but not in acceptance criteria
-   
+
    **Changed** (both exist but differ):
-   - API contract changed (breaking vs non-breaking)
-   - Component behavior differs from documentation
-   - Database schema differs from DATA_MODEL.sql
-   - Metrics differ from OBSERVABILITY.md
+   - API contract changed (breaking vs non-breaking) when the `contracts` module is enabled
+   - Component behavior differs from documentation when the `orchestration_and_ui` module is enabled
+   - Database schema differs from DATA_MODEL.sql when the `data_model` module is enabled
+   - Metrics differ from OBSERVABILITY.md when the `observability` module is enabled
    
    **Abandoned** (started but never finished):
    - Some CHECKLIST tasks completed, others never started
@@ -86,8 +87,7 @@ Steps
 
    **If code is correct** (implementation is good, docs are stale):
    - Update AIP docs to match reality
-   - Update CONTRACTS.md with actual APIs
-   - Update BACKEND_IMPLEMENTATION.md with actual files/logic
+   - Update the enabled module docs with actual APIs, files, logic, and operational notes
    - Update CHECKLIST.yaml marking completed tasks
    - Update Feature Registry status to `active`
    
@@ -114,10 +114,10 @@ Steps
    
    a) AIP Docs:
    - README.md: update scope/acceptance to match reality
-   - CONTRACTS.md: accurate API/event/schema docs
-   - BACKEND_IMPLEMENTATION.md: actual files and logic
-   - ORCHESTRATION_AND_UI.md: actual components and flows
-   - OBSERVABILITY.md: actual metrics and dashboards
+   - CONTRACTS.md: accurate API/event/schema docs when the `contracts` module is enabled
+   - BACKEND_IMPLEMENTATION.md: actual files and logic when the `backend_implementation` module is enabled
+   - ORCHESTRATION_AND_UI.md: actual components and flows when the `orchestration_and_ui` module is enabled
+   - OBSERVABILITY.md: actual metrics and dashboards when the `observability` module is enabled
    - CHECKLIST.yaml: accurate task statuses
    
    b) Feature Registry:
@@ -167,7 +167,7 @@ Recommended Strategy: [update docs | fix code | mark incomplete | abandon]
 - RECONCILIATION.md content
 
 **Action Items** (if manual intervention needed):
-- [ ] Complete [feature X] per CONTRACTS.md
+- [ ] Complete [feature X] per the enabled packet module docs and checklist
 - [ ] Add tests for [feature Y]
 - [ ] Remove undocumented [feature Z] or document it
 - [ ] Update dependencies in Feature Registry
@@ -183,4 +183,3 @@ Notes
 - Useful for: onboarding (understand legacy features), audits, before major changes
 - Creates RECONCILIATION.md as history — don't delete, it shows evolution
 - Safe to run multiple times; always non-destructive unless approved
-

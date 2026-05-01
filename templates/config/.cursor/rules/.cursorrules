@@ -3,11 +3,12 @@
 ## Canonical Sources
 
 Before making changes, read in this order:
-1. `docs/ai/INDEX.md`
-2. `docs/AIP_FRAMEWORK.md`
-3. `AgenticFlywheel/spec/EXECUTION_LAYER.md`
-4. `docs/features/REGISTRY.yaml`
-5. The target packet under `docs/Agent Implementation Packets/<feature-slug>/`
+1. `AGENTS.md`
+2. `docs/ai/INDEX.md`
+3. `docs/AIP_FRAMEWORK.md`
+4. `AgenticFlywheel/spec/EXECUTION_LAYER.md`
+5. `docs/features/REGISTRY.yaml`
+6. The target packet under `docs/Agent Implementation Packets/<feature-slug>/`
 
 Packet docs are canonical. Runtime artifacts under `.agentic-flywheel/state/` are advisory only.
 
@@ -40,13 +41,15 @@ Treat these phrases as structured intents:
 
 ## Workflow Defaults
 
-- Full feature flow: `OFFICE_HOURS -> AUTOPLAN -> AIP_COLLAB -> implementation -> PRELANDING_REVIEW -> IMPLEMENTATION_AUDIT -> QA -> SHIP`
+- Full feature flow: `OFFICE_HOURS -> AUTOPLAN -> AIP_COLLAB -> implementation`, then the mandatory `IMPLEMENTATION_AUDIT` closure chain, plus optional `PRELANDING_REVIEW`, `QA`, and `SHIP` review prompts when the repo wants a broader gauntlet
+- `IMPLEMENTATION_AUDIT.md` and its remediation/reverify/closure chain are the mandatory packet-closure gates.
+- `PRELANDING_REVIEW.md`, `QA.md`, and `SHIP.md` are recommended reusable review prompts unless the repo explicitly adds them as checklist tasks.
 - AIP creation requires active collaboration before scaffolding unless accepted prior planning artifacts already settle the work.
 - A detailed feature request is seed context, not accepted collaboration readiness. Stop for user confirmation after the Collaboration Summary before packet writes, readiness completion, or implementation.
 - Full AIPs record the Collaboration Summary in `REVIEWS.md`; AIP-Lite records it in README.md.
 - Every new full and lite AIP checklist must include `collaboration-readiness` before implementation tasks.
 - Full AIPs require `REVIEWS.md`
-- Lite AIPs keep review conclusions in `README.md` under `Review Summary (Optional)`
+- Lite AIPs keep accepted review conclusions in `README.md` under `Accepted Review Inputs (Optional)` and always use `Collaboration Summary` for readiness evidence
 - All AIPs require implementation audit, remediation, targeted re-verification, and packet closure before top-level `completed`
 
 ## Runtime Layer

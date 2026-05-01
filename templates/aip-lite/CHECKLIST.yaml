@@ -12,7 +12,7 @@ phases:
         title: Confirm user-approved collaboration readiness and record Collaboration Summary
         files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/README.md", "docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CHECKLIST.yaml"]
         acceptance:
-          - "README.md records the user-confirmed Collaboration Summary or an explicit direct/template-only scaffold exception"
+          - "README.md records the structured Collaboration Summary receipt or an explicit direct/template-only scaffold exception"
           - "Agent-inferred assumptions are not treated as accepted assumptions without user confirmation"
           - "No packet implementation task begins until this evidence exists"
         status: pending
@@ -65,7 +65,5 @@ phases:
         files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CHECKLIST.yaml"]
         status: pending
 verification:
-  commands:
-    - "TODO: add repo-specific verification commands (tests/build/lint) for impacted components"
-  acceptance:
-    - "TODO: add feature-specific acceptance criteria"
+  commands: []
+  acceptance: []

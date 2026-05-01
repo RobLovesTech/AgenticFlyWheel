@@ -2,8 +2,26 @@ Discovery Reframe
 - Summarize the reframed problem statement and user/job-to-be-done.
 
 Collaboration Summary
+- This section is the structured collaboration receipt that authorizes packet creation or update.
 - Required before packet scaffolding or update.
-- Capture confirmed user decisions, accepted assumptions, unresolved questions, and the confirmation that allowed packet generation.
+- `Confirmation Basis`: `user-confirmed summary` | `accepted prior planning artifacts` | `direct/template-only scaffold exception`
+- `Confirmed By`:
+- `Confirmed At`:
+- `Source Artifacts / Exception Rationale`:
+- `Confirmed Decisions`:
+  - Goal / desired outcome
+  - Persona scope decisions
+  - In-scope / out-of-scope boundaries
+  - Success criteria / acceptance
+  - Contracts / data model
+  - Rollout / migration / rollback
+  - Verification expectations
+- `Accepted Assumptions`:
+- `Open Questions / Deferred Follow-Ups`:
+- `Priority Tier Assignments` (when applicable):
+- `Reference Data Completeness` (when applicable):
+- `Cross-Cutting Behavior Decisions` (when applicable):
+- `Interaction Surface Decisions` (when applicable):
 - Do not let implementation agents treat unconfirmed guesses as packet truth.
 - Agent-inferred assumptions are proposed assumptions until the user confirms them or approves a direct/template-only scaffold exception.
 
@@ -27,7 +45,7 @@ Accepted Decisions
 - List only the conclusions that are approved to drive implementation.
 
 Implementation Audit
-- Required after implementation, verification, docs sync, and AGENT_PROMPT generation, but before packet closure.
+- Required after implementation, verification, docs sync, and prompt-artifact refresh, but before packet closure.
 - Record the `IMPLEMENTATION_AUDIT.md` verdict here: `pass`, `pass with concerns`, or `fail`.
 - Summarize blocking findings, accepted remediation decisions, verification evidence, and any explicitly non-blocking concerns.
 - Packet closure is not allowed until actionable findings are fixed or explicitly marked not applicable with rationale and targeted re-verification is recorded.

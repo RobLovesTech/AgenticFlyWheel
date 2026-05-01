@@ -7,7 +7,7 @@ Inputs
 - Optional branch, release target, or deployment environment
 
 Rules
-- Read the packet first: `CHECKLIST.yaml`, `README.md`, `REVIEWS.md`, `RUNBOOK.md`, `OBSERVABILITY.md`.
+- Read the packet first: `CHECKLIST.yaml`, `README.md`, `REVIEWS.md`, plus any enabled module docs that affect ship-readiness.
 - Use repo discovery to find the right verification commands, CI hooks, release process, and deployment surface.
 - Do not hardcode VERSION bumping, CHANGELOG edits, or release scripts unless the repo already uses them.
 - Do not ship when the packet is clearly incomplete or blocked.
@@ -18,7 +18,7 @@ Required Checks
   - AIP-Lite: README.md includes a `Collaboration Summary`.
   - `collaboration-readiness` exists and is completed unless the packet is explicitly legacy with documented rationale.
   - The summary records user confirmation, accepted prior planning artifacts, or an explicit direct/template-only scaffold exception; inferred assumptions alone are not enough.
-- Verification commands from `CHECKLIST.yaml` and `RUNBOOK.md`
+- Verification commands from `CHECKLIST.yaml`, plus `RUNBOOK.md` when the `runbook` module is enabled
 - Open risks and final verdict in `REVIEWS.md`
 - Docs & Handoff tasks in `CHECKLIST.yaml`
 - Implementation audit verdict and evidence:
@@ -26,7 +26,7 @@ Required Checks
   - AIP-Lite: README.md includes the scaled `Implementation Audit` verdict.
   - `implementation-audit`, `audit-remediation`, `audit-reverify`, and `packet-closure` tasks exist and are completed.
   - No unresolved blocking audit findings remain.
-- Observability and rollback readiness from `OBSERVABILITY.md` and `RUNBOOK.md`
+- Observability and rollback readiness from `OBSERVABILITY.md` and `RUNBOOK.md` only when those modules are enabled
 
 Write Back
 - Append a runtime review entry with:

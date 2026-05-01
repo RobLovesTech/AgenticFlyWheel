@@ -14,17 +14,19 @@ Inputs
 Sources of Truth
 - Read the full packet first. Packet docs outrank runtime logs and prior chat.
 - For full AIPs, read:
+  - `docs/Agent Implementation Packets/<slug>/CHECKLIST.yaml` first to determine `packet_level`, `enabled_modules`, and `omitted_modules`
   - `docs/Agent Implementation Packets/<slug>/README.md`
   - `docs/Agent Implementation Packets/<slug>/REVIEWS.md`
-  - `docs/Agent Implementation Packets/<slug>/CONTRACTS.md`
-  - `docs/Agent Implementation Packets/<slug>/BACKEND_IMPLEMENTATION.md`
-  - `docs/Agent Implementation Packets/<slug>/ORCHESTRATION_AND_UI.md`
-  - `docs/Agent Implementation Packets/<slug>/OBSERVABILITY.md`
-  - `docs/Agent Implementation Packets/<slug>/RUNBOOK.md`
   - `docs/Agent Implementation Packets/<slug>/RISKS.md`
-  - `docs/Agent Implementation Packets/<slug>/DATA_MODEL.sql`
-  - `docs/Agent Implementation Packets/<slug>/CHECKLIST.yaml`
   - `docs/Agent Implementation Packets/<slug>/CHECKLIST.md`
+  - Only the enabled module docs when they exist:
+    - `docs/Agent Implementation Packets/<slug>/CONTRACTS.md`
+    - `docs/Agent Implementation Packets/<slug>/BACKEND_IMPLEMENTATION.md`
+    - `docs/Agent Implementation Packets/<slug>/ORCHESTRATION_AND_UI.md`
+    - `docs/Agent Implementation Packets/<slug>/OBSERVABILITY.md`
+    - `docs/Agent Implementation Packets/<slug>/RUNBOOK.md`
+    - `docs/Agent Implementation Packets/<slug>/DATA_MODEL.sql`
+  - If the packet predates the manifest, infer enabled module docs from the packet files already present and checklist references instead of failing on the missing manifest.
 - For AIP-Lite packets, read:
   - `docs/Agent Implementation Packets/<slug>/README.md`
   - `docs/Agent Implementation Packets/<slug>/CHECKLIST.yaml`
@@ -45,7 +47,7 @@ Audit Process
 1. Read the packet source of truth before inspecting code or diffs.
 2. Inspect the implementation diff, all changed files relevant to the packet, and any files named by packet docs.
 3. Verify every acceptance criterion and every checklist item marked completed.
-4. Run or verify the required commands from `CHECKLIST.yaml` and `RUNBOOK.md`.
+4. Run or verify the required commands from `CHECKLIST.yaml` and `RUNBOOK.md` when the `runbook` module is enabled.
 5. Look specifically for:
    - security, privacy, or compliance regressions
    - architecture or boundary violations

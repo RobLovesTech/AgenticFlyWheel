@@ -27,8 +27,8 @@ Operating rules:
 - New full and lite checklists must include `collaboration-readiness` before implementation tasks.
 - Treat `CHECKLIST.yaml` as the canonical source of task order and completion state.
 - Complete the final `Docs & Handoff` phase before considering a feature done.
-- Generate `AGENT_PROMPT.txt` last, after packet docs are stable.
-- Run the required implementation audit before packet closure; fix or explicitly disposition findings, re-run targeted verification, and refresh `AGENT_PROMPT.txt` if audit-driven packet changes affect it.
+- For full AIPs, include initial `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` in the packet-creation approval bundle, then generate or refresh prompt artifacts again after packet docs are stable.
+- Run the required implementation audit before packet closure; fix or explicitly disposition findings, re-run targeted verification, and refresh prompt artifacts if audit-driven packet changes affect them.
 
 Scale guidance:
 - No AIP: tiny bug fixes, typos, docs-only edits, or very small refactors

@@ -7,7 +7,9 @@ Your task is zero-context: do not rely on prior chats. Run the required AFW impl
 
 1) Intake
 - Read `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md` or the repo-local equivalent first; it is the reusable audit rubric.
-- Read packet docs: README.md, REVIEWS.md, CONTRACTS.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, RISKS.md, CONTEXT.md, DATA_MODEL.sql, CHECKLIST.yaml, CHECKLIST.md, and AGENT_PROMPT.txt.
+- Read CHECKLIST.yaml first and treat `packet_level`, `enabled_modules`, and `omitted_modules` as authoritative.
+- Read the always-present packet docs: README.md, REVIEWS.md, RISKS.md, CONTEXT.md, CHECKLIST.yaml, CHECKLIST.md, and AGENT_PROMPT.txt.
+- Read only the enabled module docs when they exist: CONTRACTS.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, DATA_MODEL.sql.
 - Treat packet docs as canonical. Runtime logs under `.agentic-flywheel/state/` are advisory unless promoted into packet docs.
 
 2) Preconditions
@@ -15,10 +17,10 @@ Your task is zero-context: do not rely on prior chats. Run the required AFW impl
 - If prerequisites are missing, return `Verdict: fail` and list the exact incomplete tasks or files.
 
 3) Audit Scope
-- Verify every acceptance criterion in README.md, CONTRACTS.md, CHECKLIST.yaml, and RUNBOOK.md.
+- Verify every acceptance criterion in README.md, CHECKLIST.yaml, and any enabled module docs that define acceptance or operator behavior.
 - Inspect the implementation diff, changed files, and all packet-named touch points.
-- Check expected changed surfaces from BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, CONTRACTS.md, DATA_MODEL.sql, OBSERVABILITY.md, and RUNBOOK.md.
-- Validate verification evidence from CHECKLIST.yaml and RUNBOOK.md; run or request any missing required commands.
+- Check expected changed surfaces from the enabled module docs.
+- Validate verification evidence from CHECKLIST.yaml and RUNBOOK.md when enabled; run or request any missing required commands.
 
 4) Review Lenses
 - Security and privacy: auth, secrets, PII, unsafe defaults, abuse, compliance.

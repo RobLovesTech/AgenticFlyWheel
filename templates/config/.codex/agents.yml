@@ -3,6 +3,10 @@ version: "1.0"
 # AgenticFlywheel Framework Configuration for Codex
 
 context:
+  - path: "AGENTS.md"
+    description: "Repo-specific process rules, validation commands, and path guidance"
+    priority: high
+
   # Core framework documentation
   - path: "docs/ai/**"
     description: "Architecture, coding standards, testing, security, and observability guidelines"
@@ -13,7 +17,7 @@ context:
     description: "Agent Implementation Packet specification and best practices"
     priority: high
 
-  - path: "AgenticFlyWheel/spec/EXECUTION_LAYER.md"
+  - path: "AgenticFlywheel/spec/EXECUTION_LAYER.md"
     description: "Control-plane vs runtime-layer rules, local state paths, and precedence"
     priority: high
   
@@ -35,11 +39,11 @@ context:
     description: "Templates for creating new lightweight AIPs"
     priority: medium
 
-  - path: "AgenticFlyWheel/prompts/**"
+  - path: "AgenticFlywheel/prompts/**"
     description: "Planning, review, runtime-memory, QA, and ship workflows"
     priority: medium
 
-  - path: "AgenticFlyWheel/model-overlays/codex.md"
+  - path: "AgenticFlywheel/model-overlays/codex.md"
     description: "Codex-specific behavior overlay for AFW"
     priority: medium
 
@@ -51,18 +55,19 @@ agents:
       You are a feature developer working within the AgenticFlywheel Framework.
       
       AUTOMATIC CONTEXT GATHERING (transparent to user):
-      1. Check docs/features/REGISTRY.yaml for related features and dependencies
-      2. Search docs/Agent Implementation Packets/*/ for similar patterns
-      3. Read REVIEWS.md when the target packet exists
-      4. Review docs/ai/ for coding standards and architecture
-      5. Use AgenticFlyWheel/spec/EXECUTION_LAYER.md for runtime-state precedence rules
+      1. Read AGENTS.md first for repo-specific process, paths, and validation commands
+      2. Check docs/features/REGISTRY.yaml for related features and dependencies
+      3. Search docs/Agent Implementation Packets/*/ for similar patterns
+      4. Read REVIEWS.md when the target packet exists
+      5. Review docs/ai/ for coding standards and architecture
+      6. Use AgenticFlywheel/spec/EXECUTION_LAYER.md for runtime-state precedence rules
       
       NATURAL COMMANDS:
       - When the user says "new AIP", "create AIP for <feature>", or "start AIP for this change":
         - Treat it as a request to create a new Agent Implementation Packet.
         - Default to active collaboration with `AgenticFlywheel/prompts/AIP_COLLAB.md`.
         - Use `AgenticFlywheel/prompts/AIP_NEW.md` only for explicit direct/template-only scaffolding or when accepted prior planning artifacts already satisfy collaboration readiness.
-        - Confirm goals, user/operator impact, scope, non-goals, acceptance, risks, rollout, and verification before writing packet files.
+        - Confirm goals, user/operator impact, all personas (with per-persona scope confirmation), scope, non-goals, priority tiers for large features with 3+ capability areas, acceptance, contracts/data model, reference data completeness, cross-cutting behaviors (lifecycle, grandfathering, evaluation semantics, defaults, audit scope), interaction surfaces (user journey walkthrough), risks, rollout, and verification before writing packet files.
         - Treat a detailed feature request as seed context, not as accepted collaboration readiness.
         - Stop for user confirmation after the Collaboration Summary before creating packet files, marking `collaboration-readiness` complete, or implementing.
         - Record a Collaboration Summary in `REVIEWS.md` for full AIPs or README.md for AIP-Lite, and ensure `CHECKLIST.yaml` includes `collaboration-readiness`.
@@ -90,7 +95,7 @@ agents:
       6. Complete "Docs & Handoff" phase (mandatory)
       7. Update Feature Registry
       8. Run `IMPLEMENTATION_AUDIT`, fix or explicitly disposition findings, and re-run targeted verification
-      9. Use `PRELANDING_REVIEW -> IMPLEMENTATION_AUDIT -> QA -> SHIP` before calling the work done
+      9. Use `PRELANDING_REVIEW -> QA -> SHIP` as recommended review prompts when the repo wants a broader execution gauntlet; `IMPLEMENTATION_AUDIT` remains the mandatory closure gate
       
       DEPENDENCY MANAGEMENT:
       - Check dependencies field in Feature Registry automatically
@@ -116,7 +121,7 @@ agents:
       - "docs/features/REGISTRY.yaml"
       - "docs/ai/INDEX.md"
       - "docs/AIP_FRAMEWORK.md"
-      - "AgenticFlyWheel/spec/EXECUTION_LAYER.md"
+      - "AgenticFlywheel/spec/EXECUTION_LAYER.md"
   
   - name: "aip-creator"
     description: "Guides users through creating new AIPs"
@@ -137,7 +142,8 @@ agents:
       
       FULL AIP (docs/templates/AIP/):
       - Complete packet: README, REVIEWS, CONTEXT, CONTRACTS, BACKEND_IMPLEMENTATION,
-        ORCHESTRATION_AND_UI, OBSERVABILITY, RUNBOOK, RISKS, DATA_MODEL, CHECKLIST
+        ORCHESTRATION_AND_UI, OBSERVABILITY, RUNBOOK, RISKS, DATA_MODEL, CHECKLIST,
+        AGENT_PROMPT, and IMPLEMENTATION_AUDIT_PROMPT
       
       WORKFLOW:
       1. Gather existing context from docs, registry, and prior AIPs
@@ -145,7 +151,7 @@ agents:
       3. Reflect a Collaboration Summary for user confirmation before writing
       4. Do not scaffold, complete readiness, or implement in the same response that first proposes the summary
       5. Determine appropriate template
-      6. Generate packet from templates
+      6. Generate packet from templates, including initial prompt artifacts for full AIPs
       7. Add Feature Registry entry
       8. Ensure collaboration-readiness and implementation audit/remediation/reverify/closure gates are present
       9. Show user what was created and next steps
@@ -246,13 +252,14 @@ rules:
   
   # Always consult these before changes
   required_context:
+    - "AGENTS.md"
     - "docs/features/REGISTRY.yaml"
     - "docs/ai/INDEX.md"
-    - "AgenticFlyWheel/spec/EXECUTION_LAYER.md"
+    - "AgenticFlywheel/spec/EXECUTION_LAYER.md"
   
   # Run dependency analysis when these fields present
   dependency_triggers:
     - "dependencies"
   
-  # Generate this file last
+  # Keep this handoff artifact current through Docs & Handoff and audit remediation
   final_artifact: "AGENT_PROMPT.txt"

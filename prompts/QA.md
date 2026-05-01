@@ -7,7 +7,7 @@ Inputs
 - Optional environment, URL, branch, or component focus
 
 Rules
-- Read `docs/Agent Implementation Packets/<slug>/RUNBOOK.md`, `OBSERVABILITY.md`, and `CHECKLIST.yaml` first.
+- Read `docs/Agent Implementation Packets/<slug>/CHECKLIST.yaml` first, then the core packet docs and any enabled module docs that matter for QA.
 - Confirm collaboration readiness evidence when the packet is not explicitly legacy:
   - Full AIP: `REVIEWS.md` -> `Collaboration Summary`
   - AIP-Lite: README.md -> `Collaboration Summary`
@@ -26,8 +26,8 @@ Evidence
 - Collaboration Summary and readiness task status
 - Command output summaries
 - UI observations if relevant
-- Metrics or log checks from `OBSERVABILITY.md`
-- Acceptance checks from `README.md` and `CONTRACTS.md`
+- Metrics or log checks from `OBSERVABILITY.md` when the `observability` module is enabled
+- Acceptance checks from `README.md`, `CHECKLIST.yaml`, and `CONTRACTS.md` when the `contracts` module is enabled
 - Implementation audit verdict, unresolved findings, and targeted re-verification evidence
 
 Write Back

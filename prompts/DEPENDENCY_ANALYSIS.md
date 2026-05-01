@@ -36,9 +36,11 @@ Steps
    - Allow user to continue or abort
 
 3) Load Target Feature Contracts
-   - Read target feature's AIP: `CONTRACTS.md`
-   - Extract: API endpoints, events, data schemas, function signatures
-   - Note current contract definitions
+   - Read target feature's `CHECKLIST.yaml` first to determine whether the `contracts` module is enabled.
+   - If `contracts` is enabled, read target feature's `CONTRACTS.md`.
+   - If `contracts` is omitted, fall back to README.md, CHECKLIST.yaml, and any enabled module docs that describe compatibility or external touch points.
+   - Extract: API endpoints, events, data schemas, function signatures when those surfaces exist.
+   - Note current contract definitions or explicitly state that the packet has no dedicated contracts module.
 
 4) Proposed Changes Analysis (if provided)
    Assess each change:
@@ -61,7 +63,7 @@ Steps
 
 5) Impact Assessment Per Dependent
    For each dependent feature:
-   - Load its AIP and check CONTRACTS.md
+   - Load its AIP and check CONTRACTS.md when the `contracts` module is enabled
    - Search for references to target feature's contracts
    - Assess impact:
      - **High**: Uses contracts that will break
@@ -137,4 +139,3 @@ Notes
 - Automatically triggered by agent instructions when dependencies field is present
 - Can be run manually via this prompt
 - Emphasize: better to over-communicate than cause surprise breakage
-

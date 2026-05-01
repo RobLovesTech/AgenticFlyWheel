@@ -8,7 +8,7 @@ Inputs
 - Status: planned | in_progress | in_rollout | active | deprecated | abandoned | incomplete
 - Owners: array of team/role strings
 - Configs (optional): [{ name, default?, package?, description? }]
-- Contracts: { aip_contracts: <path to AIP CONTRACTS.md> }
+- Contracts (optional): { aip_contracts: <path to AIP CONTRACTS.md when the `contracts` module is enabled> }
 - AIPs: array of AIP packet paths powering this feature
 - Dependencies (optional): [{ id, type: api|event|database|library|service, strength?: hard|soft, contract?, notes? }]
 - Rollout (optional): { flags?: [], cadence?: string, versioning?: string }
@@ -38,7 +38,7 @@ Steps
    - Ensure each dependency has `id` and `type`
    - Default `strength` to "hard" if not specified
    - Verify dependency IDs reference existing features
-6) Validate fields against `docs/features/REGISTRY.schema.json` (conceptually) and verify referenced paths exist (aip_contracts, aips[*]).
+6) Validate fields against `docs/features/REGISTRY.schema.json` (conceptually) and verify referenced paths exist (aip_contracts when provided, aips[*]).
 7) Show the diff and ask for approval to write.
 8) Apply approved change and print updated snippet.
 
@@ -55,4 +55,3 @@ Output
 - Diff preview
 - Updated entry block
 - Follow-ups (e.g., add missing AIP packet; fix path if not found)
-

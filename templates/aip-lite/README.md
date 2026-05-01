@@ -22,12 +22,24 @@ Acceptance
 - Checklist of conditions that must be true when complete.
 
 Collaboration Summary
+- This section is the structured collaboration receipt that authorizes packet creation or update.
 - Required before packet scaffolding or update.
-- Capture confirmed user decisions, accepted assumptions, unresolved questions, and the confirmation that allowed packet generation.
+- `Confirmation Basis`: `user-confirmed summary` | `accepted prior planning artifacts` | `direct/template-only scaffold exception`
+- `Confirmed By`:
+- `Confirmed At`:
+- `Source Artifacts / Exception Rationale`:
+- `Confirmed Decisions`:
+- `Accepted Assumptions`:
+- `Open Questions / Deferred Follow-Ups`:
+- `Persona Scope Decisions`:
+- `Priority Tier Assignments` (when applicable):
+- `Reference Data Completeness` (when applicable):
+- `Cross-Cutting Behavior Decisions` (when applicable):
+- `Interaction Surface Decisions` (when applicable):
 - Do not let implementation agents treat unconfirmed guesses as packet truth.
 - Agent-inferred assumptions are proposed assumptions until the user confirms them or approves a direct/template-only scaffold exception.
 
-Review Summary (Optional)
+Accepted Review Inputs (Optional)
 - If planning/review prompts ran first, summarize the accepted conclusions here instead of creating REVIEWS.md.
 
 Implementation Audit

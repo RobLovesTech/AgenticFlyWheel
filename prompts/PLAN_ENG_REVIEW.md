@@ -8,10 +8,11 @@ Inputs
 
 Sources
 - `docs/ai/INDEX.md`
-- `docs/Agent Implementation Packets/<slug>/CONTRACTS.md`
-- `docs/Agent Implementation Packets/<slug>/BACKEND_IMPLEMENTATION.md`
-- `docs/Agent Implementation Packets/<slug>/ORCHESTRATION_AND_UI.md`
-- `docs/Agent Implementation Packets/<slug>/RUNBOOK.md`
+- `docs/Agent Implementation Packets/<slug>/CHECKLIST.yaml` first, to determine `packet_level` plus any enabled modules
+- `docs/Agent Implementation Packets/<slug>/CONTRACTS.md` when the `contracts` module is enabled
+- `docs/Agent Implementation Packets/<slug>/BACKEND_IMPLEMENTATION.md` when the `backend_implementation` module is enabled
+- `docs/Agent Implementation Packets/<slug>/ORCHESTRATION_AND_UI.md` when the `orchestration_and_ui` module is enabled
+- `docs/Agent Implementation Packets/<slug>/RUNBOOK.md` when the `runbook` module is enabled
 - `docs/Agent Implementation Packets/<slug>/REVIEWS.md`
 
 Review Areas

@@ -41,6 +41,7 @@ Steps
    - Backend + frontend + data migrations
    - Feature flags, A/B tests, or gradual rollout
    - Observability (metrics, dashboards) present
+   - If full, decide which optional modules are truly needed: `contracts`, `data_model`, `backend_implementation`, `orchestration_and_ui`, `observability`, `runbook`
 
 3) Reverse-Engineer Contracts
    - API endpoints: routes, methods, request/response schemas
@@ -69,7 +70,9 @@ Steps
    - Mark status: `completed` (feature already exists)
    
    If full:
-   - Create full packet: README, CONTEXT, CONTRACTS, BACKEND_IMPLEMENTATION, ORCHESTRATION_AND_UI, OBSERVABILITY, RUNBOOK, RISKS, DATA_MODEL, CHECKLIST
+   - Create the always-present full packet: README, REVIEWS, CONTEXT, RISKS, CHECKLIST, AGENT_PROMPT, IMPLEMENTATION_AUDIT_PROMPT
+   - Record `packet_level: full`, `enabled_modules`, and `omitted_modules` in CHECKLIST.yaml
+   - Create only the enabled optional module docs: CONTRACTS, BACKEND_IMPLEMENTATION, ORCHESTRATION_AND_UI, OBSERVABILITY, RUNBOOK, DATA_MODEL
    - Populate from code analysis
    - Mark gaps explicitly: "TODO: Add metrics" or "No integration tests found"
    - Mark status: `completed`
@@ -105,4 +108,3 @@ Notes
 - Run this per-feature after CODEBASE_AUDIT identifies features to backfill
 - Can be run standalone: user provides feature name, you analyze and document
 - Prioritize accuracy over completeness: better to note gaps than fabricate details
-

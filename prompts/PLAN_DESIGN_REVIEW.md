@@ -8,7 +8,8 @@ Applicability
 
 Sources
 - `docs/Agent Implementation Packets/<slug>/README.md`
-- `docs/Agent Implementation Packets/<slug>/ORCHESTRATION_AND_UI.md`
+- `docs/Agent Implementation Packets/<slug>/CHECKLIST.yaml` first, to determine whether the `orchestration_and_ui` module is enabled
+- `docs/Agent Implementation Packets/<slug>/ORCHESTRATION_AND_UI.md` when the `orchestration_and_ui` module is enabled
 - `docs/Agent Implementation Packets/<slug>/REVIEWS.md`
 
 Review Areas

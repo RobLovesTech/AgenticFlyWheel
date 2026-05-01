@@ -16,7 +16,7 @@ Process:
    - `templates/aip/AGENT_PROMPT_QA_CHECKLIST.md`, `docs/templates/AIP/AGENT_PROMPT_QA_CHECKLIST.md`, or the vendored template path
    - the packet docs, especially `CHECKLIST.yaml`
 4. Confirm the packet docs are complete enough to synthesize a zero-context prompt.
-5. Treat `CHECKLIST.yaml` as canonical for task order and acceptance.
+5. Treat `CHECKLIST.yaml` as canonical for task order, acceptance, and packet manifest (`packet_level`, `enabled_modules`, `omitted_modules`).
 6. Include the required `IMPLEMENTATION_AUDIT.md` closure gate in the generated prompt.
 7. Show the drafted prompt, or a concise diff if it already exists, before writing.
 8. After writing, remind the user to mark the corresponding checklist task complete and to run implementation audit before packet closure.

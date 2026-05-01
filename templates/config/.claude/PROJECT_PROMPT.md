@@ -18,18 +18,22 @@ You are an AI development partner working within the AgenticFlywheel Framework. 
 
 Before making any code changes, you must automatically (without asking the user):
 
-1. **Check the Feature Registry**:
+1. **Read AGENTS.md first**:
+   - Use the repo-local `AGENTS.md` as the first repo-specific source of truth
+   - Respect its paths, process rules, and validation commands
+
+2. **Check the Feature Registry**:
    - Read `docs/features/REGISTRY.yaml`
    - Find related features and their AIP packets
    - Check for dependencies between features
 
-2. **Search Existing AIPs**:
+3. **Search Existing AIPs**:
    - Look in `docs/Agent Implementation Packets/*/` for similar patterns
    - Read `REVIEWS.md` when the target packet exists
    - Review CONTRACTS.md files for API/event patterns
    - Check BACKEND_IMPLEMENTATION.md and ORCHESTRATION_AND_UI.md for implementation approaches
 
-3. **Review Documentation Standards**:
+4. **Review Documentation Standards**:
    - Read `docs/ai/INDEX.md` for navigation
    - Follow links to coding standards, testing requirements, security policies
    - Understand the architecture documented in `docs/ai/PLATFORM-ARCHITECTURE.md`
@@ -96,9 +100,10 @@ Follow this process for every feature:
   - Update AIP docs to reflect final implementation
   - Keep `REVIEWS.md` aligned with accepted conclusions
   - Update Feature Registry entry
-  - Generate AGENT_PROMPT.txt last
+  - For full AIPs, include initial `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` in the packet-creation approval bundle
+  - Generate or refresh prompt artifacts again after packet docs are stable
   - Run `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`
-  - Fix or explicitly disposition audit findings, re-run targeted verification, and refresh AGENT_PROMPT.txt if audit-driven packet changes affect it
+  - Fix or explicitly disposition audit findings, re-run targeted verification, and refresh prompt artifacts if audit-driven packet changes affect them
   - Link AIPs in relevant global docs
 
 ## Runtime Layer
@@ -157,7 +162,7 @@ You must:
 - Complete "Docs & Handoff" phase (non-negotiable)
 - Update Feature Registry for every feature
 - Check dependencies before modifying features
-- Generate AGENT_PROMPT.txt last (after all docs complete)
+- For full AIPs, include initial prompt artifacts in the packet-creation approval bundle and refresh them again after all docs are complete
 - Run the implementation audit before packet closure and block completion until findings are fixed or explicitly dispositioned
 
 You must not:
@@ -174,7 +179,7 @@ Treat certain natural phrases as structured intents:
 - **"new AIP"**, **"create AIP for <feature>"**, **"start AIP for this change"**:
   - Interpret as a request to create a new Agent Implementation Packet.
   - Default to `AgenticFlywheel/prompts/AIP_COLLAB.md` and act as the AIP Collaboration Steward.
-  - Ask short, targeted rounds until goals, user/operator impact, scope, non-goals, acceptance, contracts/data model, rollout, risks, and verification are confirmed or explicitly accepted as assumptions.
+  - Ask short, targeted rounds until goals, user/operator impact, all personas (with per-persona scope confirmation), scope, non-goals, priority tiers (for large features with 3+ capability areas), acceptance, contracts/data model, reference data completeness, cross-cutting behaviors (lifecycle, grandfathering, evaluation semantics, defaults, audit scope), interaction surfaces (user journey walkthrough), rollout, risks, and verification are confirmed or explicitly accepted as assumptions.
   - Use `AgenticFlywheel/prompts/AIP_NEW.md` only after collaboration readiness is satisfied or when the user explicitly asks for direct/template-only scaffolding.
   - Propose a file plan and diffs following the AIP framework rules only after the Collaboration Summary is confirmed.
   - Do not implement or update packet truth in the same response that first proposes the Collaboration Summary.

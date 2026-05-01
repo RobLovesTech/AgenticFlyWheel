@@ -82,14 +82,14 @@ Execution rules:
 - Accepted outputs from `OFFICE_HOURS.md`, `AUTOPLAN.md`, existing `REVIEWS.md`, or equivalent review summaries can satisfy the preflight and avoid redundant questioning.
 - Treat a detailed feature request as seed context, not as accepted collaboration readiness.
 - Choose lightweight vs full AIP using AFW scale guidance.
-- Ask short, targeted rounds until goals, user/operator impact, scope, non-goals, acceptance, contracts/data model, rollout, risks, and verification are confirmed or explicitly accepted as assumptions.
+- Ask short, targeted rounds until goals, user/operator impact, all personas (with per-persona scope confirmation), scope, non-goals, priority tiers (for large features with 3+ capability areas), acceptance, contracts/data model, reference data completeness, cross-cutting behaviors (lifecycle, grandfathering, evaluation semantics, defaults, audit scope), interaction surfaces (user journey walkthrough), rollout, risks, and verification are confirmed or explicitly accepted as assumptions.
 - Reflect a Collaboration Summary and open assumptions before writing packet files.
 - Stop for user confirmation after the first Collaboration Summary. Do not create or update packet files, mark `collaboration-readiness` complete, or implement in the same turn that first proposes the summary.
 - Update the feature registry as part of the proposal.
 - Ensure full AIPs write the Collaboration Summary to `REVIEWS.md`; ensure AIP-Lite writes it to README.md.
 - Ensure the generated checklist includes `collaboration-readiness` before implementation tasks.
 - Ensure the generated checklist includes `implementation-audit`, `audit-remediation`, `audit-reverify`, and `packet-closure`.
-- Do not generate `AGENT_PROMPT.txt` during AIP creation.
+- For full AIPs, generate initial `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` during packet creation, then refresh prompt artifacts again during Docs & Handoff before the required implementation audit.
 
 ### Run Implementation Audit
 
@@ -101,12 +101,12 @@ Read:
 - Changed implementation files and verification evidence named by the packet
 
 Execution rules:
-- Run after implementation, verification, docs sync, and AGENT_PROMPT generation, before packet closure.
+- Run after implementation, verification, docs sync, and prompt-artifact refresh, before packet closure.
 - Treat packet docs as canonical; runtime state is advisory only.
 - Promote accepted findings into `REVIEWS.md` for full AIPs or README.md for AIP-Lite.
 - Add remediation tasks for actionable findings.
 - Block top-level `completed` until findings are fixed or explicitly dispositioned and targeted re-verification passes.
-- Refresh `AGENT_PROMPT.txt` if audit-driven packet changes affect execution or handoff instructions.
+- Refresh prompt artifacts if audit-driven packet changes affect execution or handoff instructions.
 
 ### Reconcile an Existing Packet
 
