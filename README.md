@@ -2,57 +2,64 @@
 
 Version: 1.0.0
 
-AgenticFlyWheel Framework (Self-Sustaining AI-Human Development)
+# AgenticFlyWheel: Prompt-First Control Plane for Systematic AI Development
 
-**Turn AI development chaos into a self-sustaining engine of quality**
+**Turn AI-assisted feature work into a repeatable system of collaboration, packet truth, verification, and audit-backed closure.**
 
 *Version 1.0.0 | Architecture-agnostic | Prompt-first | Zero dependencies*
 
----
-
-## The 30-Second Version
-
-**Before AgenticFlyWheel:** every AI-driven feature is a snowflake. Patterns drift, docs go stale, tests get skipped, and intent disappears into chat history.
-
-**After AgenticFlyWheel:** feature work moves through a repeatable control plane: active collaboration, packet scaffolding, checklist-driven implementation, docs sync, required audit, remediation, and clean closure.
-
-The goal is not "more process." The goal is reliable velocity that compounds instead of rotting.
+[Why AFW](#why-afw) | [How It Works](#how-afw-works) | [Quick Start](#quick-start) | [Prompt Map](#prompt-map) | [Packet Types](#packet-types) | [Host Surfaces](#host-surfaces) | [Updating Existing Installs](#updating-an-existing-afw-install)
 
 ---
 
-## What Changed In The Current Framework
+## Framework Highlights
 
-This repo now reflects a stricter AFW model than the older README described:
-
-- New packet work defaults to **active collaboration first** through `prompts/AIP_COLLAB.md`.
-- A detailed request is still only **seed context** until the user confirms the Collaboration Summary.
-- Full packets now use a **manifest-driven shape** in `CHECKLIST.yaml` with `packet_level`, `enabled_modules`, and `omitted_modules`.
-- Full packet creation includes both `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` in the initial approval bundle.
-- Packet closure now requires the full chain: **verification -> implementation audit -> remediation -> re-verification -> packet closure**.
+- Collaboration-first by default: packet-sized work starts with `prompts/AIP_COLLAB.md`, not silent scaffolding.
+- Full packets are manifest-driven: `CHECKLIST.yaml` records `packet_level`, `enabled_modules`, and `omitted_modules`.
+- Full packet creation includes both prompt artifacts up front: `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt`.
+- Packet closure requires the full chain: verification -> audit -> remediation -> re-verification -> closure.
 - Runtime state under `.agentic-flywheel/state/` is advisory only. Packet docs remain canonical.
 
-If you already installed an older AFW version into another repo, use `prompts/AFW_IMPORT_UPDATE.md` to merge these gates in without clobbering local customizations.
+If you already installed an older AFW version into another repo, use `prompts/AFW_IMPORT_UPDATE.md` to merge the newer collaboration and audit gates without clobbering local customizations.
 
 ---
 
-## What This Repo Contains
+## Why AFW
 
-This repository is the **framework source**. It is not the installed downstream docs layout.
+Most AI development breaks in the same places:
 
-### Framework source layout
+- intent gets lost across chats and handoffs
+- implementation moves faster than contracts, tests, and docs
+- "done" gets claimed before the repo has trustworthy closure evidence
+- every feature becomes its own one-off pattern
 
-- `prompts/` - executable workflow prompts such as bootstrap, collaboration, audit, QA, ship, and import/update
-- `spec/` - framework specs, especially `spec/AIP_FRAMEWORK.md` and `spec/EXECUTION_LAYER.md`
-- `templates/aip/` - full AIP templates
-- `templates/aip-lite/` - lightweight AIP templates
-- `templates/config/` - host config templates for Claude, Codex, and Cursor
-- `templates/claude-plugin/agentic-flywheel/` - Claude-native plugin scaffold
-- `features/REGISTRY.schema.json` - schema for downstream feature registries
-- `model-overlays/` - host-specific behavioral overlays
+AFW solves that by turning feature work into a control plane:
 
-### Installed downstream layout
+1. active collaboration locks the real intent before packet truth is written
+2. AIPs make the work self-contained and restartable
+3. checklists force execution through verification and docs sync
+4. implementation audit prevents paper-complete but reality-incomplete closure
 
-After running bootstrap in a product repo, AFW is typically copied into:
+This is not a generic prompt collection. It is a framework for making AI-assisted work more reliable over time.
+
+---
+
+## What This Repo Is
+
+This repository is the **framework source**.
+
+It is not the downstream installed layout used inside a product repo after bootstrap. In this repo, the source-of-truth framework assets live here:
+
+- `prompts/`
+- `spec/`
+- `templates/aip/`
+- `templates/aip-lite/`
+- `templates/config/`
+- `templates/claude-plugin/agentic-flywheel/`
+- `features/REGISTRY.schema.json`
+- `model-overlays/`
+
+After bootstrap in another repo, AFW is typically installed into:
 
 - `docs/AIP_FRAMEWORK.md`
 - `docs/templates/AIP/*`
@@ -61,7 +68,7 @@ After running bootstrap in a product repo, AFW is typically copied into:
 - `docs/features/REGISTRY.schema.json`
 - `docs/ai/**`
 
-That source-vs-installed distinction matters. In this repo, templates live under `templates/`. In a bootstrapped product repo, they live under `docs/templates/`.
+That source-vs-installed distinction matters. This repo defines the framework; downstream repos consume the installed docs layout.
 
 ---
 
@@ -69,7 +76,9 @@ That source-vs-installed distinction matters. In this repo, templates live under
 
 ### 1. Bootstrap
 
-Run `prompts/SYSTEM_BOOTSTRAP.md` in the target repo. It is repo-discovery-first, asks only a few confirmation questions when needed, supports `Minimal Boot`, `Standard Boot`, and `Custom Boot`, installs the AIP framework, seeds the Feature Registry, and can propose host config updates.
+Run `prompts/SYSTEM_BOOTSTRAP.md` in the target repo.
+
+Bootstrap is repo-discovery-first. It supports `Minimal Boot`, `Standard Boot`, and `Custom Boot`, installs the framework surfaces, seeds the Feature Registry, and can propose host config updates.
 
 ### 2. Collaborate Before Scaffolding
 
@@ -81,14 +90,14 @@ The collaboration gate locks:
 - personas and per-persona scope
 - in-scope and out-of-scope work
 - acceptance signals
-- contracts or data model implications
+- contract or data-model implications
 - rollout and rollback expectations
 - verification commands
 - risks and non-goals
 
-`prompts/AIP_NEW.md` is now the **direct scaffolding fast path**, not the default intake path.
+`prompts/AIP_NEW.md` is the direct scaffold/write fast path, not the default intake path.
 
-The Collaboration Summary is now a structured readiness receipt. At minimum it should record:
+The Collaboration Summary is a structured readiness receipt. At minimum it should record:
 
 - confirmation basis
 - confirmed by
@@ -103,10 +112,10 @@ The Collaboration Summary is now a structured readiness receipt. At minimum it s
 Implementation follows `CHECKLIST.yaml`, then must complete the required closure chain:
 
 1. run verification commands
-2. run `prompts/CHECKLIST_VALIDATOR.md` when validating packet structure and closure readiness
-3. sync docs and run prompt QA before refreshing prompt artifacts
+2. validate packet structure and readiness with `prompts/CHECKLIST_VALIDATOR.md` when appropriate
+3. sync docs and run prompt QA
 4. refresh `AGENT_PROMPT.txt` and, for full AIPs, `IMPLEMENTATION_AUDIT_PROMPT.txt`
-5. run the required implementation audit flow using `prompts/IMPLEMENTATION_AUDIT.md` plus the packet-local `IMPLEMENTATION_AUDIT_PROMPT.txt` for full AIPs
+5. run the implementation audit flow using `prompts/IMPLEMENTATION_AUDIT.md` and the packet-local audit wrapper for full AIPs
 6. fix or explicitly disposition findings
 7. re-run targeted verification
 8. close the packet
@@ -130,20 +139,20 @@ Then run:
 
 Recommended next steps after bootstrap:
 
-1. Run `@AgenticFlyWheel/prompts/AGENTS_CONFIG_TAILOR.md` to wire Claude, Codex, and/or Cursor into the docs-first AFW flow.
+1. Run `@AgenticFlyWheel/prompts/AGENTS_CONFIG_TAILOR.md` to wire Claude, Codex, Cursor, or Gemini CLI into the docs-first AFW flow.
 2. Start your first packet with `@AgenticFlyWheel/prompts/AIP_COLLAB.md`.
 3. Use `@AgenticFlyWheel/prompts/IMPLEMENTATION_AUDIT.md` before closing that packet.
 
-### Use AFW inside this framework repo
+### Work on AFW itself
 
-If you are editing AFW itself, the source-of-truth files are the ones in this repo:
+If you are editing this framework repo, the source-of-truth files are the framework-source paths in this checkout:
 
 - prompts: `prompts/*.md`
 - specs: `spec/*.md`
 - templates: `templates/aip/**`, `templates/aip-lite/**`
 - host configs: `templates/config/**`
 
-Do not document framework-source behavior using downstream `docs/...` paths unless you are explicitly describing the installed layout in a target repo.
+Do not describe framework-source behavior using downstream `docs/...` paths unless you are explicitly documenting the installed layout in another repo.
 
 ---
 
@@ -151,22 +160,24 @@ Do not document framework-source behavior using downstream `docs/...` paths unle
 
 ### Core workflow prompts
 
-- `prompts/SYSTEM_BOOTSTRAP.md` - install AFW into a repo and generate the initial docs foundation
-- `prompts/AGENTS_CONFIG_TAILOR.md` - propose host config updates for Claude, Codex, Cursor, and Gemini CLI
-- `prompts/AIP_COLLAB.md` - collaboration-first intake for new or updated packets
-- `prompts/AIP_NEW.md` - scaffold or update a packet only after collaboration readiness is satisfied
-- `prompts/CHECKLIST_VALIDATOR.md` - validate packet checklist structure, readiness evidence, and closure gates
-- `prompts/AGENT_PROMPT_GENERATOR.md` - generate or refresh `AGENT_PROMPT.txt`
-- `prompts/IMPLEMENTATION_AUDIT.md` - required post-implementation audit before packet closure
-- `prompts/AIP_RECONCILE.md` - reconcile packet truth with accepted changes or follow-on decisions
-- `prompts/AFW_IMPORT_UPDATE.md` - update an existing AFW install to the latest framework gates
+| Prompt | Purpose |
+|--------|---------|
+| `prompts/SYSTEM_BOOTSTRAP.md` | Install AFW into a repo and generate the initial docs foundation |
+| `prompts/AGENTS_CONFIG_TAILOR.md` | Propose host config updates for Claude, Codex, Cursor, and Gemini CLI |
+| `prompts/AIP_COLLAB.md` | Collaboration-first intake for new or updated packets |
+| `prompts/AIP_NEW.md` | Scaffold or update a packet only after collaboration readiness is satisfied |
+| `prompts/CHECKLIST_VALIDATOR.md` | Validate checklist structure, readiness evidence, and closure gates |
+| `prompts/AGENT_PROMPT_GENERATOR.md` | Generate or refresh `AGENT_PROMPT.txt` |
+| `prompts/IMPLEMENTATION_AUDIT.md` | Required post-implementation audit before packet closure |
+| `prompts/AIP_RECONCILE.md` | Reconcile packet truth with accepted changes or follow-on decisions |
+| `prompts/AFW_IMPORT_UPDATE.md` | Update an existing AFW install to the latest framework gates |
 
 ### Supporting prompts
 
-- `prompts/OFFICE_HOURS.md`, `prompts/AUTOPLAN.md` - deeper planning before packet creation when risk or scope is high
-- `prompts/PRELANDING_REVIEW.md`, `prompts/QA.md`, `prompts/SHIP.md` - reusable review and release prompts
-- `prompts/CONTEXT_SAVE.md`, `prompts/CONTEXT_RESTORE.md`, `prompts/GUARD_MODE.md`, `prompts/LEARNINGS.md` - runtime support and operator workflows
-- `prompts/FEATURES_REGISTRY_*` - bootstrap, update, validate, and retrofit registry entries
+- `prompts/OFFICE_HOURS.md`, `prompts/AUTOPLAN.md` for deeper planning when scope, risk, or tradeoffs need more pressure-testing
+- `prompts/PRELANDING_REVIEW.md`, `prompts/QA.md`, `prompts/SHIP.md` for reusable review and release flows
+- `prompts/CONTEXT_SAVE.md`, `prompts/CONTEXT_RESTORE.md`, `prompts/GUARD_MODE.md`, `prompts/LEARNINGS.md` for runtime support and operator workflows
+- `prompts/FEATURES_REGISTRY_*` for bootstrap, update, validate, and retrofit registry entries
 
 ---
 
@@ -229,18 +240,13 @@ Older full packets without the manifest remain valid. Prompts and validators sho
 
 ---
 
-## Collaboration And Closure Rules
+## What AFW Emphasizes
 
-These are the rules most worth internalizing:
-
-- Generic requests like `new AIP`, `create AIP`, or `start AIP` should default to `AIP_COLLAB.md`.
-- A specific feature description can shorten the collaboration round, but it does not authorize packet writes by itself.
-- `collaboration-readiness` must exist before implementation work begins.
-- Full packets write the Collaboration Summary into `REVIEWS.md`.
-- AIP-Lite writes the Collaboration Summary into `README.md`.
-- Inferred assumptions are not accepted assumptions until the user confirms them or explicitly chooses a direct/template-only scaffold exception.
-- Full packet creation must include both prompt artifacts up front: `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt`.
-- Packet completion is not honest until the implementation audit has run and its actionable findings are resolved or explicitly dispositioned.
+- Active collaboration before packet truth
+- Repo-tracked docs as the canonical control plane
+- Restartable implementation through packet-local prompt artifacts
+- Verification commands that match the real repo
+- Honest closure only after audit findings are resolved or explicitly dispositioned
 
 ---
 
@@ -310,13 +316,13 @@ AFW combines four things that usually drift apart:
 3. host routing that nudges agents into the right workflow
 4. closure gates that force docs, verification, audit, and truth write-back to match reality
 
-The result is a development loop where each finished feature makes the next one easier to reason about, safer to change, and faster to ship.
+The result is a development loop where each finished feature becomes easier to reason about, safer to change, and faster to ship.
 
 ---
 
 ## Bottom Line
 
-AgenticFlyWheel is a prompt-first control plane for systematic AI-assisted development. It helps teams replace ad hoc AI sessions with repeatable collaboration, explicit packet truth, honest audits, and low-friction handoff.
+AgenticFlyWheel helps teams replace ad hoc AI sessions with repeatable collaboration, explicit packet truth, repo-grounded verification, and audit-backed closure.
 
 If you want the framework in another repo, start with:
 
