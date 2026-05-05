@@ -22,6 +22,7 @@ Collaboration Summary
 - `Reference Data Completeness` (when applicable):
 - `Cross-Cutting Behavior Decisions` (when applicable):
 - `Interaction Surface Decisions` (when applicable):
+- `Operating Readiness Decisions` (when applicable):
 - Do not let implementation agents treat unconfirmed guesses as packet truth.
 - Agent-inferred assumptions are proposed assumptions until the user confirms them or approves a direct/template-only scaffold exception.
 
@@ -34,8 +35,17 @@ Engineering Review
 Design Review
 - Capture user-facing UX, state, copy, accessibility, and interaction decisions.
 
+Operations Review
+- Capture future-state workflow, operating model, ownership, support, and launch-readiness findings.
+
+Change Management Review
+- Capture GTM, client rollout, enablement, communications, approvals, and adoption-risk findings.
+
 DevEx Review
 - Capture developer experience findings for APIs, CLIs, SDKs, docs, or internal tooling.
+
+Compliance Review
+- Optional. Capture policy, legal, privacy, security, or governance review input when it materially affects the packet.
 
 Outside Voice
 - Optional. Record any secondary-model or external review input.

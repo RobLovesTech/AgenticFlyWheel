@@ -19,6 +19,7 @@ Core Principles
 - Parity: Packets should capture any environment parity needs (e.g., local Postgres == prod Databricks).
 - Privacy & security: Document constraints explicitly (e.g., FERPA/COPPA, PII redaction, retention).
 - Complete features: AIPs drive implementation of complete, production-ready features, not prototypes.
+- Mode-aware requirements capture: AIPs may be `technical`, `operating`, or `mixed`; non-technical rollout, enablement, approval, GTM, and client-transition requirements belong in the same packet truth when they matter.
 
 Collaboration by Default
 - AFW treats active collaboration as the default intake behavior for every explicit `new AIP`, `create AIP`, or packet-sized work request.
@@ -44,6 +45,7 @@ Collaboration by Default
 
 Collaboration Readiness Gate
 - A new or updated AIP is not ready to scaffold until these decisions are user-confirmed or explicitly accepted as assumptions:
+  - `requirements_mode` (`technical`, `operating`, or `mixed`) and which collaborating functions are in play
   - Goal/problem and desired outcome
   - Primary user/operator and job-to-be-done
   - All impacted personas enumerated with per-persona scope confirmation (in-scope / deferred / out-of-scope for this AIP)
@@ -51,12 +53,14 @@ Collaboration Readiness Gate
   - For large features (3+ capability areas): priority tier assignment per capability area (P0 must-have / P1 fast-follow / P2 future)
   - Success criteria and acceptance signals
   - Constraints, privacy/security/compliance requirements
-  - Impacted surfaces: backend, frontend, data, docs, integrations, operations
+  - Impacted delivery surfaces: backend, frontend, data, docs, integrations, operations, GTM, client rollout, enablement, support, governance, compliance
   - Contracts/data model implications or explicit "none"
   - Reference/taxonomy data completeness confirmed (enum values, seed data, mapping tables)
   - Cross-cutting behaviors: entity lifecycle states and transitions, retroactivity/grandfathering rules, evaluation semantics (short-circuit vs. exhaustive), system defaults, audit/logging scope beyond core feature
-  - Rollout, flags, migration/backfill, and rollback expectations
-  - Verification commands and manual QA expectations
+  - Operating/process impacts, handoffs, decision ownership, and approval bodies when relevant
+  - GTM, launch sequencing, communications, client cohorting, enablement/training, support readiness, and adoption metrics when relevant
+  - Rollout, flags, migration/backfill, rollback, and readiness-evidence expectations
+  - Verification commands, manual QA expectations, and any non-code evidence required for closure
   - Known risks, non-goals, and unresolved assumptions
 - AIP packets must record a Collaboration Summary:
   - Full AIP: `REVIEWS.md` → `Collaboration Summary`
@@ -74,6 +78,7 @@ Collaboration Readiness Gate
   - `Reference Data Completeness` when applicable
   - `Cross-Cutting Behavior Decisions` when applicable
   - `Interaction Surface Decisions` when applicable
+  - `Operating Readiness Decisions` when applicable
 - If the packet used accepted prior planning artifacts or a direct/template-only scaffold exception, record the exact source artifacts or exception rationale in the receipt.
 - CHECKLIST.yaml must include a `collaboration-readiness` task before implementation tasks.
 - `collaboration-readiness` may be marked `completed` only when the packet records a user-confirmed Collaboration Summary or a user-requested direct/template-only scaffold exception. Agent-inferred assumptions are proposed assumptions, not accepted assumptions.
@@ -84,16 +89,20 @@ Every AIP MUST include the following content. Use the templates in `docs/templat
   - README.md
     - Executive Summary (what changes and why)
     - Goals and Non‑Goals (scoping guardrails)
-    - Signals & Flags Summary (runtime flags, defaults, core computations in one glance)
-    - Scope (Backend, Frontend, Docs)
-    - Outcomes, Success Criteria, Rollout Plan, Acceptance
+    - Requirements Mode & Delivery Surfaces
+    - Signals & Flags Summary (runtime flags, defaults, core computations, readiness gates in one glance)
+    - Scope (technical and non-technical surfaces that are in scope)
+    - Outcomes, Success Criteria, Rollout Plan, Operating Requirements, Acceptance
   - REVIEWS.md
     - Discovery Reframe
     - Collaboration Summary
     - Product Review
     - Engineering Review
     - Design Review
+    - Operations Review
+    - Change Management Review
     - DevEx Review
+    - Compliance Review (optional)
     - Outside Voice (optional, non-gating in v1)
     - Accepted Decisions
     - Implementation Audit
@@ -101,7 +110,7 @@ Every AIP MUST include the following content. Use the templates in `docs/templat
     - Final Verdict
   - CHECKLIST.yaml / CHECKLIST.md
     - Canonical phase/task ledger plus human-readable mirror
-    - Packet manifest fields: `packet_level`, `enabled_modules`, `omitted_modules`
+    - Packet manifest fields: `packet_level`, `requirements_mode`, `delivery_surfaces`, `enabled_modules`, `omitted_modules`
   - CONTEXT.md
     - Decisions, constraints, environment defaults, acceptance goals
   - RISKS.md
@@ -136,23 +145,40 @@ Every AIP MUST include the following content. Use the templates in `docs/templat
   - RUNBOOK.md
     - Enable when rollout, flags, migrations, rollback, or manual operator actions matter
     - Flags and defaults; local validation steps; flip/rollback; example queries
+  - OPERATING_MODEL.md
+    - Enable when operating-process changes, ownership, handoffs, or decision rights are part of the work
+    - Future-state workflow, role ownership, exception handling, and cross-team handoffs
+  - GTM_AND_LAUNCH.md
+    - Enable when positioning, launch sequencing, customer communications, or adoption targets are material to success
+    - Launch objective, audience/cohorts, messaging constraints, assets, dependencies, success metrics, stop/go criteria
+  - CLIENT_ROLLOUT.md
+    - Enable when existing clients, tenant migration, phased onboarding, or cohort-specific transition plans matter
+    - Cohorts, sequencing, cutover criteria, rollback paths, customer communications, adoption checkpoints
+  - ENABLEMENT_AND_SUPPORT.md
+    - Enable when internal training, support coverage, enablement assets, or escalation playbooks are required
+    - Audiences, assets, staffing, FAQs, escalation, launch-day coverage
+  - GOVERNANCE_AND_APPROVALS.md
+    - Enable when sign-offs, policy reviews, compliance gates, or decision governance materially affect launch readiness
+    - Approval bodies, required evidence, readiness gates, audit trail
 
 Standard Packet Contents
 - README.md: Objective, scope, constraints, outcomes
 - REVIEWS.md: Review gauntlet output and accepted decisions that implementation agents may rely on
-- CHECKLIST.yaml: Canonical phases/tasks, acceptance, and packet manifest (`packet_level`, `enabled_modules`, `omitted_modules`)
+- CHECKLIST.yaml: Canonical phases/tasks, acceptance, and packet manifest (`packet_level`, `requirements_mode`, `delivery_surfaces`, `enabled_modules`, `omitted_modules`)
 - CHECKLIST.md: Human-friendly checklist and notes
 - AGENT_PROMPT.txt: Restartable instructions for agents
 - IMPLEMENTATION_AUDIT_PROMPT.txt: Packet-specific audit wrapper artifact for full AIPs
 - CONTEXT.md: Decisions, constraints, environment defaults, acceptance goals
 - RISKS.md: Risks and mitigations
-- Optional capability modules: CONTRACTS.md, DATA_MODEL.sql, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md
+- Optional capability modules: CONTRACTS.md, DATA_MODEL.sql, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, OPERATING_MODEL.md, GTM_AND_LAUNCH.md, CLIENT_ROLLOUT.md, ENABLEMENT_AND_SUPPORT.md, GOVERNANCE_AND_APPROVALS.md
 
 Capability-Driven Module Manifest
 - Record packet scope directly in `CHECKLIST.yaml`; do not create a second manifest file.
 - New full AIPs should write:
   - `packet_level: full`
-  - `enabled_modules: [contracts, data_model, backend_implementation, orchestration_and_ui, observability, runbook]` with only the relevant modules present
+  - `requirements_mode: technical | operating | mixed`
+  - `delivery_surfaces:` with only the relevant surfaces present
+  - `enabled_modules: [contracts, data_model, backend_implementation, orchestration_and_ui, observability, runbook, operating_model, gtm_and_launch, client_rollout, enablement_and_support, governance_and_approvals]` with only the relevant modules present
   - `omitted_modules:` entries with `module` + `reason` for intentionally skipped modules
 - New AIP-Lite packets may stay on the existing lightweight surface without adding the module manifest immediately.
 - Existing full AIPs that predate the manifest remain valid; treat them as legacy full packets and infer enabled modules from the packet docs and checklist until they are refreshed.
@@ -174,6 +200,11 @@ Artifact Matrix
   - ORCHESTRATION_AND_UI.md
   - OBSERVABILITY.md
   - RUNBOOK.md
+  - OPERATING_MODEL.md
+  - GTM_AND_LAUNCH.md
+  - CLIENT_ROLLOUT.md
+  - ENABLEMENT_AND_SUPPORT.md
+  - GOVERNANCE_AND_APPROVALS.md
 - AIP-Lite required tracked artifacts:
   - README.md
   - CHECKLIST.yaml
@@ -190,7 +221,7 @@ Documentation Tasks (required)
   - Integrates links into relevant global docs (e.g., docs/ai/INDEX.md) if applicable.
   - Updates core specifications and AI-facing guides (e.g., docs/ai/**, other specs) to reflect the new or changed behavior.
   - Records new/changed env vars in the appropriate repo docs.
-  - Captures operator notes (how to verify/rollback) and any UI screenshots if relevant.
+  - Captures operator notes (how to verify/rollback), readiness evidence, approvals, and any UI screenshots if relevant.
   - Confirms parity notes (local == prod) are accurate.
   - Runs the Agent Prompt QA Checklist (docs/templates/AIP/AGENT_PROMPT_QA_CHECKLIST.md) before finalizing prompt artifacts.
   - Generates or refreshes `AGENT_PROMPT.txt` and, for full AIPs, `IMPLEMENTATION_AUDIT_PROMPT.txt` from the current packet docs before the required implementation audit.
@@ -215,16 +246,22 @@ Execution Review Prompt Scope
 
 Authoring Checklist (copy into CHECKLIST.md)
 - [ ] README has Exec Summary, Goals/Non‑Goals, Signals/Flags, Scope, Outcomes, Success, Rollout, Acceptance
-- [ ] Collaboration Summary captures confirmed decisions, accepted assumptions, open questions, and user confirmation
+- [ ] README records the packet `requirements_mode`, delivery surfaces, and any operating requirements that materially shape the work
+- [ ] Collaboration Summary captures confirmed decisions, accepted assumptions, open questions, user confirmation, and operating-readiness decisions when applicable
 - [ ] REVIEWS documents the review gauntlet, accepted decisions, open risks, and final verdict
 - [ ] REVIEWS documents the implementation audit verdict, accepted findings, remediation evidence, and closure decision
-- [ ] CHECKLIST.yaml records packet level plus enabled/omitted modules when using the capability-driven full AIP model
+- [ ] CHECKLIST.yaml records packet level, requirements mode, delivery surfaces, plus enabled/omitted modules when using the capability-driven full AIP model
 - [ ] CONTRACTS includes formulas, buckets/thresholds, event fields, and fallbacks when the `contracts` module is enabled
 - [ ] BACKEND_IMPLEMENTATION lists every file/function to touch and pseudocode for tricky bits when the `backend_implementation` module is enabled
 - [ ] ORCHESTRATION_AND_UI lists frontend files and copy changes when the `orchestration_and_ui` module is enabled
 - [ ] OBSERVABILITY has metric names/labels and validation dashboard calls when the `observability` module is enabled
 - [ ] RUNBOOK includes flags, commands, queries, and rollback when the `runbook` module is enabled
 - [ ] DATA_MODEL.sql documents schema/storage expectations when the `data_model` module is enabled
+- [ ] OPERATING_MODEL documents future-state workflow, owners, and handoffs when the `operating_model` module is enabled
+- [ ] GTM_AND_LAUNCH documents launch audience, messaging constraints, dependencies, and success metrics when the `gtm_and_launch` module is enabled
+- [ ] CLIENT_ROLLOUT documents cohorting, client-transition rules, communications, and rollback when the `client_rollout` module is enabled
+- [ ] ENABLEMENT_AND_SUPPORT documents training, support ownership, and escalation when the `enablement_and_support` module is enabled
+- [ ] GOVERNANCE_AND_APPROVALS documents sign-offs, evidence, and readiness gates when the `governance_and_approvals` module is enabled
 - [ ] RISKS calls out flicker/instability, drift, and back‑compat
 - [ ] AGENT_PROMPT is zero‑context and explicit (file paths, flags, acceptance)
 - [ ] Full AIP prompt artifacts (`AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt`) are present, current, and referenced by the checklist
@@ -233,7 +270,9 @@ Checklist YAML Schema (informal)
 - version: integer
 - feature: string (slug)
 - packet_level: lite | full (optional for legacy packets; recommended for new full AIPs)
-- enabled_modules: [contracts | data_model | backend_implementation | orchestration_and_ui | observability | runbook]
+- requirements_mode: technical | operating | mixed
+- delivery_surfaces: [backend | frontend | data | contracts | docs | integrations | operations | gtm | client_rollout | enablement | support | governance | compliance]
+- enabled_modules: [contracts | data_model | backend_implementation | orchestration_and_ui | observability | runbook | operating_model | gtm_and_launch | client_rollout | enablement_and_support | governance_and_approvals]
 - omitted_modules: [{ module: <same enum>, reason: string }]
 - status: pending | in_progress | blocked | completed | abandoned | incomplete
 - constraints: [string]
@@ -247,6 +286,7 @@ Checklist YAML Schema (informal)
 ]
 - verification: { commands: [string], acceptance: [string] }
 - Required planning gate task for all AIPs: `collaboration-readiness`
+- Required readiness-evidence task for all AIPs: `readiness-evidence`
 - Required prompt-artifact tasks for full AIPs: `agent-prompt`, `audit-prompt`
 - Required final gate tasks for full AIPs: `implementation-audit`, `audit-remediation`, `audit-reverify`, `packet-closure`
 
@@ -263,7 +303,7 @@ Usage
 1) Start with active collaboration (`AIP_COLLAB.md`) for every explicit new-AIP request or packet-sized work request.
 2) Inspect registry/docs/AIPs, ask targeted questions, summarize confirmed decisions, and get user confirmation before writing packet docs.
 3) Scaffold a new AIP or update the existing packet from templates only after the collaboration readiness gate is satisfied.
-4) Record `packet_level`, `enabled_modules`, and `omitted_modules` in `CHECKLIST.yaml`, then fill in README.md, REVIEWS.md or README Collaboration Summary, CONTEXT.md, RISKS.md, and only the enabled capability-module docs from confirmed decisions and accepted assumptions.
+4) Record `packet_level`, `requirements_mode`, `delivery_surfaces`, `enabled_modules`, and `omitted_modules` in `CHECKLIST.yaml`, then fill in README.md, REVIEWS.md or README Collaboration Summary, CONTEXT.md, RISKS.md, and only the enabled capability-module docs from confirmed decisions and accepted assumptions.
 5) During planning, explicitly check for reuse opportunities (shared modules/components/design system) to avoid duplicating patterns. If you identify a new reusable pattern, implement it in the repo’s shared layer/package.
 6) Populate CHECKLIST.yaml with phases/tasks and keep statuses current.
 7) For full AIPs, include initial `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` in the packet-creation approval bundle once the packet docs are drafted.

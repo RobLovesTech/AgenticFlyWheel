@@ -1,5 +1,7 @@
 version: 1
 feature: "{{FEATURE_SLUG}}"
+requirements_mode: technical
+delivery_surfaces: []
 status: pending
 constraints: []
 env_defaults: {}
@@ -18,7 +20,7 @@ phases:
         status: pending
   - id: implement
     name: Implementation
-    description: Implement the feature with tests
+    description: Implement the feature, workflow, or rollout change with tests and readiness work as needed
     tasks:
       - id: code
         title: Implement changes per README.md
@@ -42,6 +44,10 @@ phases:
         status: pending
       - id: update-readme
         title: Update lightweight AIP README.md with final details
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/README.md"]
+        status: pending
+      - id: readiness-evidence
+        title: Record readiness evidence, approvals, training/comms completion, support ownership, or explicit not-applicable rationale
         files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/README.md"]
         status: pending
       - id: registry

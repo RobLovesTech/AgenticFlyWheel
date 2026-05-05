@@ -42,6 +42,7 @@ Goals
 - Guide user through creating their first real AIP during setup, and make sure they know how to generate a tailored `AGENT_PROMPT.txt` for it using `AgenticFlywheel/prompts/AGENT_PROMPT_GENERATOR.md` once the packet docs are complete.
 - Ensure every installed full and lightweight AIP template includes the required implementation audit/remediation/reverify/closure gate.
 - Ensure every installed full and lightweight AIP template includes a required collaboration-readiness task and Collaboration Summary section.
+- Ensure installed full and lightweight AIP templates support `technical`, `operating`, and `mixed` requirement modes with explicit non-technical requirement capture when relevant.
 - Ensure installed agent configs treat detailed new-AIP requests as seed context only: user-confirmed summary evidence is required before packet writes, `collaboration-readiness` completion, or implementation.
 
 Operating Rules (strict)
@@ -195,12 +196,12 @@ Steps
       - "How will you test this?"
       - If full AIP: "Any API endpoints or data model changes?"
       - If full AIP: "Any security or compliance considerations?"
-      - If full AIP: "Which optional modules are actually needed: contracts, data_model, backend_implementation, orchestration_and_ui, observability, runbook?"
+      - If full AIP: "Which optional modules are actually needed: contracts, data_model, backend_implementation, orchestration_and_ui, observability, runbook, operating_model, gtm_and_launch, client_rollout, enablement_and_support, governance_and_approvals?"
    
    d) Generate AIP
       - Create packet in `docs/Agent Implementation Packets/<feature-slug>/`
       - Use appropriate template (lightweight or full)
-      - For full AIPs, record `packet_level`, `enabled_modules`, and `omitted_modules` in `CHECKLIST.yaml` and scaffold only the enabled optional module docs
+      - For full AIPs, record `packet_level`, `requirements_mode`, `delivery_surfaces`, `enabled_modules`, and `omitted_modules` in `CHECKLIST.yaml` and scaffold only the enabled optional module docs
       - Populate with interview answers
       - Set status to `pending`
       - Add to Feature Registry with status `planned`

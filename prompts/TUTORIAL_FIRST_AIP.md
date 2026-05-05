@@ -58,7 +58,7 @@ Steps
    - "Any API endpoints or data model changes?"
    - "Any security or compliance considerations?"
    - "What metrics will show it's working?"
-   - "Which optional full-AIP modules are actually needed: contracts, data_model, backend_implementation, orchestration_and_ui, observability, runbook?"
+   - "Which optional full-AIP modules are actually needed: contracts, data_model, backend_implementation, orchestration_and_ui, observability, runbook, operating_model, gtm_and_launch, client_rollout, enablement_and_support, governance_and_approvals?"
    
    Keep it brief: gather enough to populate the AIP, don't deep-dive
 
@@ -83,7 +83,7 @@ Steps
    
    If full:
    - Create the always-present full-AIP docs from templates (README, REVIEWS, CONTEXT, CHECKLIST, RISKS).
-   - Write `packet_level: full`, `enabled_modules`, and `omitted_modules` into CHECKLIST.yaml.
+   - Write `packet_level: full`, `requirements_mode`, `delivery_surfaces`, `enabled_modules`, and `omitted_modules` into CHECKLIST.yaml.
    - Create only the enabled optional module docs from templates (CONTRACTS, BACKEND_IMPLEMENTATION, ORCHESTRATION_AND_UI, RUNBOOK, OBSERVABILITY, DATA_MODEL.sql).
    - Generate `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` from the completed packet docs before the final write/approval bundle.
    - Do not copy `AGENT_PROMPT_AUTHORING_GUIDE.md`, `AGENT_PROMPT_QA_CHECKLIST.md`, or framework prompt files into the packet folder; they stay in `docs/templates/AIP/` or `AgenticFlywheel/prompts/` as authoring references.

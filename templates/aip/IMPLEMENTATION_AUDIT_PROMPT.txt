@@ -7,9 +7,9 @@ Your task is zero-context: do not rely on prior chats. Run the required AFW impl
 
 1) Intake
 - Read `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md` or the repo-local equivalent first; it is the reusable audit rubric.
-- Read CHECKLIST.yaml first and treat `packet_level`, `enabled_modules`, and `omitted_modules` as authoritative.
+- Read CHECKLIST.yaml first and treat `packet_level`, `requirements_mode`, `delivery_surfaces`, `enabled_modules`, and `omitted_modules` as authoritative.
 - Read the always-present packet docs: README.md, REVIEWS.md, RISKS.md, CONTEXT.md, CHECKLIST.yaml, CHECKLIST.md, and AGENT_PROMPT.txt.
-- Read only the enabled module docs when they exist: CONTRACTS.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, DATA_MODEL.sql.
+- Read only the enabled module docs when they exist: CONTRACTS.md, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, DATA_MODEL.sql, OPERATING_MODEL.md, GTM_AND_LAUNCH.md, CLIENT_ROLLOUT.md, ENABLEMENT_AND_SUPPORT.md, GOVERNANCE_AND_APPROVALS.md.
 - Treat packet docs as canonical. Runtime logs under `.agentic-flywheel/state/` are advisory unless promoted into packet docs.
 
 2) Preconditions
@@ -30,6 +30,7 @@ Your task is zero-context: do not rely on prior chats. Run the required AFW impl
 - Database/data integrity: migrations, schema drift, consistency, retention, rollback.
 - Agentic workflow: prompt/checklist integrity, stale handoff artifacts, packet drift, replayability.
 - Product/operator risk: user value, rollout safety, support burden, observability.
+- Operating readiness/change management: launch sequencing, client-transition safety, enablement, support, approvals, and readiness evidence quality.
 - DevEx: command clarity, setup, errors, docs, future contributor friction.
 
 5) Output Format
@@ -38,6 +39,7 @@ Your task is zero-context: do not rely on prior chats. Run the required AFW impl
 - Include missing tests or manual QA gaps.
 - Include an acceptance checklist with pass/fail/not applicable for each criterion.
 - Include verification commands run or still required.
+- Include readiness evidence checked or still required when the packet is `operating` or `mixed`, or when operating modules are enabled.
 - Include packet updates required before closure.
 
 6) Write-Back Rules

@@ -55,7 +55,9 @@ Packet Manifest Contract
 - Full AIPs may use a capability-driven packet manifest recorded directly in `CHECKLIST.yaml`.
 - Recommended manifest fields for new full AIPs:
   - `packet_level: full`
-  - `enabled_modules: [contracts, data_model, backend_implementation, orchestration_and_ui, observability, runbook]` with only relevant modules present
+  - `requirements_mode: technical | operating | mixed`
+  - `delivery_surfaces: [backend, frontend, data, contracts, docs, integrations, operations, gtm, client_rollout, enablement, support, governance, compliance]` with only relevant surfaces present
+  - `enabled_modules: [contracts, data_model, backend_implementation, orchestration_and_ui, observability, runbook, operating_model, gtm_and_launch, client_rollout, enablement_and_support, governance_and_approvals]` with only relevant modules present
   - `omitted_modules:` entries with `module` plus `reason`
 - The manifest is canonical packet truth. Prompts should read it before assuming which docs exist.
 - Legacy full AIPs without these fields remain valid. Prompts and validators should treat them as older full packets and infer module coverage from the packet docs and checklist references instead of failing on the missing manifest.
@@ -75,12 +77,14 @@ Collaboration Receipt Contract
   - `Reference Data Completeness` when applicable
   - `Cross-Cutting Behavior Decisions` when applicable
   - `Interaction Surface Decisions` when applicable
+  - `Operating Readiness Decisions` when applicable
 - If accepted prior planning artifacts or a direct/template-only scaffold exception satisfied readiness, record the exact source artifacts or exception rationale in the receipt.
 
 Collaboration Intake Flow
 1) For generic `new AIP`, `create AIP`, `start AIP`, or packet-sized work, route to `AIP_COLLAB.md` by default.
 2) Use runtime notes, prior chat, and review logs only as advisory inputs while clarifying the request.
 3) Confirm or explicitly accept assumptions for:
+   - `requirements_mode` (`technical`, `operating`, or `mixed`) and the collaborating functions involved
    - goals and desired outcome
    - primary user/operator and job-to-be-done
    - all impacted personas with per-persona scope decisions
@@ -88,12 +92,15 @@ Collaboration Intake Flow
    - priority tier assignments for large features
    - success criteria and acceptance signals
    - constraints and compliance requirements
-   - impacted surfaces
+   - impacted delivery surfaces
    - contracts and data-model implications
    - reference data completeness when relevant
    - cross-cutting behaviors when relevant
    - interaction-surface decisions when relevant
-   - rollout, migration, rollback, and verification expectations
+   - operating/process changes, handoffs, and decision ownership when relevant
+   - GTM, launch sequencing, communications, and adoption metrics when relevant
+   - client rollout, migration, training, support readiness, and approval gates when relevant
+   - rollout, migration, rollback, verification, and readiness-evidence expectations
    - risks and non-goals
    - packet level plus which optional capability modules are required or intentionally omitted
 4) Promote the accepted collaboration result into packet docs before scaffolding implementation truth:
@@ -117,6 +124,7 @@ Implementation Audit Flow
 4) Create remediation checklist tasks for actionable findings in `CHECKLIST.yaml` and `CHECKLIST.md`.
 5) Fix or explicitly disposition findings, refresh prompt artifacts if audit-driven packet changes affect them, re-run targeted verification, then mark audit remediation, re-verification, and packet closure tasks complete.
 6) Only after this flow may top-level `CHECKLIST.yaml.status` be set to `completed`.
+- For operating or mixed packets, the audit must also verify readiness evidence such as approvals, comms/training completion, support ownership, launch sequencing, client-transition decisions, and documented rollback/escalation paths when those surfaces are in scope.
 - Acceptance and disposition authority:
   - A finding becomes a closure blocker only after it is explicitly accepted into packet truth by the user or by a follow-on prompt acting under the user's accepted workflow.
   - Hosts must not silently self-approve severity downgrades or dismiss findings without recording rationale.

@@ -11,7 +11,7 @@ Inputs
 Target Paths
 - Packet root: `docs/Agent Implementation Packets/$1/`
 - Packet docs (must exist before generation):
-  - Read `CHECKLIST.yaml` first to determine `packet_level`, `enabled_modules`, and `omitted_modules`.
+  - Read `CHECKLIST.yaml` first to determine `packet_level`, `requirements_mode`, `delivery_surfaces`, `enabled_modules`, and `omitted_modules`.
   - Always-present docs for full AIPs:
   - `README.md`
   - `REVIEWS.md`
@@ -25,6 +25,11 @@ Target Paths
     - `OBSERVABILITY.md`
     - `RUNBOOK.md`
     - `DATA_MODEL.sql`
+    - `OPERATING_MODEL.md`
+    - `GTM_AND_LAUNCH.md`
+    - `CLIENT_ROLLOUT.md`
+    - `ENABLEMENT_AND_SUPPORT.md`
+    - `GOVERNANCE_AND_APPROVALS.md`
   - If the packet predates the manifest, infer enabled module docs from the packet files already present and the checklist references instead of failing on the missing manifest.
 - Prompt helpers (reference-only; DO NOT copy into the packet):
   - `docs/templates/AIP/AGENT_PROMPT_AUTHORING_GUIDE.md`
@@ -49,7 +54,7 @@ Sequence
 2) Understand the AIP (Summarize First)
    - Read the Authoring Guide: `docs/templates/AIP/AGENT_PROMPT_AUTHORING_GUIDE.md` and internalize the required structure and rubric.
    - Read:
-     - `README.md` → feature title, exec summary, goals/non-goals, signals & flags summary, acceptance, rollout.
+     - `README.md` → feature title, exec summary, requirements mode, goals/non-goals, signals & flags summary, acceptance, rollout, operating requirements.
      - `REVIEWS.md` → Collaboration Summary, Accepted Decisions, Open Risks, Final Verdict. Ignore advisory notes that were not accepted.
      - `RISKS.md` → top risks and mitigations.
      - `CONTEXT.md` → constraints, env defaults, parity notes.
@@ -60,13 +65,18 @@ Sequence
      - If `runbook` is enabled: `RUNBOOK.md` → flags/defaults, commands, flip/rollback, queries.
      - If `observability` is enabled: `OBSERVABILITY.md` → metrics names/labels, dashboards, validation panels.
      - If `data_model` is enabled: `DATA_MODEL.sql` → schema/storage semantics, DDL notes, retention/backfill expectations.
-   - Produce a concise, numbered summary of:
+     - If `operating_model` is enabled: `OPERATING_MODEL.md` → future-state workflow, owners, handoffs, exception paths.
+     - If `gtm_and_launch` is enabled: `GTM_AND_LAUNCH.md` → audience, sequencing, messaging guardrails, assets, success metrics.
+     - If `client_rollout` is enabled: `CLIENT_ROLLOUT.md` → cohorts, transition/cutover rules, client comms, rollback paths.
+     - If `enablement_and_support` is enabled: `ENABLEMENT_AND_SUPPORT.md` → training, support ownership, coverage, escalation, FAQs.
+     - If `governance_and_approvals` is enabled: `GOVERNANCE_AND_APPROVALS.md` → sign-offs, policy/compliance gates, required evidence.
+  - Produce a concise, numbered summary of:
      - Main goals and non-goals
      - Accepted review inputs and open risks
-     - Key flags and defaults
-     - Backend and frontend touch points (paths)
-     - Verification & acceptance criteria
-     - Observability hooks (metrics/dashboards)
+     - Key flags, defaults, and readiness gates
+     - Technical and operating touch points (paths and artifact surfaces)
+     - Verification, readiness evidence, and acceptance criteria
+     - Observability hooks and launch/adoption evidence when applicable
    - In standalone mode, ask the user to confirm or correct this understanding before drafting the prompt.
    - In embedded mode, do not add a separate approval stop; use this understanding to draft the prompt for the parent AIP creation flow.
 
@@ -80,12 +90,13 @@ Sequence
      - Non-Goals: bullets for what is explicitly out-of-scope.
      - Review Inputs: accepted conclusions from `REVIEWS.md` only.
      - Collaboration Inputs: confirmed decisions and accepted assumptions from the packet Collaboration Summary.
-     - Signals & Flags: summary of core formulas, thresholds, and key flags.
+     - Operating Readiness Inputs: launch, rollout, enablement, support, approval, and client-transition decisions when applicable.
+     - Signals & Flags: summary of core formulas, thresholds, key flags, and readiness gates.
      - Runtime Flags: explicit list of flags and defaults from RUNBOOK when enabled, otherwise from CHECKLIST.yaml / CONTEXT.md when packet-level defaults exist.
-     - Touch Points: backend and frontend file paths grouped by area, with intent per group.
+     - Touch Points: backend, frontend, docs, data, and non-code artifact paths grouped by area, with intent per group.
      - Execution Plan: step-by-step tasks aligned with `CHECKLIST.yaml` phases/tasks (summarized, not 1:1 copies).
-     - Verify & Accept: acceptance criteria distilled from README, CHECKLIST.yaml, and CONTRACTS when enabled, including any important edge cases.
-     - Validation & Observability: metrics, dashboards, and checks required before calling the feature “done”, only when those surfaces exist.
+     - Verify & Accept: acceptance criteria distilled from README, CHECKLIST.yaml, and CONTRACTS when enabled, including any important edge cases plus any required operating-readiness evidence.
+     - Validation & Observability: metrics, dashboards, checks, launch/adoption evidence, and readiness proof required before calling the packet “done”, only when those surfaces exist.
      - Implementation Audit Gate: run the packet-local `IMPLEMENTATION_AUDIT_PROMPT.txt` when present, otherwise run `AgenticFlywheel/prompts/IMPLEMENTATION_AUDIT.md`, after implementation, verification, docs sync, and prompt-artifact refresh; promote findings into packet docs; fix or explicitly disposition each finding; refresh prompt artifacts if audit-driven packet changes affect them; re-run targeted verification; complete packet closure only after the audit passes.
      - Ground Rules: concise bullets for constraints (privacy, security, parity, scope discipline, doc updates).
    - Keep the prompt zero-context and self-contained: do not refer to prior chats; always reference docs and files by path.
@@ -97,6 +108,7 @@ Sequence
      - Flags and defaults are correctly captured.
      - Acceptance conditions are explicit and verifiable.
      - Metrics/logs/dashboards used for validation are called out when the packet enables `observability`.
+     - Launch/readiness evidence is called out when the packet is `operating` or `mixed`, or when operating modules are enabled.
      - IMPLEMENTATION_AUDIT is included as a mandatory closure gate and audit findings block completion until resolved or explicitly dispositioned.
      - Collaboration Summary is reflected so the implementation agent does not rely on prior chat or unconfirmed assumptions.
    - If any item would fail the checklist, revise the draft before showing it to the user.

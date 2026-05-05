@@ -4,15 +4,18 @@ Phases
 - Design & Contracts — finalize contracts and plan
   - [ ] Confirm user-approved collaboration readiness and record Collaboration Summary
     - Evidence: user-confirmed summary, accepted prior planning artifacts, or explicit direct/template-only scaffold exception; inferred assumptions alone are not enough.
+  - [ ] Capture requirements mode, delivery surfaces, and any operating-readiness decisions in packet truth
   - [ ] Capture discovery/review outputs in REVIEWS.md
 - Backend Implementation — implement + tests
 - Frontend Implementation — implement + tests
+- Operating Readiness & Launch — implement workflow, rollout, enablement, and approval work when in scope
 - Docs — global docs corrections/updates
 - Observability & Rollout — metrics + runbook
 - Docs & Handoff — finalize context, audit, remediation, and registry
   - [ ] Run verification commands (tests/build/lint) for impacted components
   - [ ] Sync REVIEWS.md accepted decisions, open risks, and final verdict
   - [ ] Update CONTEXT.md with final behavior
+  - [ ] Record readiness evidence, approvals, training/comms completion, support ownership, or explicit not-applicable rationale
   - [ ] Add or update Feature Registry entry
   - [ ] Run Agent Prompt QA Checklist before generating or refreshing prompt artifacts
   - [ ] Generate or refresh AGENT_PROMPT.txt from current packet docs

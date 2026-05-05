@@ -3,6 +3,9 @@ Title: {{TITLE}}
 Objective
 - What you're building and why (1-2 sentences).
 
+Requirements Mode
+- `technical` | `operating` | `mixed`
+
 Changes
 Backend:
 - List files and functions to modify.
@@ -12,6 +15,9 @@ Frontend:
 
 Data:
 - Database or API contract changes.
+
+Operating / Rollout:
+- Process, launch, client rollout, enablement, support, or approval changes.
 
 Testing
 - Unit tests to add/modify.
@@ -36,6 +42,7 @@ Collaboration Summary
 - `Reference Data Completeness` (when applicable):
 - `Cross-Cutting Behavior Decisions` (when applicable):
 - `Interaction Surface Decisions` (when applicable):
+- `Operating Readiness Decisions` (when applicable):
 - Do not let implementation agents treat unconfirmed guesses as packet truth.
 - Agent-inferred assumptions are proposed assumptions until the user confirms them or approves a direct/template-only scaffold exception.
 
@@ -51,3 +58,6 @@ Implementation Audit
 Rollout
 - How to deploy (flags, gradual rollout, or all-at-once).
 - Rollback plan if issues arise.
+
+Readiness Evidence
+- Approvals, training/comms completion, support ownership, or explicit not-applicable rationale.

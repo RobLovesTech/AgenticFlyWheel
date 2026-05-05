@@ -16,11 +16,13 @@ Goals & Non‑Goals
 Signals & Flags
 - [ ] Summarizes core signals (formulas/algorithms) in one place
 - [ ] Runtime flags listed with defaults (from RUNBOOK)
+- [ ] Readiness gates, approvals, or operating constraints are included when the packet is `operating` or `mixed`
 
 Touch Points (Files)
 - [ ] Backend file paths explicitly listed (with purpose)
 - [ ] Frontend file paths explicitly listed (with purpose)
 - [ ] Docs paths for global corrections listed (with purpose)
+- [ ] Non-code artifact paths or packet surfaces are listed when launch, rollout, enablement, support, or approvals are in scope
 
 Tasks (Step‑by‑Step)
 - [ ] Derived from CHECKLIST.yaml phases in execution order
@@ -30,6 +32,7 @@ Verification & Acceptance
 - [ ] Acceptance from README “Acceptance” is included
 - [ ] Acceptance Rules from CONTRACTS are included or referenced when the `contracts` module is enabled
 - [ ] Validation & Observability panels/metrics named when the `observability` module is enabled
+- [ ] Required readiness evidence is included when launch, client rollout, enablement, support, or approvals are in scope
 - [ ] Required IMPLEMENTATION_AUDIT gate is included before packet closure
 - [ ] Audit findings are described as blockers until fixed or explicitly dispositioned with rationale
 - [ ] Targeted re-verification after audit remediation is required
@@ -38,6 +41,7 @@ Guardrails & Constraints
 - [ ] Privacy/PII constraints restated (e.g., redaction, no names)
 - [ ] Back‑compat notes (e.g., no new event names) if applicable
 - [ ] No DB/schema claims assume `DATA_MODEL.sql` exists unless the `data_model` module is enabled
+- [ ] Do not omit packet-defined GTM, client-transition, enablement, support, or approval constraints
 
 Anti‑patterns to avoid
 - [ ] No vague instructions like “update code accordingly”

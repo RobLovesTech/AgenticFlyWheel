@@ -1,6 +1,8 @@
 version: 1
 feature: "{{FEATURE_SLUG}}"
 packet_level: full
+requirements_mode: technical
+delivery_surfaces: []
 enabled_modules:
   - contracts
   - data_model
@@ -8,6 +10,11 @@ enabled_modules:
   - orchestration_and_ui
   - observability
   - runbook
+  - operating_model
+  - gtm_and_launch
+  - client_rollout
+  - enablement_and_support
+  - governance_and_approvals
 omitted_modules: []
 status: pending
 constraints:
@@ -30,6 +37,26 @@ phases:
       - id: contracts
         title: If `contracts` is enabled, complete CONTRACTS.md (signals, thresholds, events, fallbacks)
         files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CONTRACTS.md"]
+        status: pending
+      - id: operating-model
+        title: If `operating_model` is enabled, complete OPERATING_MODEL.md (workflow, owners, handoffs, exceptions)
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/OPERATING_MODEL.md"]
+        status: pending
+      - id: gtm-launch
+        title: If `gtm_and_launch` is enabled, complete GTM_AND_LAUNCH.md (audience, sequencing, messaging, metrics)
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/GTM_AND_LAUNCH.md"]
+        status: pending
+      - id: client-rollout-plan
+        title: If `client_rollout` is enabled, complete CLIENT_ROLLOUT.md (cohorts, transition rules, rollback)
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CLIENT_ROLLOUT.md"]
+        status: pending
+      - id: enablement-support-plan
+        title: If `enablement_and_support` is enabled, complete ENABLEMENT_AND_SUPPORT.md (training, support, escalation)
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/ENABLEMENT_AND_SUPPORT.md"]
+        status: pending
+      - id: governance-approvals
+        title: If `governance_and_approvals` is enabled, complete GOVERNANCE_AND_APPROVALS.md (sign-offs, gates, evidence)
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/GOVERNANCE_AND_APPROVALS.md"]
         status: pending
       - id: review-gauntlet
         title: Capture discovery and review outputs in REVIEWS.md
@@ -61,6 +88,18 @@ phases:
         status: pending
       - id: tests-frontend
         title: Update/add frontend unit tests
+        files: []
+        status: pending
+  - id: operating
+    name: Operating Readiness & Launch
+    description: Enable this phase only when operating modules or operating delivery surfaces are in scope
+    tasks:
+      - id: implement-operating-model
+        title: Implement workflow, handoff, launch, rollout, enablement, and approval changes called for by enabled operating modules
+        files: []
+        status: pending
+      - id: verify-operating-readiness
+        title: Validate cohorting, training, support, approvals, and launch readiness evidence
         files: []
         status: pending
   - id: docs
@@ -98,6 +137,10 @@ phases:
       - id: context
         title: Update CONTEXT.md with final behavior
         files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CONTEXT.md"]
+        status: pending
+      - id: readiness-evidence
+        title: Record readiness evidence, approvals, training/comms completion, support ownership, or explicit not-applicable rationale
+        files: ["docs/Agent Implementation Packets/{{FEATURE_SLUG}}/README.md", "docs/Agent Implementation Packets/{{FEATURE_SLUG}}/REVIEWS.md", "docs/Agent Implementation Packets/{{FEATURE_SLUG}}/CHECKLIST.md"]
         status: pending
       - id: registry
         title: Add or update Feature Registry entry

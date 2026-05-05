@@ -7,6 +7,15 @@
     "version": {"type": "integer", "minimum": 1},
     "feature": {"type": "string", "minLength": 1},
     "packet_level": {"type": "string", "enum": ["lite", "full"]},
+    "requirements_mode": {"type": "string", "enum": ["technical", "operating", "mixed"]},
+    "delivery_surfaces": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["backend", "frontend", "data", "contracts", "docs", "integrations", "operations", "gtm", "client_rollout", "enablement", "support", "governance", "compliance"]
+      }
+    },
     "enabled_modules": {
       "type": "array",
       "uniqueItems": true,
@@ -18,7 +27,12 @@
           "backend_implementation",
           "orchestration_and_ui",
           "observability",
-          "runbook"
+          "runbook",
+          "operating_model",
+          "gtm_and_launch",
+          "client_rollout",
+          "enablement_and_support",
+          "governance_and_approvals"
         ]
       }
     },
@@ -36,7 +50,12 @@
               "backend_implementation",
               "orchestration_and_ui",
               "observability",
-              "runbook"
+              "runbook",
+              "operating_model",
+              "gtm_and_launch",
+              "client_rollout",
+              "enablement_and_support",
+              "governance_and_approvals"
             ]
           },
           "reason": {"type": "string", "minLength": 1}
@@ -59,6 +78,7 @@
             "type": "array",
             "allOf": [
               {"contains": {"type": "object", "properties": {"id": {"const": "build-verify"}}, "required": ["id"]}},
+              {"contains": {"type": "object", "properties": {"id": {"const": "readiness-evidence"}}, "required": ["id"]}},
               {"contains": {"type": "object", "properties": {"id": {"const": "prompt-qa"}}, "required": ["id"]}},
               {"contains": {"type": "object", "properties": {"id": {"const": "agent-prompt"}}, "required": ["id"]}},
               {"contains": {"type": "object", "properties": {"id": {"const": "audit-prompt"}}, "required": ["id"]}},
@@ -124,5 +144,5 @@
       }
     }
   },
-  "description": "Full AIP checklists may include packet_level plus enabled/omitted module metadata to support capability-driven packet scaffolding. Legacy packets without the manifest remain valid. Full AIP checklists must include collaboration readiness, REVIEWS.md coverage, prompt artifact generation/refresh for AGENT_PROMPT.txt and IMPLEMENTATION_AUDIT_PROMPT.txt, and a Docs & Handoff phase with verification, implementation audit, remediation, re-verification, and packet closure gates. Completed collaboration readiness requires user-confirmed Collaboration Summary evidence or an explicit direct/template-only scaffold exception; inferred assumptions alone are insufficient."
+  "description": "Full AIP checklists may include packet_level, requirements_mode, delivery_surfaces, and enabled/omitted module metadata to support capability-driven packet scaffolding. Legacy packets without the manifest remain valid. Full AIP checklists must include collaboration readiness, readiness-evidence capture, REVIEWS.md coverage, prompt artifact generation/refresh for AGENT_PROMPT.txt and IMPLEMENTATION_AUDIT_PROMPT.txt, and a Docs & Handoff phase with verification, implementation audit, remediation, re-verification, and packet closure gates. Completed collaboration readiness requires user-confirmed Collaboration Summary evidence or an explicit direct/template-only scaffold exception; inferred assumptions alone are insufficient."
 }

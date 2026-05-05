@@ -71,7 +71,7 @@ Steps
    
    If full:
    - Create the always-present full packet: README, REVIEWS, CONTEXT, RISKS, CHECKLIST, AGENT_PROMPT, IMPLEMENTATION_AUDIT_PROMPT
-   - Record `packet_level: full`, `enabled_modules`, and `omitted_modules` in CHECKLIST.yaml
+   - Record `packet_level: full`, `requirements_mode`, `delivery_surfaces`, `enabled_modules`, and `omitted_modules` in CHECKLIST.yaml
    - Create only the enabled optional module docs: CONTRACTS, BACKEND_IMPLEMENTATION, ORCHESTRATION_AND_UI, OBSERVABILITY, RUNBOOK, DATA_MODEL
    - Populate from code analysis
    - Mark gaps explicitly: "TODO: Add metrics" or "No integration tests found"

@@ -6,6 +6,7 @@ Inputs
 - Feature Slug (positional $1): machine-friendly slug for the folder name.
 - Named optional:
   - TITLE: Human-readable title (default: same as slug)
+  - REQUIREMENTS_MODE: `technical`, `operating`, or `mixed`
   - CONTEXT: 1–3 sentences of background/intent
   - SCOPE: components (e.g., backend, frontend, data)
   - CONSTRAINTS: comma-separated list (e.g., FERPA,COPPA,5-min cadence)
@@ -29,10 +30,12 @@ Preflight Routing Gate
   - explicit non-goals
   - success criteria / acceptance signals
   - key constraints or compliance requirements
+  - `requirements_mode`, collaborating functions, or impacted delivery surfaces
   - contracts, integrations, or data-model implications
   - reference data completeness or taxonomy coverage when relevant
   - cross-cutting behaviors such as lifecycle states, grandfathering, defaults, evaluation semantics, or audit scope
   - interaction-surface behavior when the feature has user or operator journeys
+  - operating/process changes, launch/GTM, client rollout, enablement/support, governance/approval, or readiness-evidence expectations when relevant
   - major risks, rollout concerns, or verification expectations
 - For generic requests like “new AIP” or “create AIP for this change”, default to `AIP_COLLAB.md` unless the user explicitly asks for direct scaffolding or accepted prior artifacts already settle the requirements.
 - Do not duplicate the `AIP_COLLAB.md` interview here. At most, ask a minimal confirmation needed to decide whether to scaffold directly or redirect.
@@ -49,6 +52,7 @@ Preflight Routing Gate
   - `Reference Data Completeness` when applicable
   - `Cross-Cutting Behavior Decisions` when applicable
   - `Interaction Surface Decisions` when applicable
+  - `Operating Readiness Decisions` when applicable
 
 Steps
 1) Plan
@@ -56,9 +60,11 @@ Steps
    - For full AIPs, seed the always-present core packet docs from `docs/templates/AIP/` (README.md, REVIEWS.md, CHECKLIST.yaml/md, CONTEXT.md, RISKS.md).
    - Record the packet manifest directly in `CHECKLIST.yaml`:
      - `packet_level: full`
+     - `requirements_mode: technical | operating | mixed`
+     - `delivery_surfaces:` with only the relevant surfaces
      - `enabled_modules:` with only the relevant capability modules
      - `omitted_modules:` entries with `module` + `reason` for intentionally skipped modules
-   - Add only the enabled module docs from `docs/templates/AIP/`: CONTRACTS.md, DATA_MODEL.sql, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md.
+   - Add only the enabled module docs from `docs/templates/AIP/`: CONTRACTS.md, DATA_MODEL.sql, BACKEND_IMPLEMENTATION.md, ORCHESTRATION_AND_UI.md, OBSERVABILITY.md, RUNBOOK.md, OPERATING_MODEL.md, GTM_AND_LAUNCH.md, CLIENT_ROLLOUT.md, ENABLEMENT_AND_SUPPORT.md, GOVERNANCE_AND_APPROVALS.md.
    - For legacy packet updates, preserve valid existing docs; if the packet predates the manifest, infer enabled modules from existing packet docs and checklist references unless the user explicitly wants the packet normalized.
    - For full AIPs, also synthesize initial `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt` after the core and enabled-module packet docs are filled and before the final diff preview.
    - Keep `AGENT_PROMPT_AUTHORING_GUIDE.md`, `AGENT_PROMPT_QA_CHECKLIST.md`, and framework prompt files in `docs/templates/AIP/` or `AgenticFlywheel/prompts/`; do not copy those reference files into the packet folder.
@@ -66,6 +72,7 @@ Steps
    - If the packet already exists, treat this prompt as an in-place scaffold/update pass rather than a greenfield creation flow.
    - Ensure `REVIEWS.md` or README.md contains the structured `Collaboration Summary` receipt with confirmed decisions and accepted assumptions.
    - Ensure the checklist contains a `collaboration-readiness` task.
+   - Ensure the checklist contains a `readiness-evidence` task before closure.
    - Only mark `collaboration-readiness` completed when the packet records the user-confirmed Collaboration Summary or the explicit direct/template-only scaffold exception. Otherwise leave it `pending` or `blocked`.
    - Ensure “Docs & Handoff” phase exists in `CHECKLIST.yaml`.
    - Ensure the checklist contains a task referencing `REVIEWS.md`.
@@ -80,7 +87,8 @@ Steps
 
 2) Prefill (optional)
    - README.md: Title; Objective (from CONTEXT); Scope (from SCOPE); Constraints (from CONSTRAINTS).
-   - REVIEWS.md: Seed Discovery Reframe and Accepted Decisions when CONTEXT or prior review output exists.
+   - README.md: Prefill `Requirements Mode` / `Delivery Surfaces` / operating-requirements summary when known.
+  - REVIEWS.md: Seed Discovery Reframe and Accepted Decisions when CONTEXT or prior review output exists.
    - CHECKLIST.yaml: Add constraints/env_defaults if provided, plus packet manifest fields for full AIPs.
    - CONTEXT.md: One paragraph using CONTEXT/SCOPE/CONSTRAINTS if provided.
 
@@ -102,6 +110,7 @@ Rules
 - Use `AIP_COLLAB.md` for clarification-first planning; use this prompt only when requirements are already settled enough to draft responsibly.
 - Keep files unopinionated; do not import stack-specific details unless provided.
 - Keep the packet self-contained; avoid external dependencies.
+- For `operating` or `mixed` packets, do not collapse GTM, client rollout, enablement/support, governance, or approval work into generic “rollout” prose if those requirements are in scope. Give them explicit packet homes.
 - Do not use this prompt as a substitute for collaboration when packet truth is still ambiguous; collaboration comes first, scaffolding second.
 
 Output

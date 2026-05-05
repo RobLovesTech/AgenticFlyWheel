@@ -15,7 +15,8 @@ Version: 1.0.0
 ## Framework Highlights
 
 - Collaboration-first by default: packet-sized work starts with `prompts/AIP_COLLAB.md`, not silent scaffolding.
-- Full packets are manifest-driven: `CHECKLIST.yaml` records `packet_level`, `enabled_modules`, and `omitted_modules`.
+- AIP collaboration is mode-aware: the intake can classify work as `technical`, `operating`, or `mixed` and probe non-technical requirements deeply when rollout, GTM, client transition, enablement, or approvals matter.
+- Full packets are manifest-driven: `CHECKLIST.yaml` records `packet_level`, `requirements_mode`, `delivery_surfaces`, `enabled_modules`, and `omitted_modules`.
 - Full packet creation includes both prompt artifacts up front: `AGENT_PROMPT.txt` and `IMPLEMENTATION_AUDIT_PROMPT.txt`.
 - Packet closure requires the full chain: verification -> audit -> remediation -> re-verification -> closure.
 - Runtime state under `.agentic-flywheel/state/` is advisory only. Packet docs remain canonical.
@@ -86,11 +87,14 @@ For new packet-sized work, start with `prompts/AIP_COLLAB.md`.
 
 The collaboration gate locks:
 
+- requirements mode (`technical`, `operating`, or `mixed`) plus collaborating functions
 - goal and desired outcome
 - personas and per-persona scope
 - in-scope and out-of-scope work
 - acceptance signals
 - contract or data-model implications
+- operating process changes, ownership, and handoffs when relevant
+- GTM, launch, client rollout, enablement, support, and approval requirements when relevant
 - rollout and rollback expectations
 - verification commands
 - risks and non-goals
@@ -106,6 +110,13 @@ The Collaboration Summary is a structured readiness receipt. At minimum it shoul
 - accepted assumptions
 - open questions or deferred follow-ups
 - persona scope decisions
+- operating readiness decisions when applicable
+
+### Requirements Modes
+
+- `technical`: primarily code, contracts, data, UI, observability, and runbook work
+- `operating`: primarily process, rollout, GTM, client-transition, enablement, support, governance, or approval work
+- `mixed`: both technical and operating requirements are first-class and belong in one packet
 
 ### 3. Execute Through Closure
 
@@ -204,6 +215,8 @@ Optional artifact:
 
 Use for larger feature work, cross-cutting changes, multi-surface implementation, contract changes, migrations, or anything that needs a stronger planning and closure surface.
 
+Full AIPs may be `technical`, `operating`, or `mixed` depending on whether the packet is mostly code delivery, mostly operating/change-readiness work, or both.
+
 Required tracked artifacts:
 
 - `README.md`
@@ -223,14 +236,25 @@ Optional capability modules:
 - `ORCHESTRATION_AND_UI.md`
 - `OBSERVABILITY.md`
 - `RUNBOOK.md`
+- `OPERATING_MODEL.md`
+- `GTM_AND_LAUNCH.md`
+- `CLIENT_ROLLOUT.md`
+- `ENABLEMENT_AND_SUPPORT.md`
+- `GOVERNANCE_AND_APPROVALS.md`
 
 New full packets should record their shape directly in `CHECKLIST.yaml`:
 
 ```yaml
 packet_level: full
+requirements_mode: mixed
+delivery_surfaces:
+  - backend
+  - operations
+  - client_rollout
 enabled_modules:
   - contracts
   - backend_implementation
+  - client_rollout
 omitted_modules:
   - module: observability
     reason: "No metrics or rollout changes in this packet"

@@ -13,6 +13,14 @@
           "id": {"type": "string"},
           "title": {"type": "string"},
           "description": {"type": "string"},
+          "requirements_mode": {"type": "string", "enum": ["technical", "operating", "mixed"]},
+          "delivery_surfaces": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["backend", "frontend", "data", "contracts", "docs", "integrations", "operations", "gtm", "client_rollout", "enablement", "support", "governance", "compliance"]
+            }
+          },
           "scope": {"type": "array", "items": {"type": "string"}},
           "status": {"type": "string", "enum": ["planned", "in_progress", "in_rollout", "active", "deprecated", "abandoned", "incomplete"]},
           "owners": {"type": "array", "items": {"type": "string"}},
@@ -46,7 +54,23 @@
             },
             "description": "Typed dependencies with relationship metadata"
           },
-          "rollout": {"type": "object"},
+          "rollout": {
+            "type": "object",
+            "properties": {
+              "flags": {"type": "array", "items": {"type": "string"}},
+              "cadence": {"type": "string"},
+              "versioning": {"type": "string"},
+              "launch_owner": {"type": "string"},
+              "target_cohorts": {"type": "array", "items": {"type": "string"}},
+              "client_transition": {"type": "string"},
+              "communications": {"type": "array", "items": {"type": "string"}},
+              "training_assets": {"type": "array", "items": {"type": "string"}},
+              "support_readiness": {"type": "array", "items": {"type": "string"}},
+              "approval_gates": {"type": "array", "items": {"type": "string"}},
+              "adoption_metrics": {"type": "array", "items": {"type": "string"}},
+              "rollback_criteria": {"type": "array", "items": {"type": "string"}}
+            }
+          },
           "metrics": {"type": "array", "items": {"type": "string"}},
           "compliance": {"type": "array", "items": {"type": "string"}},
           "created_at": {"type": "string", "format": "date-time", "description": "ISO 8601 timestamp when feature was created"},
@@ -61,4 +85,3 @@
     }
   }
 }
-

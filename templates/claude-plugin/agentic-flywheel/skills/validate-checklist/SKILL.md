@@ -18,7 +18,7 @@ Process:
    - the target `CHECKLIST.yaml`
 4. Check:
    - required top-level fields
-   - `packet_level`, `enabled_modules`, and `omitted_modules` when present, plus legacy fallback behavior when they are absent
+   - `packet_level`, `requirements_mode`, `delivery_surfaces`, `enabled_modules`, and `omitted_modules` when present, plus legacy fallback behavior when they are absent
    - collaboration readiness task and Collaboration Summary write-back
    - final `Docs & Handoff` phase
    - verification commands and acceptance

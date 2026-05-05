@@ -14,7 +14,7 @@ Inputs
 Sources of Truth
 - Read the full packet first. Packet docs outrank runtime logs and prior chat.
 - For full AIPs, read:
-  - `docs/Agent Implementation Packets/<slug>/CHECKLIST.yaml` first to determine `packet_level`, `enabled_modules`, and `omitted_modules`
+  - `docs/Agent Implementation Packets/<slug>/CHECKLIST.yaml` first to determine `packet_level`, `requirements_mode`, `delivery_surfaces`, `enabled_modules`, and `omitted_modules`
   - `docs/Agent Implementation Packets/<slug>/README.md`
   - `docs/Agent Implementation Packets/<slug>/REVIEWS.md`
   - `docs/Agent Implementation Packets/<slug>/RISKS.md`
@@ -26,6 +26,11 @@ Sources of Truth
     - `docs/Agent Implementation Packets/<slug>/OBSERVABILITY.md`
     - `docs/Agent Implementation Packets/<slug>/RUNBOOK.md`
     - `docs/Agent Implementation Packets/<slug>/DATA_MODEL.sql`
+    - `docs/Agent Implementation Packets/<slug>/OPERATING_MODEL.md`
+    - `docs/Agent Implementation Packets/<slug>/GTM_AND_LAUNCH.md`
+    - `docs/Agent Implementation Packets/<slug>/CLIENT_ROLLOUT.md`
+    - `docs/Agent Implementation Packets/<slug>/ENABLEMENT_AND_SUPPORT.md`
+    - `docs/Agent Implementation Packets/<slug>/GOVERNANCE_AND_APPROVALS.md`
   - If the packet predates the manifest, infer enabled module docs from the packet files already present and checklist references instead of failing on the missing manifest.
 - For AIP-Lite packets, read:
   - `docs/Agent Implementation Packets/<slug>/README.md`
@@ -41,6 +46,7 @@ Audit Panel Personas
 - Database/data-integrity expert: migrations, schema drift, idempotency, consistency, retention, and rollback.
 - Agentic AI workflow expert: prompt/checklist integrity, autonomous execution safety, replayability, and packet drift.
 - Product/operator-risk reviewer: user value, operational risk, support burden, and rollout evidence.
+- Change-readiness reviewer: launch sequencing, communications, enablement, client-transition safety, approval quality, and handoff clarity.
 - DevEx/maintainability reviewer: local setup, command clarity, docs, errors, and future contributor friction.
 
 Audit Process
@@ -58,6 +64,7 @@ Audit Process
    - implementation behavior that contradicts packet docs
    - packet docs or checklist items marked complete without evidence
    - observability, rollout, or operator gaps
+   - missing GTM, client rollout, enablement, support, approval, or readiness evidence promised by the packet
    - agent workflow drift, stale prompts, or incomplete handoff instructions
 6. Classify each finding as:
    - Critical: blocks closure and indicates security, data loss, contract breakage, or major user harm.
